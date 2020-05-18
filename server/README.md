@@ -54,11 +54,13 @@
 * `apt-get update`: 리눅스에서 현재 있는, 다운받은 파일을 최신버전으로 업데이트하는 명령어
 
 * `vim`은 리눅스에 기본으로 설치되어 있지 않음. `apt-get`으로 다운받아야 함.
+  
   * `vim DockerFile`로 도커 파일 수정 가능
 * 당연한 얘기지만 `git`도 리눅스에 기본으로 설치되어 있지 않으므로 `sudo apt-get install git`으로 설치
 * `entrypoint.sh`: 환경변수 지정해주는 파일
-  * `.sh`: shell 확장자
-
+  
+* `.sh`: shell 확장자
+  
 * `ssh(secure shell)`: 서버와 서버 사이에서 통신하기 위한 통신 프로토콜
 
 * `ssh ubuntu@i02b208.p.ssafy.io -i J02B208.pem`
