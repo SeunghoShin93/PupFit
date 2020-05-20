@@ -1,38 +1,31 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import * as eva from "@eva-design/eva";
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
+import HomeScreen from "./src/screens/HomeScreen";
+import LoginScreen from "./src/screens/LoginScreen";
+import JoinScreen from "./src/screens/JoinScreen"
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { myTheme } from "./src/lib/theme"
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
-export default function App() {
+
+const { Navigator, Screen } = createStackNavigator();
+function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.quote}>PUPFIT</Text>
-      <View style={styles.loginbtn}>
-        <Button
-          onPress={() => {
-            alert("로그인 하고 싶군요!!");
-          }}
-          title="로그인"
-          color="#000"
-        />
-      </View>
-    </View>
+    <>
+    <IconRegistry icons={EvaIconsPack} />
+    <ApplicationProvider {...eva} theme={myTheme}>
+      <NavigationContainer>
+        <Navigator headerMode="none">
+          <Screen name="Pupfit Homescreen" component={HomeScreen} />
+          <Screen name="LoginScreen" component={LoginScreen} />
+          <Screen name="JoinScreen" component={JoinScreen} />
+        </Navigator>
+      </NavigationContainer>
+    </ApplicationProvider>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "royalblue",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  quote: {
-    fontSize: 80,
-    color: "#fff",
-    letterSpacing: 14
-  },
-  loginbtn: {
-    borderColor: '#fff',
-    borderWidth: 5,
-    backgroundColor: '#fff'
-  }
-});
+export default App;

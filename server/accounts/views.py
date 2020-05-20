@@ -133,3 +133,15 @@ def check_duplicate_email(request, email):
 	except:
 		return Response(data={'exists': False}, status=200)
 	return Response(data={'exists': True}, status=200)
+
+# 기기 등록
+"""
+로그인 후 기기 등록하고 강아지 정보 입력(Dog 이랑 one to one)
+"""
+
+
+# 강아지 등록
+"""
+해당 기기에 기존에 등록된 정보가 있다면 그 정보 불러오고
+없다면 생성(Dog model)
+"""
