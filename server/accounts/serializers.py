@@ -8,9 +8,9 @@ class SignUpserializers(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = [
-            'username', 'email', 'password'
+            'email', 'username', 'password'
             ]
-        required = ['username', 'email', 'password']
+        required = ['email', 'username', 'password']
             
 
 class UserSerializers(serializers.ModelSerializer):

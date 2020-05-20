@@ -113,7 +113,7 @@ class SingleUser(APIView):
     )
 @api_view(['POST'])
 def login(request):	
-    user = authenticate(request=request, username=request.data.get('email'), password=request.data.get('password'))
+    user = authenticate(request=request, email=request.data.get('email'), password=request.data.get('password'))
     if user is None:
         return Response(status=401)
     payload = PayloadSerializers(user)
