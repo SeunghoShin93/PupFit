@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    volumes:
+      - /var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=pupfit
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=hongsi
+      - MYSQL_ROOT_PASSWORD=hongsi
+    restart: always
+    command:
+      - --default-authentication-plugin=mysql_native_password
+    ports:
+      - '3308:3306'
+  django:
+    build: .
+    environment:
+      - DJANGO_DEBUG=True
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./:/usr/src/app/
+    command:
+      - bash
+      - -c
+      - |
+        /usr/src/app/wait-for-it.sh db:3306 -t 20
+        python manage.py migrate
+        python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
