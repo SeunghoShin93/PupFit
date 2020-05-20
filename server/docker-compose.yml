@@ -23,12 +23,14 @@ services:
       - '8000:8000'
     volumes:
       - ./:/usr/src/app/
+    working_dir: /usr/src/app
     command:
       - bash
       - -c
       - |
-        /usr/src/app/wait-for-it.sh db:3306 -t 20
+        pip install -r requirements.txt
         python manage.py migrate
+        wait-for-it.sh db:3306 -t 20
         python manage.py runserver 0.0.0.0:8000
     depends_on:
       - db
