@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
+
 UserModel = get_user_model()
+
 class EmailAuthBackend(ModelBackend):
     """
-                    
     Username 대신 email로 인증을 수행하는 백엔드 모듈
     """
     def authenticate(self, request, email=None, password=None, **kwargs):
