@@ -315,3 +315,61 @@ PS C:\Users\multicampus\desktop\pupfit\back> docker attach pupfit_django
 [18/May/2020 15:15:57] "GET / HTTP/1.1" 200 16351
 [18/May/2020 15:15:57] "GET / HTTP/1.1" 200 16351
 ```
+
+
+
+## Docker Hub
+
+**Github처럼 리포 먼저 안 만들고 해도 됨. push하면 리포가 알아서 만들어져 있음**
+
+`docker-compose -p pupfit up`을 하고 난 후 이미지 조회
+
+* `-p` project-name 옵션. 프로젝트 이름을 `pupfit`으로 바꾸면 이미지 이름이 `pupfit`이 될 줄 알았는데 아니었다...
+
+```powershell
+PS C:\Users\multicampus\desktop\pupfit\server> docker images
+REPOSITORY                TAG                 IMAGE ID            CREATED             SIZE
+pupfit_django             latest              a59b400bf0f8        8 minutes ago       974MB
+python                    3.8.3               659f826fabf4        6 hours ago         934MB
+mysql                     latest              94dff5fab37f        4 days ago          541MB
+```
+
+`docker tag {현재 있는 이미지} {docker hub username}/{바꾸려는 이미지 이름}:{버전}` : 이미지에 태그 달기
+
+이미지 이름 변경 가능!
+
+```powershell
+PS C:\Users\multicampus\desktop\pupfit\server> docker tag pupfit_django yang94lol/pupfit_server:0.1
+```
+
+이미지 잘 만들어졌나 확인
+
+```powershell
+PS C:\Users\multicampus\desktop\pupfit\server> docker images
+REPOSITORY                TAG                 IMAGE ID            CREATED             SIZE
+pupfit_django             latest              a59b400bf0f8        8 minutes ago       974MB
+yang94lol/pupfit_server   0.1                 a59b400bf0f8        8 minutes ago       974MB
+python                    3.8.3               659f826fabf4        6 hours ago         934MB
+mysql                     latest              94dff5fab37f        4 days ago          541MB
+```
+
+`docker push {username}/{image name}:{tag}`: Docker hub에 push하기
+
+```powershell
+PS C:\Users\multicampus\desktop\pupfit\server> docker push yang94lol/pupfit_server:0.1
+The push refers to repository [docker.io/yang94lol/pupfit_server]
+362fe895e9ea: Pushed
+4bd6a53d8fea: Pushed
+28f4de6aaa75: Pushed
+5bf497fc7ae4: Pushed
+079e0a70bca0: Pushed
+569e5571a3eb: Pushed
+697765a85531: Pushed
+8c39f7b1a31a: Pushed
+88cfc2fcd059: Pushed
+760e8d95cf58: Pushed
+7cc1c2d7e744: Pushed
+8c02234b8605: Pushed
+0.1: digest: sha256:c39c4c2065619445108efa40396a1c0505aabfb40cbab41f810e7541468dd1fd size: 2843
+```
+
