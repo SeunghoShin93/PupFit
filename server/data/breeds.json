@@ -93,8 +93,8 @@
 			"group": "논스포팅",
 			"min_height": "33",
 			"max_height": "38",
-			"min_weight": "",
-			"max_weight": ""
+			"min_weight": "9",
+			"max_weight": "18"
 		}
 	},
 	{
@@ -395,14 +395,14 @@
 		"pk": 29,
 		"model": "accounts.breed",
 		"fields": {
-			"name": "불",
-			"name_en": "테리어",
-			"origin": "BULL",
-			"group": "",
-			"min_height": "TERRIER",
-			"max_height": "",
-			"min_weight": "",
-			"max_weight": ""
+			"name": "불테리어",
+			"name_en": "BULL TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "46",
+			"max_height": "56",
+			"min_weight": "22",
+			"max_weight": "38"
 		}
 	},
 	{
@@ -440,7 +440,7 @@
 			"name": "코카시안 오프차카",
 			"name_en": "Caucasian avtcharka",
 			"origin": "러시아",
-			"group": "",
+			"group": "허딩",
 			"min_height": "63",
 			"max_height": "71",
 			"min_weight": "46",
@@ -889,8 +889,8 @@
 			"name_en": "Japanese Chin",
 			"origin": "일본",
 			"group": "토이",
-			"min_height": "",
-			"max_height": "",
+			"min_height": "22",
+			"max_height": "25",
 			"min_weight": "2",
 			"max_weight": "3"
 		}
@@ -916,7 +916,7 @@
 			"name": "진돗개",
 			"name_en": "Jindo Dog",
 			"origin": "한국",
-			"group": "",
+			"group": "논스포팅",
 			"min_height": "45",
 			"max_height": "53",
 			"min_weight": "15",
@@ -1056,7 +1056,7 @@
 			"name": "미니어쳐 핀셔",
 			"name_en": "Miniature Pinscher",
 			"origin": "독일",
-			"group": "",
+			"group": "논스포팅",
 			"min_height": "25.4",
 			"max_height": "31.8",
 			"min_weight": "5",
@@ -1169,8 +1169,8 @@
 			"name_en": "Pekingese",
 			"origin": "중국",
 			"group": "토이",
-			"min_height": "",
-			"max_height": "",
+			"min_height": "15",
+			"max_height": "25",
 			"min_weight": "2.5",
 			"max_weight": "6"
 		}
@@ -1197,7 +1197,7 @@
 			"name_en": "Pomeranian",
 			"origin": "독일",
 			"group": "토이",
-			"min_height": "",
+			"min_height": "14",
 			"max_height": "28",
 			"min_weight": "1.8",
 			"max_weight": "2.7"
@@ -1448,7 +1448,7 @@
 			"name": "사우스 러시안 오프차카",
 			"name_en": "South russian ovtcharka",
 			"origin": "러시아",
-			"group": "",
+			"group": "허딩",
 			"min_height": "63.5",
 			"max_height": "86",
 			"min_weight": "50",
@@ -1490,11 +1490,11 @@
 			"name": "티벳탄 마스티프",
 			"name_en": "Tibetan",
 			"origin": "Mastiff",
-			"group": "",
-			"min_height": "티벳",
-			"max_height": "56",
-			"min_weight": "71",
-			"max_weight": "60"
+			"group": "워킹",
+			"min_height": "56",
+			"max_height": "71",
+			"min_weight": "60",
+			"max_weight": "99"
 		}
 	},
 	{
@@ -1504,7 +1504,7 @@
 			"name": "티벳탄 스파니엘",
 			"name_en": "Tibetan Spaniel",
 			"origin": "티벳",
-			"group": "",
+			"group": "토이",
 			"min_height": "23",
 			"max_height": "25",
 			"min_weight": "4",
@@ -1518,7 +1518,7 @@
 			"name": "티벳탄 테리어",
 			"name_en": "Tibetan Terrier",
 			"origin": "티벳",
-			"group": "",
+			"group": "허딩",
 			"min_height": "30",
 			"max_height": "40.5",
 			"min_weight": "8",
@@ -1605,7 +1605,7 @@
 			"group": "하운드",
 			"min_height": "46",
 			"max_height": "56",
-			"min_weight": "",
+			"min_weight": "6.8",
 			"max_weight": "13"
 		}
 	},
