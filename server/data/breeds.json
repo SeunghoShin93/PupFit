@@ -1,0 +1,1626 @@
+[
+	{
+		"pk": 1,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "아펜핀셔",
+			"name_en": "AFFENPINSCHER",
+			"origin": "독일",
+			"group": "토이",
+			"min_height": "26",
+			"max_height": "27",
+			"min_weight": "3",
+			"max_weight": "4"
+		}
+	},
+	{
+		"pk": 2,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "아프간하운드",
+			"name_en": "AFGHAN HOUND",
+			"origin": "아프가니스탄",
+			"group": "하운드",
+			"min_height": "65",
+			"max_height": "75",
+			"min_weight": "23",
+			"max_weight": "27"
+		}
+	},
+	{
+		"pk": 3,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "에어데일 테리어",
+			"name_en": "AIREDALE TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "56",
+			"max_height": "61",
+			"min_weight": "19",
+			"max_weight": "20"
+		}
+	},
+	{
+		"pk": 4,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "아키다",
+			"name_en": "AKITA",
+			"origin": "일본",
+			"group": "워킹",
+			"min_height": "61",
+			"max_height": "71",
+			"min_weight": "34",
+			"max_weight": "50"
+		}
+	},
+	{
+		"pk": 5,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "알래스칸 맬러뮤트",
+			"name_en": "ALASKAN MALAMUTE",
+			"origin": "미국",
+			"group": "워킹",
+			"min_height": "55",
+			"max_height": "70",
+			"min_weight": "34",
+			"max_weight": "39"
+		}
+	},
+	{
+		"pk": 6,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "아메리칸 코카 스파니엘",
+			"name_en": "American Cocker Spaniel",
+			"origin": "미국",
+			"group": "스포팅",
+			"min_height": "36",
+			"max_height": "38",
+			"min_weight": "9",
+			"max_weight": "16"
+		}
+	},
+	{
+		"pk": 7,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "아메리칸 에스키모독",
+			"name_en": "American Eskimo Dog",
+			"origin": "미국",
+			"group": "논스포팅",
+			"min_height": "33",
+			"max_height": "38",
+			"min_weight": "9",
+			"max_weight": "18"
+		}
+	},
+	{
+		"pk": 8,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "오스트레일리안 테리어",
+			"name_en": "AUSTRALIAN TERRIER",
+			"origin": "오스트레일리아",
+			"group": "테리어",
+			"min_height": "24",
+			"max_height": "25",
+			"min_weight": "5",
+			"max_weight": "6"
+		}
+	},
+	{
+		"pk": 9,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "바센지",
+			"name_en": "BASENJI",
+			"origin": "중앙 아프리카",
+			"group": "하운드",
+			"min_height": "40",
+			"max_height": "43",
+			"min_weight": "9",
+			"max_weight": "11"
+		}
+	},
+	{
+		"pk": 10,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "바셋하운드",
+			"name_en": "BASSET HOUND",
+			"origin": "프랑스",
+			"group": "하운드",
+			"min_height": "33",
+			"max_height": "38",
+			"min_weight": "18",
+			"max_weight": "27"
+		}
+	},
+	{
+		"pk": 11,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "비글",
+			"name_en": "BEAGLE",
+			"origin": "영국",
+			"group": "하운드",
+			"min_height": "33",
+			"max_height": "38",
+			"min_weight": "10",
+			"max_weight": "16"
+		}
+	},
+	{
+		"pk": 12,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "비어디드 콜리",
+			"name_en": "BEARDED COLLIE",
+			"origin": "영국",
+			"group": "허딩",
+			"min_height": "50",
+			"max_height": "54",
+			"min_weight": "18",
+			"max_weight": "27"
+		}
+	},
+	{
+		"pk": 13,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "베드링턴 테리어",
+			"name_en": "BEDLINGTON TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "38",
+			"max_height": "43",
+			"min_weight": "7",
+			"max_weight": "10"
+		}
+	},
+	{
+		"pk": 14,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "벨지안 쉽도그 그로넨달",
+			"name_en": "Belgian Sheepdog Groenendael",
+			"origin": "벨기에",
+			"group": "허딩",
+			"min_height": "56",
+			"max_height": "66",
+			"min_weight": "27",
+			"max_weight": "28"
+		}
+	},
+	{
+		"pk": 15,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "벨지안 쉽도그 라케노이즈",
+			"name_en": "Belgian Sheepdog Laekenois",
+			"origin": "벨기에",
+			"group": "허딩",
+			"min_height": "55",
+			"max_height": "66",
+			"min_weight": "27",
+			"max_weight": "28"
+		}
+	},
+	{
+		"pk": 16,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "벨지안 쉽도그 말리노이즈",
+			"name_en": "Belgian Sheepdog Malinois",
+			"origin": "벨기에",
+			"group": "허딩",
+			"min_height": "61",
+			"max_height": "66",
+			"min_weight": "27",
+			"max_weight": "28"
+		}
+	},
+	{
+		"pk": 17,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "벨지안 쉽도그 터뷰렌",
+			"name_en": "Belgian Sheepdog Tervuren",
+			"origin": "벨기에",
+			"group": "허딩",
+			"min_height": "56",
+			"max_height": "66",
+			"min_weight": "27",
+			"max_weight": "28"
+		}
+	},
+	{
+		"pk": 18,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "버니즈 마운틴 독",
+			"name_en": "BERNESE MOUNTAIN DOG",
+			"origin": "스위스",
+			"group": "워킹",
+			"min_height": "58",
+			"max_height": "70",
+			"min_weight": "40",
+			"max_weight": "44"
+		}
+	},
+	{
+		"pk": 19,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "비숑 프리제",
+			"name_en": "BICHON FRISE",
+			"origin": "프랑스/벨기에",
+			"group": "논스포팅",
+			"min_height": "24",
+			"max_height": "29",
+			"min_weight": "5",
+			"max_weight": "8"
+		}
+	},
+	{
+		"pk": 20,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "블러드 하운드",
+			"name_en": "BLOODHOUND",
+			"origin": "벨기에",
+			"group": "하운드",
+			"min_height": "58",
+			"max_height": "70",
+			"min_weight": "35",
+			"max_weight": "50"
+		}
+	},
+	{
+		"pk": 21,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "보더 콜리",
+			"name_en": "Border Collie",
+			"origin": "영국",
+			"group": "허딩",
+			"min_height": "48",
+			"max_height": "53",
+			"min_weight": "18",
+			"max_weight": "23"
+		}
+	},
+	{
+		"pk": 22,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "보더 테리어",
+			"name_en": "BORDER TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "25",
+			"max_height": "28",
+			"min_weight": "6",
+			"max_weight": "7"
+		}
+	},
+	{
+		"pk": 23,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "보르조이",
+			"name_en": "BORZOI",
+			"origin": "러시아",
+			"group": "하운드",
+			"min_height": "70",
+			"max_height": "80",
+			"min_weight": "35",
+			"max_weight": "45"
+		}
+	},
+	{
+		"pk": 24,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "보스턴테리어",
+			"name_en": "BOSTON TERRIER",
+			"origin": "미국",
+			"group": "논스포팅",
+			"min_height": "37",
+			"max_height": "43",
+			"min_weight": "4.5",
+			"max_weight": "11.4"
+		}
+	},
+	{
+		"pk": 25,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "복서",
+			"name_en": "Boxer",
+			"origin": "독일",
+			"group": "워킹",
+			"min_height": "59",
+			"max_height": "63",
+			"min_weight": "25",
+			"max_weight": "32"
+		}
+	},
+	{
+		"pk": 26,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "브리타니",
+			"name_en": "BRITTANY",
+			"origin": "프랑스",
+			"group": "스포팅",
+			"min_height": "47",
+			"max_height": "50",
+			"min_weight": "13",
+			"max_weight": "18"
+		}
+	},
+	{
+		"pk": 27,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "브뤼셀 그리펀",
+			"name_en": "Brussels Griffonr",
+			"origin": "벨기에",
+			"group": "토이",
+			"min_height": "18",
+			"max_height": "20",
+			"min_weight": "2.5",
+			"max_weight": "5.5"
+		}
+	},
+	{
+		"pk": 28,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "불 독",
+			"name_en": "BULL DOG",
+			"origin": "영국",
+			"group": "논스포팅",
+			"min_height": "30",
+			"max_height": "35",
+			"min_weight": "23",
+			"max_weight": "25"
+		}
+	},
+	{
+		"pk": 29,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "불테리어",
+			"name_en": "BULL TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "46",
+			"max_height": "56",
+			"min_weight": "22",
+			"max_weight": "38"
+		}
+	},
+	{
+		"pk": 30,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "불마스티프",
+			"name_en": "BULLMASTIFF",
+			"origin": "영국",
+			"group": "워킹",
+			"min_height": "65",
+			"max_height": "70",
+			"min_weight": "42",
+			"max_weight": "60"
+		}
+	},
+	{
+		"pk": 31,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "케언 테리어",
+			"name_en": "CAIRN TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "23",
+			"max_height": "30",
+			"min_weight": "6",
+			"max_weight": "7"
+		}
+	},
+	{
+		"pk": 32,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "코카시안 오프차카",
+			"name_en": "Caucasian avtcharka",
+			"origin": "러시아",
+			"group": "허딩",
+			"min_height": "63",
+			"max_height": "71",
+			"min_weight": "46",
+			"max_weight": "66"
+		}
+	},
+	{
+		"pk": 33,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "체사피크베이 리트리버 CHESAPEAKE",
+			"name_en": "BAY RETRIEVER",
+			"origin": "미국",
+			"group": "스포팅",
+			"min_height": "58",
+			"max_height": "65",
+			"min_weight": "29",
+			"max_weight": "35"
+		}
+	},
+	{
+		"pk": 34,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "치와와",
+			"name_en": "Chihuahua",
+			"origin": "멕시코",
+			"group": "토이",
+			"min_height": "16",
+			"max_height": "22",
+			"min_weight": "1",
+			"max_weight": "3"
+		}
+	},
+	{
+		"pk": 35,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "차이니스 크레스티드",
+			"name_en": "Chinese Crested",
+			"origin": "중국/아프리카",
+			"group": "토이",
+			"min_height": "23",
+			"max_height": "33",
+			"min_weight": "2",
+			"max_weight": "5"
+		}
+	},
+	{
+		"pk": 36,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "차이니즈 샤페이",
+			"name_en": "Chinese Shar-pei",
+			"origin": "중국",
+			"group": "논스포팅",
+			"min_height": "46",
+			"max_height": "51",
+			"min_weight": "16",
+			"max_weight": "21"
+		}
+	},
+	{
+		"pk": 37,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "차우차우",
+			"name_en": "CHOWCHOW",
+			"origin": "중국",
+			"group": "논스포팅",
+			"min_height": "45",
+			"max_height": "55",
+			"min_weight": "20",
+			"max_weight": "30"
+		}
+	},
+	{
+		"pk": 38,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "크럼버 스파니엘",
+			"name_en": "CLUMBER SPANIEL",
+			"origin": "영국",
+			"group": "스포팅",
+			"min_height": "48",
+			"max_height": "51",
+			"min_weight": "27",
+			"max_weight": "37"
+		}
+	},
+	{
+		"pk": 39,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "콜리",
+			"name_en": "Collie",
+			"origin": "영국",
+			"group": "허딩",
+			"min_height": "50",
+			"max_height": "60",
+			"min_weight": "20",
+			"max_weight": "30"
+		}
+	},
+	{
+		"pk": 40,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "컬리 코티드 리트리버",
+			"name_en": "CURLY COATED RETRIEVER",
+			"origin": "영국",
+			"group": "스포팅",
+			"min_height": "62",
+			"max_height": "68",
+			"min_weight": "32",
+			"max_weight": "35"
+		}
+	},
+	{
+		"pk": 41,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "닥스훈트",
+			"name_en": "DACHSHUNDS",
+			"origin": "독일",
+			"group": "하운드",
+			"min_height": "13",
+			"max_height": "25",
+			"min_weight": "3",
+			"max_weight": "11"
+		}
+	},
+	{
+		"pk": 42,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "달마시안",
+			"name_en": "DALMATIAN",
+			"origin": "유고슬라비아",
+			"group": "논스포팅",
+			"min_height": "50",
+			"max_height": "60",
+			"min_weight": "23",
+			"max_weight": "25"
+		}
+	},
+	{
+		"pk": 43,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "댄디 딘몬트 테리어",
+			"name_en": "DANDIE DINMONT TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "20",
+			"max_height": "28",
+			"min_weight": "8",
+			"max_weight": "11"
+		}
+	},
+	{
+		"pk": 44,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "도베르만 핀셔",
+			"name_en": "DOBERMAN PINSCHER",
+			"origin": "독일",
+			"group": "워킹",
+			"min_height": "65",
+			"max_height": "70",
+			"min_weight": "30",
+			"max_weight": "40"
+		}
+	},
+	{
+		"pk": 45,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "잉글리쉬 코카 스파니엘",
+			"name_en": "ENGLISH COCKER SPANIEL",
+			"origin": "영국",
+			"group": "스포팅",
+			"min_height": "38",
+			"max_height": "40",
+			"min_weight": "13",
+			"max_weight": "15"
+		}
+	},
+	{
+		"pk": 46,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "잉글리쉬 세터",
+			"name_en": "ENGLISH SETTER",
+			"origin": "영국",
+			"group": "스포팅",
+			"min_height": "60",
+			"max_height": "70",
+			"min_weight": "25",
+			"max_weight": "30"
+		}
+	},
+	{
+		"pk": 47,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "잉글리쉬 스프링거 스파니엘",
+			"name_en": "ENGLISH SPRINGER SPANIEL",
+			"origin": "영국",
+			"group": "스포팅",
+			"min_height": "48",
+			"max_height": "51",
+			"min_weight": "23",
+			"max_weight": "25"
+		}
+	},
+	{
+		"pk": 48,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "필드 스파니엘",
+			"name_en": "FIELD SPANIEL",
+			"origin": "영국",
+			"group": "스포팅",
+			"min_height": "50",
+			"max_height": "58",
+			"min_weight": "16",
+			"max_weight": "23"
+		}
+	},
+	{
+		"pk": 49,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "플랫-코티드 리트리버",
+			"name_en": "FLAT-COATED RETRIEVER",
+			"origin": "영국",
+			"group": "스포팅",
+			"min_height": "57",
+			"max_height": "59",
+			"min_weight": "27",
+			"max_weight": "32"
+		}
+	},
+	{
+		"pk": 50,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "프렌치 불독",
+			"name_en": "FRENCH BULLDOG",
+			"origin": "프랑스",
+			"group": "논스포팅",
+			"min_height": "25",
+			"max_height": "32",
+			"min_weight": "10",
+			"max_weight": "13"
+		}
+	},
+	{
+		"pk": 51,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "져먼 셰퍼드 독",
+			"name_en": "GERMAN SHEPHERD DOG",
+			"origin": "독일",
+			"group": "허딩",
+			"min_height": "55",
+			"max_height": "66",
+			"min_weight": "34",
+			"max_weight": "44"
+		}
+	},
+	{
+		"pk": 52,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "저먼 쇼트헤어드 포인터",
+			"name_en": "GERMAN SHORTHAIRED POINTER",
+			"origin": "독일",
+			"group": "스포팅",
+			"min_height": "58",
+			"max_height": "64",
+			"min_weight": "25",
+			"max_weight": "32"
+		}
+	},
+	{
+		"pk": 53,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "자이언트 슈나우저",
+			"name_en": "Giant Schnauzer",
+			"origin": "독일",
+			"group": "워킹",
+			"min_height": "59",
+			"max_height": "70",
+			"min_weight": "32",
+			"max_weight": "35"
+		}
+	},
+	{
+		"pk": 54,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "골든 리트리버",
+			"name_en": "GOLDEN RETRIEVER",
+			"origin": "영국",
+			"group": "스포팅",
+			"min_height": "51",
+			"max_height": "61",
+			"min_weight": "27",
+			"max_weight": "36"
+		}
+	},
+	{
+		"pk": 55,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "그레이트 데인",
+			"name_en": "GREAT DANE",
+			"origin": "독일",
+			"group": "워킹",
+			"min_height": "71",
+			"max_height": "76",
+			"min_weight": "46",
+			"max_weight": "54"
+		}
+	},
+	{
+		"pk": 56,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "그레이트 피레이즈",
+			"name_en": "GREAT PYRENEES",
+			"origin": "프랑스",
+			"group": "워킹",
+			"min_height": "71",
+			"max_height": "76",
+			"min_weight": "46",
+			"max_weight": "54"
+		}
+	},
+	{
+		"pk": 57,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "그레이 하운드",
+			"name_en": "GREY HOUND",
+			"origin": "영국",
+			"group": "하운드",
+			"min_height": "70",
+			"max_height": "75",
+			"min_weight": "27",
+			"max_weight": "32"
+		}
+	},
+	{
+		"pk": 58,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "아이리쉬 세터",
+			"name_en": "IRISH SETTER",
+			"origin": "아일랜드",
+			"group": "스포팅",
+			"min_height": "64",
+			"max_height": "69",
+			"min_weight": "27",
+			"max_weight": "32"
+		}
+	},
+	{
+		"pk": 59,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "아이리쉬 테리어",
+			"name_en": "IRISH TERRIER",
+			"origin": "아일랜드",
+			"group": "테리어",
+			"min_height": "43",
+			"max_height": "45",
+			"min_weight": "11",
+			"max_weight": "12.5"
+		}
+	},
+	{
+		"pk": 60,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "아이리쉬 워터 스파니엘",
+			"name_en": "IRISH WATER SPANIEL",
+			"origin": "아일랜드",
+			"group": "스포팅",
+			"min_height": "53",
+			"max_height": "61",
+			"min_weight": "21",
+			"max_weight": "30"
+		}
+	},
+	{
+		"pk": 61,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "아이리쉬 울프하운드",
+			"name_en": "IRISH WOLFHOUND",
+			"origin": "아일랜드",
+			"group": "하운드",
+			"min_height": "81",
+			"max_height": "86",
+			"min_weight": "40",
+			"max_weight": "55"
+		}
+	},
+	{
+		"pk": 62,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "이탈리안 그레이하운드",
+			"name_en": "Italian Greyhound",
+			"origin": "이탈리아",
+			"group": "토이",
+			"min_height": "33",
+			"max_height": "38",
+			"min_weight": "3",
+			"max_weight": "3.5"
+		}
+	},
+	{
+		"pk": 63,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "잭 러셀 테리어",
+			"name_en": "JACK RUSSEL TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "23",
+			"max_height": "38",
+			"min_weight": "5",
+			"max_weight": "9"
+		}
+	},
+	{
+		"pk": 64,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "제페니스 친",
+			"name_en": "Japanese Chin",
+			"origin": "일본",
+			"group": "토이",
+			"min_height": "22",
+			"max_height": "25",
+			"min_weight": "2",
+			"max_weight": "3"
+		}
+	},
+	{
+		"pk": 65,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "제패니즈 스피츠",
+			"name_en": "Japanese Spitz",
+			"origin": "일본",
+			"group": "논스포팅",
+			"min_height": "30",
+			"max_height": "38",
+			"min_weight": "6",
+			"max_weight": "10"
+		}
+	},
+	{
+		"pk": 66,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "진돗개",
+			"name_en": "Jindo Dog",
+			"origin": "한국",
+			"group": "논스포팅",
+			"min_height": "45",
+			"max_height": "53",
+			"min_weight": "15",
+			"max_weight": "20"
+		}
+	},
+	{
+		"pk": 67,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "케리 블루 테리어",
+			"name_en": "KERRY BLUE TERRIER",
+			"origin": "아일랜드",
+			"group": "테리어",
+			"min_height": "44",
+			"max_height": "51",
+			"min_weight": "15",
+			"max_weight": "18"
+		}
+	},
+	{
+		"pk": 68,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "코몬돌",
+			"name_en": "KOMONDOR",
+			"origin": "헝가리",
+			"group": "워킹",
+			"min_height": "60",
+			"max_height": "65",
+			"min_weight": "36",
+			"max_weight": "69"
+		}
+	},
+	{
+		"pk": 69,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "쿠바츠",
+			"name_en": "KUVASZ",
+			"origin": "헝가리",
+			"group": "워킹",
+			"min_height": "56",
+			"max_height": "66",
+			"min_weight": "37",
+			"max_weight": "55"
+		}
+	},
+	{
+		"pk": 70,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "래브라도 리트리버",
+			"name_en": "LABRADOR RETRIEVER",
+			"origin": "캐나다",
+			"group": "스포팅",
+			"min_height": "54",
+			"max_height": "57",
+			"min_weight": "23",
+			"max_weight": "34"
+		}
+	},
+	{
+		"pk": 71,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "레이크랜드 테리어",
+			"name_en": "LAKELAND TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "33",
+			"max_height": "38",
+			"min_weight": "6",
+			"max_weight": "7"
+		}
+	},
+	{
+		"pk": 72,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "라사 압소",
+			"name_en": "Lhasa Apso",
+			"origin": "티벳",
+			"group": "논스포팅",
+			"min_height": "25",
+			"max_height": "28",
+			"min_weight": "5.9",
+			"max_weight": "6.8"
+		}
+	},
+	{
+		"pk": 73,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "몰티즈",
+			"name_en": "Maltese",
+			"origin": "이탈리아",
+			"group": "토이",
+			"min_height": "20",
+			"max_height": "26",
+			"min_weight": "2",
+			"max_weight": "3"
+		}
+	},
+	{
+		"pk": 74,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "맨체스터 테리어",
+			"name_en": "MANCHESTER TERRIERS",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "38",
+			"max_height": "40.5",
+			"min_weight": "5",
+			"max_weight": "7.5"
+		}
+	},
+	{
+		"pk": 75,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "마스티프",
+			"name_en": "MASTIFF",
+			"origin": "영국",
+			"group": "워킹",
+			"min_height": "71",
+			"max_height": "76",
+			"min_weight": "70",
+			"max_weight": "86"
+		}
+	},
+	{
+		"pk": 76,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "미니어쳐 핀셔",
+			"name_en": "Miniature Pinscher",
+			"origin": "독일",
+			"group": "논스포팅",
+			"min_height": "25.4",
+			"max_height": "31.8",
+			"min_weight": "5",
+			"max_weight": "7.5"
+		}
+	},
+	{
+		"pk": 77,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "미니어처 슈나우져",
+			"name_en": "MINIATURE SCHNAUZER",
+			"origin": "독일",
+			"group": "테리어",
+			"min_height": "30",
+			"max_height": "35.5",
+			"min_weight": "6",
+			"max_weight": "7"
+		}
+	},
+	{
+		"pk": 78,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "뉴펀들랜드",
+			"name_en": "NEWFOUNDLAND",
+			"origin": "캐나다",
+			"group": "워킹",
+			"min_height": "66",
+			"max_height": "70",
+			"min_weight": "50",
+			"max_weight": "86"
+		}
+	},
+	{
+		"pk": 79,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "노르포크 테리어",
+			"name_en": "NORFOLK TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "24",
+			"max_height": "25.4",
+			"min_weight": "4.99",
+			"max_weight": "5.45"
+		}
+	},
+	{
+		"pk": 80,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "노르웨이언 엘크 하운드",
+			"name_en": "NORWEGIAN ELKHOUND",
+			"origin": "노르웨이",
+			"group": "하운드",
+			"min_height": "46",
+			"max_height": "51",
+			"min_weight": "18",
+			"max_weight": "20"
+		}
+	},
+	{
+		"pk": 81,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "노르위치 테리어",
+			"name_en": "NORWICH TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "24",
+			"max_height": "25.4",
+			"min_weight": "4.99",
+			"max_weight": "5.45"
+		}
+	},
+	{
+		"pk": 82,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "올드 잉글리쉬 쉽독",
+			"name_en": "OLD ENGLISH SHEEPDOG",
+			"origin": "영국",
+			"group": "허딩",
+			"min_height": "55",
+			"max_height": "60",
+			"min_weight": "29",
+			"max_weight": "30"
+		}
+	},
+	{
+		"pk": 83,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "파피용",
+			"name_en": "Papillon",
+			"origin": "프랑스/벨기에",
+			"group": "토이",
+			"min_height": "20",
+			"max_height": "28",
+			"min_weight": "4.1",
+			"max_weight": "4.5"
+		}
+	},
+	{
+		"pk": 84,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "페키니즈",
+			"name_en": "Pekingese",
+			"origin": "중국",
+			"group": "토이",
+			"min_height": "15",
+			"max_height": "25",
+			"min_weight": "2.5",
+			"max_weight": "6"
+		}
+	},
+	{
+		"pk": 85,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "포인터",
+			"name_en": "POINTER",
+			"origin": "영국/스페인",
+			"group": "스포팅",
+			"min_height": "56",
+			"max_height": "68",
+			"min_weight": "20",
+			"max_weight": "30"
+		}
+	},
+	{
+		"pk": 86,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "포메라니안",
+			"name_en": "Pomeranian",
+			"origin": "독일",
+			"group": "토이",
+			"min_height": "14",
+			"max_height": "28",
+			"min_weight": "1.8",
+			"max_weight": "2.7"
+		}
+	},
+	{
+		"pk": 87,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "풍산개",
+			"name_en": "Poongsan Dog",
+			"origin": "한국",
+			"group": "논스포팅",
+			"min_height": "53",
+			"max_height": "55",
+			"min_weight": "23",
+			"max_weight": "28"
+		}
+	},
+	{
+		"pk": 88,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "퍼그",
+			"name_en": "PUG",
+			"origin": "중국",
+			"group": "토이",
+			"min_height": "25",
+			"max_height": "28",
+			"min_weight": "6",
+			"max_weight": "8.5"
+		}
+	},
+	{
+		"pk": 89,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "풀리",
+			"name_en": "PULI",
+			"origin": "헝가리",
+			"group": "허딩",
+			"min_height": "35",
+			"max_height": "45",
+			"min_weight": "10",
+			"max_weight": "17"
+		}
+	},
+	{
+		"pk": 90,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "로디지안 리즈백",
+			"name_en": "RHODESIAN RIDGEBACK",
+			"origin": "남아프리카",
+			"group": "하운드",
+			"min_height": "61",
+			"max_height": "69",
+			"min_weight": "29",
+			"max_weight": "34"
+		}
+	},
+	{
+		"pk": 91,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "롯트 와일러",
+			"name_en": "ROTTWEILER",
+			"origin": "독일",
+			"group": "워킹",
+			"min_height": "58",
+			"max_height": "69",
+			"min_weight": "40",
+			"max_weight": "50"
+		}
+	},
+	{
+		"pk": 92,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "세인트 버나드",
+			"name_en": "SAINT BERNARD",
+			"origin": "스위스",
+			"group": "워킹",
+			"min_height": "60",
+			"max_height": "70",
+			"min_weight": "50",
+			"max_weight": "90"
+		}
+	},
+	{
+		"pk": 93,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "살루키",
+			"name_en": "SALUKI",
+			"origin": "이란",
+			"group": "하운드",
+			"min_height": "58",
+			"max_height": "71",
+			"min_weight": "21",
+			"max_weight": "22.5"
+		}
+	},
+	{
+		"pk": 94,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "사모예드",
+			"name_en": "SAMOYED",
+			"origin": "러시아",
+			"group": "워킹",
+			"min_height": "45",
+			"max_height": "55",
+			"min_weight": "23",
+			"max_weight": "30"
+		}
+	},
+	{
+		"pk": 95,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "스코티쉬 테리어",
+			"name_en": "SCOTTISH TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "25",
+			"max_height": "28",
+			"min_weight": "8",
+			"max_weight": "10.5"
+		}
+	},
+	{
+		"pk": 96,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "실리함 테리어",
+			"name_en": "SEALYHAM TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "25",
+			"max_height": "28",
+			"min_weight": "8",
+			"max_weight": "10.5"
+		}
+	},
+	{
+		"pk": 97,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "셔틀랜드 쉽독",
+			"name_en": "SHETLAND SHEEPDOG",
+			"origin": "영국",
+			"group": "허딩",
+			"min_height": "33",
+			"max_height": "40",
+			"min_weight": "6",
+			"max_weight": "13"
+		}
+	},
+	{
+		"pk": 98,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "시바 이누",
+			"name_en": "SHIBA",
+			"origin": "일본",
+			"group": "논스포팅",
+			"min_height": "36",
+			"max_height": "40",
+			"min_weight": "9",
+			"max_weight": "14"
+		}
+	},
+	{
+		"pk": 99,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "시츄",
+			"name_en": "Shih Tzu",
+			"origin": "티벳",
+			"group": "토이",
+			"min_height": "22",
+			"max_height": "27",
+			"min_weight": "5.4",
+			"max_weight": "6.8"
+		}
+	},
+	{
+		"pk": 100,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "시베리안 허스키",
+			"name_en": "SIBERIAN HUSKY",
+			"origin": "시베리아",
+			"group": "워킹",
+			"min_height": "50",
+			"max_height": "60",
+			"min_weight": "16",
+			"max_weight": "27"
+		}
+	},
+	{
+		"pk": 101,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "실키테리어",
+			"name_en": "Silky Terrier",
+			"origin": "오스트레일리아",
+			"group": "토이",
+			"min_height": "21",
+			"max_height": "23",
+			"min_weight": "3",
+			"max_weight": "4.5"
+		}
+	},
+	{
+		"pk": 102,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "스카이 테리어",
+			"name_en": "SKYE TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "23",
+			"max_height": "25",
+			"min_weight": "10",
+			"max_weight": "11.5"
+		}
+	},
+	{
+		"pk": 103,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "소프트 코티드 휘튼 테리어",
+			"name_en": "SOFT-COATED WHEATEN TERRIER 아일랜드",
+			"origin": "아일랜드",
+			"group": "테리어",
+			"min_height": "46",
+			"max_height": "48",
+			"min_weight": "16",
+			"max_weight": "20"
+		}
+	},
+	{
+		"pk": 104,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "사우스 러시안 오프차카",
+			"name_en": "South russian ovtcharka",
+			"origin": "러시아",
+			"group": "허딩",
+			"min_height": "63.5",
+			"max_height": "86",
+			"min_weight": "50",
+			"max_weight": "70"
+		}
+	},
+	{
+		"pk": 105,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "스테포드셔 불 테리어",
+			"name_en": "STAFFORDSHIRE BULL TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "36",
+			"max_height": "41",
+			"min_weight": "11",
+			"max_weight": "17.5"
+		}
+	},
+	{
+		"pk": 106,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "서섹스 스파니엘",
+			"name_en": "SUSSEX SPANIEL",
+			"origin": "영국",
+			"group": "스포팅",
+			"min_height": "33",
+			"max_height": "38",
+			"min_weight": "18",
+			"max_weight": "20"
+		}
+	},
+	{
+		"pk": 107,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "티벳탄 마스티프",
+			"name_en": "Tibetan",
+			"origin": "Mastiff",
+			"group": "워킹",
+			"min_height": "56",
+			"max_height": "71",
+			"min_weight": "60",
+			"max_weight": "99"
+		}
+	},
+	{
+		"pk": 108,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "티벳탄 스파니엘",
+			"name_en": "Tibetan Spaniel",
+			"origin": "티벳",
+			"group": "토이",
+			"min_height": "23",
+			"max_height": "25",
+			"min_weight": "4",
+			"max_weight": "7"
+		}
+	},
+	{
+		"pk": 109,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "티벳탄 테리어",
+			"name_en": "Tibetan Terrier",
+			"origin": "티벳",
+			"group": "허딩",
+			"min_height": "30",
+			"max_height": "40.5",
+			"min_weight": "8",
+			"max_weight": "12"
+		}
+	},
+	{
+		"pk": 110,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "토이 멘체스터 테리어",
+			"name_en": "Toy Manchester Terrier",
+			"origin": "영국",
+			"group": "토이",
+			"min_height": "25",
+			"max_height": "31",
+			"min_weight": "2",
+			"max_weight": "3.5"
+		}
+	},
+	{
+		"pk": 111,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "비즐라",
+			"name_en": "VIZSLA",
+			"origin": "헝가리",
+			"group": "스포팅",
+			"min_height": "57",
+			"max_height": "65",
+			"min_weight": "22",
+			"max_weight": "30"
+		}
+	},
+	{
+		"pk": 112,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "와이마라너",
+			"name_en": "WEIMARANER",
+			"origin": "독일",
+			"group": "스포팅",
+			"min_height": "56",
+			"max_height": "69",
+			"min_weight": "32",
+			"max_weight": "39"
+		}
+	},
+	{
+		"pk": 113,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "웰쉬코르기",
+			"name_en": "WELSH CORGI",
+			"origin": "영국",
+			"group": "허딩",
+			"min_height": "25",
+			"max_height": "30.5",
+			"min_weight": "11",
+			"max_weight": "13"
+		}
+	},
+	{
+		"pk": 114,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "웰쉬 테리어",
+			"name_en": "WELSH TERRIER",
+			"origin": "영국",
+			"group": "테리어",
+			"min_height": "35",
+			"max_height": "39",
+			"min_weight": "8",
+			"max_weight": "9"
+		}
+	},
+	{
+		"pk": 115,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "휘 펫",
+			"name_en": "WHIPPET",
+			"origin": "영국",
+			"group": "하운드",
+			"min_height": "46",
+			"max_height": "56",
+			"min_weight": "6.8",
+			"max_weight": "13"
+		}
+	},
+	{
+		"pk": 116,
+		"model": "accounts.breed",
+		"fields": {
+			"name": "와이어헤어드 포인팅 그리폰",
+			"name_en": "Wirehaired Pointing Griffon",
+			"origin": "프랑스",
+			"group": "스포팅",
+			"min_height": "56",
+			"max_height": "61",
+			"min_weight": "23",
+			"max_weight": "27"
+		}
+	}
+]
