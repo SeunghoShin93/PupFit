@@ -12,11 +12,12 @@ idna==2.9
 inflection==0.4.0
 itypes==1.2.0
 Jinja2==2.11.2
-jwt==1.0.0
 MarkupSafe==1.1.1
 mysqlclient==1.4.6
 packaging==20.4
+Pillow==7.1.2
 pycparser==2.20
+PyJWT==1.7.1
 pyparsing==2.4.7
 pytz==2020.1
 requests==2.23.0
