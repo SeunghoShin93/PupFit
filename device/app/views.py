@@ -2,9 +2,9 @@ from app import app
 from flask_restx import Resource, Api
 
 api = Api(app,version='1.0', title='Rsap for Pupfit', description='라즈베리파이에서 센서값 받고 aws로 정제해서 보내주는 API')
-
+hongsi = 'pupfithonsi'
 @api.route('/hello')
-@api.doc(params={'test':'tt'})
+# @api.doc(params={'test':'tt'})
 class HelloWorld(Resource):
     def get(self):
         return {'hello': 'world'}
@@ -15,6 +15,7 @@ class HelloWorld(Resource):
 class SerialNumber(Resource):
     def get(self):
         seri = {
-            'serial_num':'hongsi',
+            'serial_num':hongsi,
         }
         return seri
+        
