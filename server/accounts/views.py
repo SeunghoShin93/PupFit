@@ -56,9 +56,7 @@ class SingleUser(APIView):
         except:  # 로그인 되어있지 않으면 회원가입 진행
             serializers = SignUpserializers(data=request.data)
             serializers.is_valid(raise_exception=True)
-            user = serializers.save()
-            user.set_password(serializers.data['password'])
-            user.save()
+            user = get_user_model().objects.create_user(**serializers.data)
             payload = PayloadSerializers(user)
             encoded = jwt.encode(payload.data, settings.SECRET_KEY, algorithm='HS256')
             return Response({'token': encoded}, status=200)
@@ -115,7 +113,7 @@ class SingleUser(APIView):
         )
     )
 @api_view(['POST'])
-def login(request):	
+def login(request):
     user = authenticate(request=request, email=request.data.get('email'), password=request.data.get('password'))
     if user is None:
         return Response(status=401)
@@ -129,8 +127,6 @@ def login(request):
     )
 @api_view(['GET'])
 def check_duplicate_email(request, email):
-	if email is None:
-		return Response(data={'email': 'this field is required'}, status=400)
 	try:
 		get_user_model().objects.get(email=email)
 	except:
