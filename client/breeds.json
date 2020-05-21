@@ -1,0 +1,1162 @@
+{
+    "1": {
+        "name": "아펜핀셔",
+        "engName": "AFFENPINSCHER",
+        "origin": "독일",
+        "minHeight": "26",
+        "maxHeight": "27",
+        "minWeight": "3",
+        "maxWeight": "4",
+        "group": "토이"
+    },
+    "2": {
+        "name": "아프간하운드",
+        "engName": "AFGHAN HOUND",
+        "origin": "아프가니스탄",
+        "minHeight": "65",
+        "maxHeight": "75",
+        "minWeight": "23",
+        "maxWeight": "27",
+        "group": "하운드"
+    },
+    "3": {
+        "name": "에어데일 테리어",
+        "engName": "AIREDALE TERRIER",
+        "origin": "영국",
+        "minHeight": "56",
+        "maxHeight": "61",
+        "minWeight": "19",
+        "maxWeight": "20",
+        "group": "테리어"
+    },
+    "4": {
+        "name": "아키다",
+        "engName": "AKITA",
+        "origin": "일본",
+        "minHeight": "61",
+        "maxHeight": "71",
+        "minWeight": "34",
+        "maxWeight": "50",
+        "group": "워킹"
+    },
+    "5": {
+        "name": "알래스칸 맬러뮤트",
+        "engName": "ALASKAN MALAMUTE",
+        "origin": "미국",
+        "minHeight": "55",
+        "maxHeight": "70",
+        "minWeight": "34",
+        "maxWeight": "39",
+        "group": "워킹"
+    },
+    "6": {
+        "name": "아메리칸 코카 스파니엘",
+        "engName": "American Cocker Spaniel",
+        "origin": "미국",
+        "minHeight": "36",
+        "maxHeight": "38",
+        "minWeight": "9",
+        "maxWeight": "16",
+        "group": "스포팅"
+    },
+    "7": {
+        "name": "아메리칸 에스키모독",
+        "engName": "American Eskimo Dog",
+        "origin": "미국",
+        "minHeight": "33",
+        "maxHeight": "38",
+        "minWeight": "",
+        "maxWeight": "",
+        "group": "논스포팅"
+    },
+    "8": {
+        "name": "오스트레일리안 테리어",
+        "engName": "AUSTRALIAN TERRIER",
+        "origin": "오스트레일리아",
+        "minHeight": "24",
+        "maxHeight": "25",
+        "minWeight": "5",
+        "maxWeight": "6",
+        "group": "테리어"
+    },
+    "9": {
+        "name": "바센지",
+        "engName": "BASENJI",
+        "origin": "중앙 아프리카",
+        "minHeight": "40",
+        "maxHeight": "43",
+        "minWeight": "9",
+        "maxWeight": "11",
+        "group": "하운드"
+    },
+    "10": {
+        "name": "바셋하운드",
+        "engName": "BASSET HOUND",
+        "origin": "프랑스",
+        "minHeight": "33",
+        "maxHeight": "38",
+        "minWeight": "18",
+        "maxWeight": "27",
+        "group": "하운드"
+    },
+    "11": {
+        "name": "비글",
+        "engName": "BEAGLE",
+        "origin": "영국",
+        "minHeight": "33",
+        "maxHeight": "38",
+        "minWeight": "10",
+        "maxWeight": "16",
+        "group": "하운드"
+    },
+    "12": {
+        "name": "비어디드 콜리",
+        "engName": "BEARDED COLLIE",
+        "origin": "영국",
+        "minHeight": "50",
+        "maxHeight": "54",
+        "minWeight": "18",
+        "maxWeight": "27",
+        "group": "허딩"
+    },
+    "13": {
+        "name": "베드링턴 테리어",
+        "engName": "BEDLINGTON TERRIER",
+        "origin": "영국",
+        "minHeight": "38",
+        "maxHeight": "43",
+        "minWeight": "7",
+        "maxWeight": "10",
+        "group": "테리어"
+    },
+    "14": {
+        "name": "벨지안 쉽도그 그로넨달",
+        "engName": "Belgian Sheepdog Groenendael",
+        "origin": "벨기에",
+        "minHeight": "56",
+        "maxHeight": "66",
+        "minWeight": "27",
+        "maxWeight": "28",
+        "group": "허딩"
+    },
+    "15": {
+        "name": "벨지안 쉽도그 라케노이즈",
+        "engName": "Belgian Sheepdog Laekenois",
+        "origin": "벨기에",
+        "minHeight": "55",
+        "maxHeight": "66",
+        "minWeight": "27",
+        "maxWeight": "28",
+        "group": "허딩"
+    },
+    "16": {
+        "name": "벨지안 쉽도그 말리노이즈",
+        "engName": "Belgian Sheepdog Malinois",
+        "origin": "벨기에",
+        "minHeight": "61",
+        "maxHeight": "66",
+        "minWeight": "27",
+        "maxWeight": "28",
+        "group": "허딩"
+    },
+    "17": {
+        "name": "벨지안 쉽도그 터뷰렌",
+        "engName": "Belgian Sheepdog Tervuren",
+        "origin": "벨기에",
+        "minHeight": "56",
+        "maxHeight": "66",
+        "minWeight": "27",
+        "maxWeight": "28",
+        "group": "허딩"
+    },
+    "18": {
+        "name": "버니즈 마운틴 독",
+        "engName": "BERNESE MOUNTAIN DOG",
+        "origin": "스위스",
+        "minHeight": "58",
+        "maxHeight": "70",
+        "minWeight": "40",
+        "maxWeight": "44",
+        "group": "워킹"
+    },
+    "19": {
+        "name": "비숑 프리제",
+        "engName": "BICHON FRISE",
+        "origin": "프랑스/벨기에",
+        "minHeight": "24",
+        "maxHeight": "29",
+        "minWeight": "5",
+        "maxWeight": "8",
+        "group": "논스포팅"
+    },
+    "21": {
+        "name": "블러드 하운드",
+        "engName": "BLOODHOUND",
+        "origin": "벨기에",
+        "minHeight": "58",
+        "maxHeight": "70",
+        "minWeight": "35",
+        "maxWeight": "50",
+        "group": "하운드"
+    },
+    "22": {
+        "name": "보더 콜리",
+        "engName": "Border Collie",
+        "origin": "영국",
+        "minHeight": "48",
+        "maxHeight": "53",
+        "minWeight": "18",
+        "maxWeight": "23",
+        "group": "허딩"
+    },
+    "23": {
+        "name": "보더 테리어",
+        "engName": "BORDER TERRIER",
+        "origin": "영국",
+        "minHeight": "25",
+        "maxHeight": "28",
+        "minWeight": "6",
+        "maxWeight": "7",
+        "group": "테리어"
+    },
+    "24": {
+        "name": "보르조이",
+        "engName": "BORZOI",
+        "origin": "러시아",
+        "minHeight": "70",
+        "maxHeight": "80",
+        "minWeight": "35",
+        "maxWeight": "45",
+        "group": "하운드"
+    },
+    "25": {
+        "name": "보스턴테리어",
+        "engName": "BOSTON TERRIER",
+        "origin": "미국",
+        "minHeight": "37",
+        "maxHeight": "43",
+        "minWeight": "4.5",
+        "maxWeight": "11.4",
+        "group": "논스포팅"
+    },
+    "26": {
+        "name": "복서",
+        "engName": "Boxer",
+        "origin": "독일",
+        "minHeight": "59",
+        "maxHeight": "63",
+        "minWeight": "25",
+        "maxWeight": "32",
+        "group": "워킹"
+    },
+    "27": {
+        "name": "브리타니",
+        "engName": "BRITTANY",
+        "origin": "프랑스",
+        "minHeight": "47",
+        "maxHeight": "50",
+        "minWeight": "13",
+        "maxWeight": "18",
+        "group": "스포팅"
+    },
+    "28": {
+        "name": "브뤼셀 그리펀",
+        "engName": "Brussels Griffonr",
+        "origin": "벨기에",
+        "minHeight": "18",
+        "maxHeight": "20",
+        "minWeight": "2.5",
+        "maxWeight": "5.5",
+        "group": "토이"
+    },
+    "29": {
+        "name": "불 독",
+        "engName": "BULL DOG",
+        "origin": "영국",
+        "minHeight": "30",
+        "maxHeight": "35",
+        "minWeight": "23",
+        "maxWeight": "25",
+        "group": "논스포팅"
+    },
+    "30": {
+        "name": "불",
+        "engName": "테리어",
+        "origin": "BULL",
+        "minHeight": "TERRIER",
+        "maxHeight": "",
+        "minWeight": "",
+        "maxWeight": "",
+        "group": ""
+    },
+    "31": {
+        "name": "불마스티프",
+        "engName": "BULLMASTIFF",
+        "origin": "영국",
+        "minHeight": "65",
+        "maxHeight": "70",
+        "minWeight": "42",
+        "maxWeight": "60",
+        "group": "워킹"
+    },
+    "32": {
+        "name": "케언 테리어",
+        "engName": "CAIRN TERRIER",
+        "origin": "영국",
+        "minHeight": "23",
+        "maxHeight": "30",
+        "minWeight": "6",
+        "maxWeight": "7",
+        "group": "테리어"
+    },
+    "33": {
+        "name": "코카시안 오프차카",
+        "engName": "Caucasian avtcharka",
+        "origin": "러시아",
+        "minHeight": "63",
+        "maxHeight": "71",
+        "minWeight": "46",
+        "maxWeight": "66",
+        "group": ""
+    },
+    "34": {
+        "name": "체사피크베이 리트리버 CHESAPEAKE",
+        "engName": "BAY RETRIEVER",
+        "origin": "미국",
+        "minHeight": "58",
+        "maxHeight": "65",
+        "minWeight": "29",
+        "maxWeight": "35",
+        "group": "스포팅"
+    },
+    "35": {
+        "name": "치와와",
+        "engName": "Chihuahua",
+        "origin": "멕시코",
+        "minHeight": "16",
+        "maxHeight": "22",
+        "minWeight": "1",
+        "maxWeight": "3",
+        "group": "토이"
+    },
+    "36": {
+        "name": "차이니스 크레스티드",
+        "engName": "Chinese Crested",
+        "origin": "중국/아프리카",
+        "minHeight": "23",
+        "maxHeight": "33",
+        "minWeight": "2",
+        "maxWeight": "5",
+        "group": "토이"
+    },
+    "37": {
+        "name": "차이니즈 샤페이",
+        "engName": "Chinese Shar-pei",
+        "origin": "중국",
+        "minHeight": "46",
+        "maxHeight": "51",
+        "minWeight": "16",
+        "maxWeight": "21",
+        "group": "논스포팅"
+    },
+    "38": {
+        "name": "차우차우",
+        "engName": "CHOWCHOW",
+        "origin": "중국",
+        "minHeight": "45",
+        "maxHeight": "55",
+        "minWeight": "20",
+        "maxWeight": "30",
+        "group": "논스포팅"
+    },
+    "39": {
+        "name": "크럼버 스파니엘",
+        "engName": "CLUMBER SPANIEL",
+        "origin": "영국",
+        "minHeight": "48",
+        "maxHeight": "51",
+        "minWeight": "27",
+        "maxWeight": "37",
+        "group": "스포팅"
+    },
+    "40": {
+        "name": "콜리",
+        "engName": "Collie",
+        "origin": "영국",
+        "minHeight": "50",
+        "maxHeight": "60",
+        "minWeight": "20",
+        "maxWeight": "30",
+        "group": "허딩"
+    },
+    "41": {
+        "name": "컬리 코티드 리트리버",
+        "engName": "CURLY COATED RETRIEVER",
+        "origin": "영국",
+        "minHeight": "62",
+        "maxHeight": "68",
+        "minWeight": "32",
+        "maxWeight": "35",
+        "group": "스포팅"
+    },
+    "42": {
+        "name": "닥스훈트",
+        "engName": "DACHSHUNDS",
+        "origin": "독일",
+        "minHeight": "13",
+        "maxHeight": "25",
+        "minWeight": "3",
+        "maxWeight": "11",
+        "group": "하운드"
+    },
+    "43": {
+        "name": "달마시안",
+        "engName": "DALMATIAN",
+        "origin": "유고슬라비아",
+        "minHeight": "50",
+        "maxHeight": "60",
+        "minWeight": "23",
+        "maxWeight": "25",
+        "group": "논스포팅"
+    },
+    "44": {
+        "name": "댄디 딘몬트 테리어",
+        "engName": "DANDIE DINMONT TERRIER",
+        "origin": "영국",
+        "minHeight": "20",
+        "maxHeight": "28",
+        "minWeight": "8",
+        "maxWeight": "11",
+        "group": "테리어"
+    },
+    "45": {
+        "name": "도베르만 핀셔",
+        "engName": "DOBERMAN PINSCHER",
+        "origin": "독일",
+        "minHeight": "65",
+        "maxHeight": "70",
+        "minWeight": "30",
+        "maxWeight": "40",
+        "group": "워킹"
+    },
+    "46": {
+        "name": "잉글리쉬 코카 스파니엘",
+        "engName": "ENGLISH COCKER SPANIEL",
+        "origin": "영국",
+        "minHeight": "38",
+        "maxHeight": "40",
+        "minWeight": "13",
+        "maxWeight": "15",
+        "group": "스포팅"
+    },
+    "47": {
+        "name": "잉글리쉬 세터",
+        "engName": "ENGLISH SETTER",
+        "origin": "영국",
+        "minHeight": "60",
+        "maxHeight": "70",
+        "minWeight": "25",
+        "maxWeight": "30",
+        "group": "스포팅"
+    },
+    "48": {
+        "name": "잉글리쉬 스프링거 스파니엘",
+        "engName": "ENGLISH SPRINGER SPANIEL",
+        "origin": "영국",
+        "minHeight": "48",
+        "maxHeight": "51",
+        "minWeight": "23",
+        "maxWeight": "25",
+        "group": "스포팅"
+    },
+    "49": {
+        "name": "필드 스파니엘",
+        "engName": "FIELD SPANIEL",
+        "origin": "영국",
+        "minHeight": "50",
+        "maxHeight": "58",
+        "minWeight": "16",
+        "maxWeight": "23",
+        "group": "스포팅"
+    },
+    "50": {
+        "name": "플랫-코티드 리트리버",
+        "engName": "FLAT-COATED RETRIEVER",
+        "origin": "영국",
+        "minHeight": "57",
+        "maxHeight": "59",
+        "minWeight": "27",
+        "maxWeight": "32",
+        "group": "스포팅"
+    },
+    "51": {
+        "name": "프렌치 불독",
+        "engName": "FRENCH BULLDOG",
+        "origin": "프랑스",
+        "minHeight": "25",
+        "maxHeight": "32",
+        "minWeight": "10",
+        "maxWeight": "13",
+        "group": "논스포팅"
+    },
+    "52": {
+        "name": "져먼 셰퍼드 독",
+        "engName": "GERMAN SHEPHERD DOG",
+        "origin": "독일",
+        "minHeight": "55",
+        "maxHeight": "66",
+        "minWeight": "34",
+        "maxWeight": "44",
+        "group": "허딩"
+    },
+    "53": {
+        "name": "저먼 쇼트헤어드 포인터",
+        "engName": "GERMAN SHORTHAIRED POINTER",
+        "origin": "독일",
+        "minHeight": "58",
+        "maxHeight": "64",
+        "minWeight": "25",
+        "maxWeight": "32",
+        "group": "스포팅"
+    },
+    "54": {
+        "name": "자이언트 슈나우저",
+        "engName": "Giant Schnauzer",
+        "origin": "독일",
+        "minHeight": "59",
+        "maxHeight": "70",
+        "minWeight": "32",
+        "maxWeight": "35",
+        "group": "워킹"
+    },
+    "55": {
+        "name": "골든 리트리버",
+        "engName": "GOLDEN RETRIEVER",
+        "origin": "영국",
+        "minHeight": "51",
+        "maxHeight": "61",
+        "minWeight": "27",
+        "maxWeight": "36",
+        "group": "스포팅"
+    },
+    "56": {
+        "name": "그레이트 데인",
+        "engName": "GREAT DANE",
+        "origin": "독일",
+        "minHeight": "71",
+        "maxHeight": "76",
+        "minWeight": "46",
+        "maxWeight": "54",
+        "group": "워킹"
+    },
+    "57": {
+        "name": "그레이트 피레이즈",
+        "engName": "GREAT PYRENEES",
+        "origin": "프랑스",
+        "minHeight": "71",
+        "maxHeight": "76",
+        "minWeight": "46",
+        "maxWeight": "54",
+        "group": "워킹"
+    },
+    "58": {
+        "name": "그레이 하운드",
+        "engName": "GREY HOUND",
+        "origin": "영국",
+        "minHeight": "70",
+        "maxHeight": "75",
+        "minWeight": "27",
+        "maxWeight": "32",
+        "group": "하운드"
+    },
+    "59": {
+        "name": "아이리쉬 세터",
+        "engName": "IRISH SETTER",
+        "origin": "아일랜드",
+        "minHeight": "64",
+        "maxHeight": "69",
+        "minWeight": "27",
+        "maxWeight": "32",
+        "group": "스포팅"
+    },
+    "60": {
+        "name": "아이리쉬 테리어",
+        "engName": "IRISH TERRIER",
+        "origin": "아일랜드",
+        "minHeight": "43",
+        "maxHeight": "45",
+        "minWeight": "11",
+        "maxWeight": "12.5",
+        "group": "테리어"
+    },
+    "61": {
+        "name": "아이리쉬 워터 스파니엘",
+        "engName": "IRISH WATER SPANIEL",
+        "origin": "아일랜드",
+        "minHeight": "53",
+        "maxHeight": "61",
+        "minWeight": "21",
+        "maxWeight": "30",
+        "group": "스포팅"
+    },
+    "62": {
+        "name": "아이리쉬 울프하운드",
+        "engName": "IRISH WOLFHOUND",
+        "origin": "아일랜드",
+        "minHeight": "81",
+        "maxHeight": "86",
+        "minWeight": "40",
+        "maxWeight": "55",
+        "group": "하운드"
+    },
+    "63": {
+        "name": "이탈리안 그레이하운드",
+        "engName": "Italian Greyhound",
+        "origin": "이탈리아",
+        "minHeight": "33",
+        "maxHeight": "38",
+        "minWeight": "3",
+        "maxWeight": "3.5",
+        "group": "토이"
+    },
+    "64": {
+        "name": "잭 러셀 테리어",
+        "engName": "JACK RUSSEL TERRIER",
+        "origin": "영국",
+        "minHeight": "23",
+        "maxHeight": "38",
+        "minWeight": "5",
+        "maxWeight": "9",
+        "group": "테리어"
+    },
+    "65": {
+        "name": "제페니스 친",
+        "engName": "Japanese Chin",
+        "origin": "일본",
+        "minHeight": "",
+        "maxHeight": "",
+        "minWeight": "2",
+        "maxWeight": "3",
+        "group": "토이"
+    },
+    "66": {
+        "name": "제패니즈 스피츠",
+        "engName": "Japanese Spitz",
+        "origin": "일본",
+        "minHeight": "30",
+        "maxHeight": "38",
+        "minWeight": "6",
+        "maxWeight": "10",
+        "group": "논스포팅"
+    },
+    "67": {
+        "name": "진돗개",
+        "engName": "Jindo Dog",
+        "origin": "한국",
+        "minHeight": "45",
+        "maxHeight": "53",
+        "minWeight": "15",
+        "maxWeight": "20",
+        "group": ""
+    },
+    "68": {
+        "name": "케리 블루 테리어",
+        "engName": "KERRY BLUE TERRIER",
+        "origin": "아일랜드",
+        "minHeight": "44",
+        "maxHeight": "51",
+        "minWeight": "15",
+        "maxWeight": "18",
+        "group": "테리어"
+    },
+    "69": {
+        "name": "코몬돌",
+        "engName": "KOMONDOR",
+        "origin": "헝가리",
+        "minHeight": "60",
+        "maxHeight": "65",
+        "minWeight": "36",
+        "maxWeight": "69",
+        "group": "워킹"
+    },
+    "70": {
+        "name": "쿠바츠",
+        "engName": "KUVASZ",
+        "origin": "헝가리",
+        "minHeight": "56",
+        "maxHeight": "66",
+        "minWeight": "37",
+        "maxWeight": "55",
+        "group": "워킹"
+    },
+    "71": {
+        "name": "래브라도 리트리버",
+        "engName": "LABRADOR RETRIEVER",
+        "origin": "캐나다",
+        "minHeight": "54",
+        "maxHeight": "57",
+        "minWeight": "23",
+        "maxWeight": "34",
+        "group": "스포팅"
+    },
+    "72": {
+        "name": "레이크랜드 테리어",
+        "engName": "LAKELAND TERRIER",
+        "origin": "영국",
+        "minHeight": "33",
+        "maxHeight": "38",
+        "minWeight": "6",
+        "maxWeight": "7",
+        "group": "테리어"
+    },
+    "73": {
+        "name": "라사 압소",
+        "engName": "Lhasa Apso",
+        "origin": "티벳",
+        "minHeight": "25",
+        "maxHeight": "28",
+        "minWeight": "5.9",
+        "maxWeight": "6.8",
+        "group": "논스포팅"
+    },
+    "74": {
+        "name": "몰티즈",
+        "engName": "Maltese",
+        "origin": "이탈리아",
+        "minHeight": "20",
+        "maxHeight": "26",
+        "minWeight": "2",
+        "maxWeight": "3",
+        "group": "토이"
+    },
+    "75": {
+        "name": "맨체스터 테리어",
+        "engName": "MANCHESTER TERRIERS",
+        "origin": "영국",
+        "minHeight": "38",
+        "maxHeight": "40.5",
+        "minWeight": "5",
+        "maxWeight": "7.5",
+        "group": "테리어"
+    },
+    "76": {
+        "name": "마스티프",
+        "engName": "MASTIFF",
+        "origin": "영국",
+        "minHeight": "71",
+        "maxHeight": "76",
+        "minWeight": "70",
+        "maxWeight": "86",
+        "group": "워킹"
+    },
+    "77": {
+        "name": "미니어쳐 핀셔",
+        "engName": "Miniature Pinscher",
+        "origin": "독일",
+        "minHeight": "25.4",
+        "maxHeight": "31.8",
+        "minWeight": "5",
+        "maxWeight": "7.5",
+        "group": ""
+    },
+    "78": {
+        "name": "미니어처 슈나우져",
+        "engName": "MINIATURE SCHNAUZER",
+        "origin": "독일",
+        "minHeight": "30",
+        "maxHeight": "35.5",
+        "minWeight": "6",
+        "maxWeight": "7",
+        "group": "테리어"
+    },
+    "79": {
+        "name": "뉴펀들랜드",
+        "engName": "NEWFOUNDLAND",
+        "origin": "캐나다",
+        "minHeight": "66",
+        "maxHeight": "70",
+        "minWeight": "50",
+        "maxWeight": "86",
+        "group": "워킹"
+    },
+    "80": {
+        "name": "노르포크 테리어",
+        "engName": "NORFOLK TERRIER",
+        "origin": "영국",
+        "minHeight": "24",
+        "maxHeight": "25.4",
+        "minWeight": "4.99",
+        "maxWeight": "5.45",
+        "group": "테리어"
+    },
+    "81": {
+        "name": "노르웨이언 엘크 하운드",
+        "engName": "NORWEGIAN ELKHOUND",
+        "origin": "노르웨이",
+        "minHeight": "46",
+        "maxHeight": "51",
+        "minWeight": "18",
+        "maxWeight": "20",
+        "group": "하운드"
+    },
+    "82": {
+        "name": "노르위치 테리어",
+        "engName": "NORWICH TERRIER",
+        "origin": "영국",
+        "minHeight": "24",
+        "maxHeight": "25.4",
+        "minWeight": "4.99",
+        "maxWeight": "5.45",
+        "group": "테리어"
+    },
+    "83": {
+        "name": "올드 잉글리쉬 쉽독",
+        "engName": "OLD ENGLISH SHEEPDOG",
+        "origin": "영국",
+        "minHeight": "55",
+        "maxHeight": "60",
+        "minWeight": "29",
+        "maxWeight": "30",
+        "group": "허딩"
+    },
+    "84": {
+        "name": "파피용",
+        "engName": "Papillon",
+        "origin": "프랑스/벨기에",
+        "minHeight": "20",
+        "maxHeight": "28",
+        "minWeight": "4.1",
+        "maxWeight": "4.5",
+        "group": "토이"
+    },
+    "85": {
+        "name": "페키니즈",
+        "engName": "Pekingese",
+        "origin": "중국",
+        "minHeight": "",
+        "maxHeight": "",
+        "minWeight": "2.5",
+        "maxWeight": "6",
+        "group": "토이"
+    },
+    "86": {
+        "name": "포인터",
+        "engName": "POINTER",
+        "origin": "영국/스페인",
+        "minHeight": "56",
+        "maxHeight": "68",
+        "minWeight": "20",
+        "maxWeight": "30",
+        "group": "스포팅"
+    },
+    "87": {
+        "name": "포메라니안",
+        "engName": "Pomeranian",
+        "origin": "독일",
+        "minHeight": "",
+        "maxHeight": "28",
+        "minWeight": "1.8",
+        "maxWeight": "2.7",
+        "group": "토이"
+    },
+    "89": {
+        "name": "풍산개",
+        "engName": "Poongsan Dog",
+        "origin": "한국",
+        "minHeight": "53",
+        "maxHeight": "55",
+        "minWeight": "23",
+        "maxWeight": "28",
+        "group": "논스포팅"
+    },
+    "90": {
+        "name": "퍼그",
+        "engName": "PUG",
+        "origin": "중국",
+        "minHeight": "25",
+        "maxHeight": "28",
+        "minWeight": "6",
+        "maxWeight": "8.5",
+        "group": "토이"
+    },
+    "91": {
+        "name": "풀리",
+        "engName": "PULI",
+        "origin": "헝가리",
+        "minHeight": "35",
+        "maxHeight": "45",
+        "minWeight": "10",
+        "maxWeight": "17",
+        "group": "허딩"
+    },
+    "92": {
+        "name": "로디지안 리즈백",
+        "engName": "RHODESIAN RIDGEBACK",
+        "origin": "남아프리카",
+        "minHeight": "61",
+        "maxHeight": "69",
+        "minWeight": "29",
+        "maxWeight": "34",
+        "group": "하운드"
+    },
+    "93": {
+        "name": "롯트 와일러",
+        "engName": "ROTTWEILER",
+        "origin": "독일",
+        "minHeight": "58",
+        "maxHeight": "69",
+        "minWeight": "40",
+        "maxWeight": "50",
+        "group": "워킹"
+    },
+    "94": {
+        "name": "세인트 버나드",
+        "engName": "SAINT BERNARD",
+        "origin": "스위스",
+        "minHeight": "60",
+        "maxHeight": "70",
+        "minWeight": "50",
+        "maxWeight": "90",
+        "group": "워킹"
+    },
+    "95": {
+        "name": "살루키",
+        "engName": "SALUKI",
+        "origin": "이란",
+        "minHeight": "58",
+        "maxHeight": "71",
+        "minWeight": "21",
+        "maxWeight": "22.5",
+        "group": "하운드"
+    },
+    "96": {
+        "name": "사모예드",
+        "engName": "SAMOYED",
+        "origin": "러시아",
+        "minHeight": "45",
+        "maxHeight": "55",
+        "minWeight": "23",
+        "maxWeight": "30",
+        "group": "워킹"
+    },
+    "98": {
+        "name": "스코티쉬 테리어",
+        "engName": "SCOTTISH TERRIER",
+        "origin": "영국",
+        "minHeight": "25",
+        "maxHeight": "28",
+        "minWeight": "8",
+        "maxWeight": "10.5",
+        "group": "테리어"
+    },
+    "99": {
+        "name": "실리함 테리어",
+        "engName": "SEALYHAM TERRIER",
+        "origin": "영국",
+        "minHeight": "25",
+        "maxHeight": "28",
+        "minWeight": "8",
+        "maxWeight": "10.5",
+        "group": "테리어"
+    },
+    "100": {
+        "name": "셔틀랜드 쉽독",
+        "engName": "SHETLAND SHEEPDOG",
+        "origin": "영국",
+        "minHeight": "33",
+        "maxHeight": "40",
+        "minWeight": "6",
+        "maxWeight": "13",
+        "group": "허딩"
+    },
+    "101": {
+        "name": "시바 이누",
+        "engName": "SHIBA",
+        "origin": "일본",
+        "minHeight": "36",
+        "maxHeight": "40",
+        "minWeight": "9",
+        "maxWeight": "14",
+        "group": "논스포팅"
+    },
+    "102": {
+        "name": "시츄",
+        "engName": "Shih Tzu",
+        "origin": "티벳",
+        "minHeight": "22",
+        "maxHeight": "27",
+        "minWeight": "5.4",
+        "maxWeight": "6.8",
+        "group": "토이"
+    },
+    "103": {
+        "name": "시베리안 허스키",
+        "engName": "SIBERIAN HUSKY",
+        "origin": "시베리아",
+        "minHeight": "50",
+        "maxHeight": "60",
+        "minWeight": "16",
+        "maxWeight": "27",
+        "group": "워킹"
+    },
+    "104": {
+        "name": "실키테리어",
+        "engName": "Silky Terrier",
+        "origin": "오스트레일리아",
+        "minHeight": "21",
+        "maxHeight": "23",
+        "minWeight": "3",
+        "maxWeight": "4.5",
+        "group": "토이"
+    },
+    "105": {
+        "name": "스카이 테리어",
+        "engName": "SKYE TERRIER",
+        "origin": "영국",
+        "minHeight": "23",
+        "maxHeight": "25",
+        "minWeight": "10",
+        "maxWeight": "11.5",
+        "group": "테리어"
+    },
+    "106": {
+        "name": "소프트 코티드 휘튼 테리어",
+        "engName": "SOFT-COATED WHEATEN TERRIER 아일랜드",
+        "origin": "아일랜드",
+        "minHeight": "46",
+        "maxHeight": "48",
+        "minWeight": "16",
+        "maxWeight": "20",
+        "group": "테리어"
+    },
+    "107": {
+        "name": "사우스 러시안 오프차카",
+        "engName": "South russian ovtcharka",
+        "origin": "러시아",
+        "minHeight": "63.5",
+        "maxHeight": "86",
+        "minWeight": "50",
+        "maxWeight": "70",
+        "group": ""
+    },
+    "108": {
+        "name": "스테포드셔 불 테리어",
+        "engName": "STAFFORDSHIRE BULL TERRIER",
+        "origin": "영국",
+        "minHeight": "36",
+        "maxHeight": "41",
+        "minWeight": "11",
+        "maxWeight": "17.5",
+        "group": "테리어"
+    },
+    "109": {
+        "name": "서섹스 스파니엘",
+        "engName": "SUSSEX SPANIEL",
+        "origin": "영국",
+        "minHeight": "33",
+        "maxHeight": "38",
+        "minWeight": "18",
+        "maxWeight": "20",
+        "group": "스포팅"
+    },
+    "110": {
+        "name": "티벳탄 마스티프",
+        "engName": "Tibetan",
+        "origin": "Mastiff",
+        "minHeight": "티벳",
+        "maxHeight": "56",
+        "minWeight": "71",
+        "maxWeight": "60",
+        "group": ""
+    },
+    "111": {
+        "name": "티벳탄 스파니엘",
+        "engName": "Tibetan Spaniel",
+        "origin": "티벳",
+        "minHeight": "23",
+        "maxHeight": "25",
+        "minWeight": "4",
+        "maxWeight": "7",
+        "group": ""
+    },
+    "112": {
+        "name": "티벳탄 테리어",
+        "engName": "Tibetan Terrier",
+        "origin": "티벳",
+        "minHeight": "30",
+        "maxHeight": "40.5",
+        "minWeight": "8",
+        "maxWeight": "12",
+        "group": ""
+    },
+    "113": {
+        "name": "토이 멘체스터 테리어",
+        "engName": "Toy Manchester Terrier",
+        "origin": "영국",
+        "minHeight": "25",
+        "maxHeight": "31",
+        "minWeight": "2",
+        "maxWeight": "3.5",
+        "group": "토이"
+    },
+    "114": {
+        "name": "비즐라",
+        "engName": "VIZSLA",
+        "origin": "헝가리",
+        "minHeight": "57",
+        "maxHeight": "65",
+        "minWeight": "22",
+        "maxWeight": "30",
+        "group": "스포팅"
+    },
+    "115": {
+        "name": "와이마라너",
+        "engName": "WEIMARANER",
+        "origin": "독일",
+        "minHeight": "56",
+        "maxHeight": "69",
+        "minWeight": "32",
+        "maxWeight": "39",
+        "group": "스포팅"
+    },
+    "116": {
+        "name": "웰쉬코르기",
+        "engName": "WELSH CORGI",
+        "origin": "영국",
+        "minHeight": "25",
+        "maxHeight": "30.5",
+        "minWeight": "11",
+        "maxWeight": "13",
+        "group": "허딩"
+    },
+    "117": {
+        "name": "웰쉬 테리어",
+        "engName": "WELSH TERRIER",
+        "origin": "영국",
+        "minHeight": "35",
+        "maxHeight": "39",
+        "minWeight": "8",
+        "maxWeight": "9",
+        "group": "테리어"
+    },
+    "119": {
+        "name": "휘 펫",
+        "engName": "WHIPPET",
+        "origin": "영국",
+        "minHeight": "46",
+        "maxHeight": "56",
+        "minWeight": "",
+        "maxWeight": "13",
+        "group": "하운드"
+    },
+    "120": {
+        "name": "와이어헤어드 포인팅 그리폰",
+        "engName": "Wirehaired Pointing Griffon",
+        "origin": "프랑스",
+        "minHeight": "56",
+        "maxHeight": "61",
+        "minWeight": "23",
+        "maxWeight": "27",
+        "group": "스포팅"
+    }
+}
