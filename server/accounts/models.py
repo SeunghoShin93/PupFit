@@ -25,3 +25,5 @@ class User(AbstractUser):
         unique=True
     )
     dogs = models.ManyToManyField(to=Dog)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']

@@ -8,11 +8,13 @@ class EmailAuthBackend(ModelBackend):
     Username 대신 email로 인증을 수행하는 백엔드 모듈
     """
     def authenticate(self, request, email=None, password=None, **kwargs):
+        print('asdfasfas', email, password)
         if email is None:
-            email = kwargs.get(UserModel.EMAIL_FIELD)
+            email = kwargs.get(UserModel.USERNAME_FIELD)
         if email is None or password is None:
             return
         try:
+            print(UserModel._default_manager)
             user = UserModel._default_manager.get_by_natural_key(email)
         except UserModel.DoesNotExist:
             # Run the default password hasher once to reduce the timing
