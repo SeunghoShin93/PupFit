@@ -169,14 +169,17 @@ def device(request):
     # device_num 없으면 400에러
     except:
         return Response(status=400)
-    
     # device_num 있으면..
     try:
         device = Device.objects.get(id=device_num)
     # 신규 기기 등록
     except:
         device = Device.objects.create(id=device_num)
-    return Response(status=200)
+        return Response(status=200)
+    dog = Dog.objects.get(device=device)
+    user.dogs.add(dog)
+    return Response(status=201)
+
     
 # 강아지 등록
 """
