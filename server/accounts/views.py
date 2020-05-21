@@ -110,7 +110,7 @@ class SingleUser(APIView):
         )
     )
 @api_view(['POST'])
-def login(request):	
+def login(request):
     user = authenticate(request=request, email=request.data.get('email'), password=request.data.get('password'))
     if user is None:
         return Response(status=401)
@@ -124,8 +124,6 @@ def login(request):
     )
 @api_view(['GET'])
 def check_duplicate_email(request, email):
-	if email is None:
-		return Response(data={'email': 'this field is required'}, status=400)
 	try:
 		get_user_model().objects.get(email=email)
 	except:
