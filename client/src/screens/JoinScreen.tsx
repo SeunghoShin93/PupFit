@@ -7,7 +7,7 @@ import {
 import { Button, Text, Layout, Input, Icon } from "@ui-kitten/components";
 import { TopBasic } from "../components/navigations/TopBasic";
 
-const JoinScreen = ({navigation}) => {
+const JoinScreen = ({ navigation }) => {
   const AlertIcon = (props: string) => (
     <Icon {...props} name="alert-circle-outline" />
   );
@@ -21,12 +21,14 @@ const JoinScreen = ({navigation}) => {
     </TouchableWithoutFeedback>
   );
   const [email, onChangeEmail] = React.useState("");
+  const [username, onChangeUsername] = React.useState("");
   const [password, onChangePassword] = React.useState("");
+  const [passwordConfirmation, onChangePasswordConfirmation] = React.useState("");
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>
-      <TopBasic navigation={navigation} prevScreenName="로그인" />
+        <TopBasic navigation={navigation} prevScreenName="로그인" />
         <Layout style={styles.loginHeader}>
           <Text style={styles.logo} category="h1">
             SIGNUP HEADER
@@ -36,11 +38,18 @@ const JoinScreen = ({navigation}) => {
           <Input
             onChangeText={(email) => onChangeEmail(email)}
             caption="이메일 주소를 입력해주세요."
-            label="로그인 정보 입력"
             placeholder="puppy@pupfit.com"
             captionIcon={AlertIcon}
             value={email}
-            style={{ margin: 20, marginBottom: 0 }}
+            style={{ marginHorizontal: 10}}
+          />
+          <Input
+            onChangeText={(email) => onChangeEmail(email)}
+            placeholder="왕싸피"
+            value={email}
+            captionIcon={AlertIcon}
+            caption="이름을 입력해주세요."
+            style={{ margin: 10, marginBottom: 0 }}
           />
           <Input
             onChangeText={(password) => onChangePassword(password)}
@@ -50,27 +59,18 @@ const JoinScreen = ({navigation}) => {
             value={password}
             accessoryRight={renderIcon}
             secureTextEntry={secureTextEntry}
-            style={{ margin: 20, marginBottom: 0 }}
+            style={{ margin: 10, marginBottom: 0 }}
           />
           <Input
-            onChangeText={(password) => onChangePassword(password)}
+            onChangeText={(passwordConfirmation) => onChangePasswordConfirmation(papasswordConfirmationssword)}
             caption="비밀번호를 다시 입력해주세요."
             placeholder="******"
             captionIcon={AlertIcon}
-            value={password}
+            value={passwordConfirmation}
             accessoryRight={renderIcon}
             secureTextEntry={secureTextEntry}
-            style={{ margin: 20, marginBottom: 0 }}
+            style={{ margin: 10, marginBottom: 0 }}
           />
-        </Layout>
-        <Layout
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
           <Button
             style={styles.loginBtn}
             size="large"
@@ -91,13 +91,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "right",
     justifyContent: "flex-end",
-    width: 420,
-  },
-  goJoin: {
-    margin: 10,
   },
   loginBtn: {
-    width: "90%",
+    width: '95%',
+    marginTop: 40
   },
   logo: {
     margin: 5,
