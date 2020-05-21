@@ -2,7 +2,7 @@ from time import time
 import jwt
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-
+from .models import Dog, Breed
 
 class SignUpserializers(serializers.ModelSerializer):
     class Meta:
@@ -30,3 +30,16 @@ class PayloadSerializers(serializers.Serializer):
     username = serializers.CharField()
     iat = serializers.IntegerField(default=now)
     exp = serializers.IntegerField(default=now + 7200000)
+    
+class BreedSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Breed
+        fields = '__all__'
+
+class DogSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Dog
+        fields = '__all__'
+
+    def create(self, validated_data):
+        return Dog.objects.create(**validated_data)

@@ -16,7 +16,10 @@ from drf_yasg import openapi
 import jwt
 
 from .serializers import *
+from .models import Dog, Breed, Device
+from health.models import DogInfo
 
+from datetime import date
 
 def is_logged_in(request):
     try:
@@ -136,12 +139,91 @@ def check_duplicate_email(request, email):
 
 # 기기 등록
 """
-로그인 후 기기 등록하고 강아지 정보 입력(Dog 이랑 one to one)
+최초 로그인시, 기기 등록하고 강아지 정보 입력(Dog 이랑 one to one)
 """
-
-
+@swagger_auto_schema(
+    operation_summary='기기등록',
+    method='post',
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            "device_num": openapi.Schema(type=openapi.TYPE_INTEGER),
+            },
+        required=["device_num"]
+        ),
+    manual_parameters=[
+        openapi.Parameter(
+            'Token',
+            openapi.IN_HEADER,
+            description='JWT',
+            type=openapi.TYPE_STRING,
+            required=True
+            )
+        ]
+    )
+@api_view(['POST'])
+def device(request):
+    user = is_logged_in(request)
+    try:
+        device_num = request.data["device_num"]
+    # device_num 없으면 400에러
+    except:
+        return Response(status=400)
+    
+    # device_num 있으면..
+    try:
+        device = Device.objects.get(id=device_num)
+    # 신규 기기 등록
+    except:
+        device = Device.objects.create(id=device_num)
+    return Response(status=200)
+    
 # 강아지 등록
 """
 해당 기기에 기존에 등록된 정보가 있다면 그 정보 불러오고
 없다면 생성(Dog model)
 """
+@swagger_auto_schema(
+    operation_summary='강아지 정보등록',
+    method='post',
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            "name": openapi.Schema(type=openapi.TYPE_STRING),
+            "age": openapi.Schema(type=openapi.TYPE_INTEGER),
+            "breed": openapi.Schema(type=openapi.TYPE_STRING),
+            "height": openapi.Schema(type=openapi.TYPE_FLOAT),
+            "weight": openapi.Schema(type=openapi.TYPE_FLOAT),
+            },
+        required=["name", "age", "breed"]
+        ),
+    manual_parameters=[
+        openapi.Parameter(
+            'Token',
+            openapi.IN_HEADER,
+            description='JWT',
+            type=openapi.TYPE_STRING,
+            required=True
+            )
+        ]
+    )
+@api_view(['POST'])
+def dog_apply(request, device_id):
+    user = is_logged_in(request)
+
+    breed = request.data["breed"]
+    name = request.data["name"]
+    profile = request.data.get("profile")
+    age = request.data["age"]
+    height = request.data.get("height")
+    weight = request.data.get("weight")
+    breed = Breed.objects.get(name=breed)
+    # 강아지는 한국식으로 안세요.
+    birthyear = date.today().year - age
+    dog = Dog.objects.create(name=name, breed=breed, birthyear=birthyear)
+    user.dogs.add(dog)
+    
+    if height is not None or weight is not None:
+        doginfo = DogInfo.objects.create(height=height, weight=weight)
+        dog.doginfo_set.add(doginfo)
+    return Response(status=201)
