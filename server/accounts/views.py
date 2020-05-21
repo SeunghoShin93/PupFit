@@ -53,9 +53,7 @@ class SingleUser(APIView):
         except:  # 로그인 되어있지 않으면 회원가입 진행
             serializers = SignUpserializers(data=request.data)
             serializers.is_valid(raise_exception=True)
-            user = serializers.save()
-            user.set_password(serializers.data['password'])
-            user.save()
+            user = get_user_model().objects.create_user(**serializers.data)
             payload = PayloadSerializers(user)
             encoded = jwt.encode(payload.data, settings.SECRET_KEY, algorithm='HS256')
             return Response({'token': encoded}, status=200)
