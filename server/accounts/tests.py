@@ -1,9 +1,12 @@
 from django.conf import settings
 from django.test import RequestFactory, TestCase
 from django.contrib.auth import get_user_model
-from .views import check_duplicate_email, login, SingleUser
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APIRequestFactory, force_authenticate, APIRequestFactory, APITestCase, APIClient
+from .views import check_duplicate_email, login, SingleUser, device, dog_apply
 
 import jwt, json
+from .models import *
 
 User = get_user_model()
 
@@ -49,7 +52,7 @@ class LoginTests(TestCase):
             'email': 'user1@test.com',
             'password': '123456'
         }
-        request = self.factory.post('accounts/login/', data=json.dumps(login_data), content_type='application/json')
+        
         response = login(request)
         self.assertEqual(response.status_code, 200)
         decoded = jwt.decode(response.data['token'], settings.SECRET_KEY, algorithms=['HS256'])
@@ -72,19 +75,9 @@ class LoginTests(TestCase):
 class SignUpTests(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        self.signup_data = {
-            'username': 'user1', 'email': 'user1@test.com', 'password': '123456'
-        }
-        self.user = User.objects.create_user(**self.singup_data)
-        request = self.factory.post(
-            'accounts/user/',
-            data=json.dumps({'email': 'user1@test.com', 'password': '123456'}),
-            content_type='application/json',
+        self.user = User.objects.create_user(
+            username='user1', email='user1@test.com', password='123456'
         )
-        response = login(request)
-        self.assertEqual(response.status_code, 200)
-        decoded = jwt.decode(response.data['token'], settings.SECRET_KEY, algorithms=['HS256'])
-        self.jwt = decoded['token']
     
     def test_new_user_signup_without_logged_in(self):
         """
@@ -96,7 +89,7 @@ class SignUpTests(TestCase):
             'password': '123456'
         }
         request = self.factory.post(
-            'accounts/user/', data=json.dumps(signup_data), content_type='application/json',
+            'accounts/login/', data=json.dumps(login_data), content_type='application/json',
         )
         response = SingleUser().post(request)
         self.assertEqual(response.status_code, 200)
@@ -106,16 +99,11 @@ class SignUpTests(TestCase):
         self.assertEqual(user.username, request.data['username'])
         self.assertEqual(user.check_password(request.data['password']), True)
 
-    def test_signup_with_logged_in_user(self):
+    def adsf(self):
         """
         로그인 되어있을 때
         """
-        request = self.factory.post(
-            'accounts/user/', data=json.dumps(**self.signup_data), content_type='application/json',
-            header={'token': self.jwt}
-        )
-        response = SingleUser().post(request)
-        self.assertEqual(response.status_code, 403)
+        pass
 
     def asfd(self):
         """
@@ -129,13 +117,13 @@ class SignUpTests(TestCase):
         """
         pass
 
-class DeviceApiTests(TestCase):
+class DeviceTests(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.user = User.objects.create_user(
             username='user1', email='user1@test.com', password='123456'
         )
-    
+
     def test_new_device(self):
         """
         새로운 유저 기기 최초등록
@@ -143,6 +131,50 @@ class DeviceApiTests(TestCase):
         device_data = {
             "device_num": 1234,
         }
+        request = self.factory.post(
+            'accounts/device/', data=json.dumps(device_data), content_type='application/json'
+            )
+        response = device(request)
+        device_id = Device.objects.get(id=device_data["device_num"])
+        self.asserEqual(device_id.id, request.data["device_num"])
 
     def test_exist_device(self):
+        """
+        기존에 등록된 기기가 있을 때
+        """
+        pass
+
+class DogApplyTests(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username='user1', email='user1@test.com', password='123456'
+        )
+
+    def test_new_dog_apply(self):
+        """
+        기기에 저장된 강아지 정보가 없을 때
+        """
+        dog_data = {
+            "device_id": 1234,
+            "name": "hongsi",
+            "breed": "보더 콜리",
+            "age": 5,
+            "height": 50,
+            "weight": 26
+        }
+        token = Token.objects.get(user__username='user1')
+        client = APIClient(HTTP_AUTHORIZATION='Token ' + token.key)
+        # response = client.get('/patientFull/1/',headers={'Authorization': 'Token ' + token.key})
+        request = self.factory.post(
+            'accounts/dogapply/', data=json.dumps(dog_data), content_type='application/json',
+            headers={'Authorization': 'Token ' + token.key}
+            )
+        response = dog_apply(request)
+        self.assertEqual(response.status_code, 201)
+
+    def test_exist_dog_apply(self):
+        """
+        이미 기기에 저장된 강아지 정보가 있을 때
+        """
         pass
