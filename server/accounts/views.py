@@ -143,7 +143,7 @@ def check_duplicate_email(request, email):
     request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
-            "device_num": openapi.Schema(type=openapi.TYPE_INTEGER),
+            "device_num": openapi.Schema(type=openapi.TYPE_NUMBER),
             },
         required=["device_num"]
         ),
@@ -189,10 +189,10 @@ def device(request):
         type=openapi.TYPE_OBJECT,
         properties={
             "name": openapi.Schema(type=openapi.TYPE_STRING),
-            "age": openapi.Schema(type=openapi.TYPE_INTEGER),
+            "age": openapi.Schema(type=openapi.TYPE_NUMBER),
             "breed": openapi.Schema(type=openapi.TYPE_STRING),
-            "height": openapi.Schema(type=openapi.TYPE_FLOAT),
-            "weight": openapi.Schema(type=openapi.TYPE_FLOAT),
+            "height": openapi.Schema(type=openapi.TYPE_NUMBER),
+            "weight": openapi.Schema(type=openapi.TYPE_NUMBER),
             },
         required=["name", "age", "breed"]
         ),
