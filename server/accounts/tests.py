@@ -114,3 +114,21 @@ class SignUpTests(TestCase):
         로그인X, Username이 중복될 때
         """
         pass
+
+class DeviceApiTests(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username='user1', email='user1@test.com', password='123456'
+        )
+    
+    def test_new_device(self):
+        """
+        새로운 유저 기기 최초등록
+        """
+        device_data = {
+            "device_num": 1234,
+        }
+
+    def test_exist_device(self):
+        pass
