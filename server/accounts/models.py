@@ -16,7 +16,7 @@ class Breed(models.Model):
 
 class Dog(models.Model):
     breed = models.ForeignKey(to=Breed, on_delete=models.PROTECT)
-    device = models.OneToOneField(Device, on_delete=models.PROTECT, primary_key=True)
+    device = models.OneToOneField(Device, on_delete=models.PROTECT)
     name = models.CharField(max_length=50)
     profile = models.ImageField()
     birthyear = models.IntegerField()
