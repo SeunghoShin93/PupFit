@@ -193,8 +193,9 @@ def device(request):
             "breed": openapi.Schema(type=openapi.TYPE_STRING),
             "height": openapi.Schema(type=openapi.TYPE_NUMBER),
             "weight": openapi.Schema(type=openapi.TYPE_NUMBER),
+            "device_id": openapi.Schema(type=openapi.TYPE_NUMBER)
             },
-        required=["name", "age", "breed"]
+        required=["name", "age", "breed", "device_id"]
         ),
     manual_parameters=[
         openapi.Parameter(
@@ -207,19 +208,23 @@ def device(request):
         ]
     )
 @api_view(['POST'])
-def dog_apply(request, device_id):
+def dog_apply(request):
     user = is_logged_in(request)
 
     breed = request.data["breed"]
     name = request.data["name"]
-    profile = request.data.get("profile")
     age = request.data["age"]
+    device_id = request.data["device_id"]
+    profile = request.data.get("profile")
     height = request.data.get("height")
     weight = request.data.get("weight")
+
     breed = Breed.objects.get(name=breed)
     # 강아지는 한국식으로 안세요.
     birthyear = date.today().year - age
-    dog = Dog.objects.create(name=name, breed=breed, birthyear=birthyear)
+    dog = Dog.objects.create(
+        device_id=device_id, name=name, breed=breed, birthyear=birthyear
+    )
     user.dogs.add(dog)
     
     if height is not None or weight is not None:

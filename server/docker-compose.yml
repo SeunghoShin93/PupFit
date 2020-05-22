@@ -29,6 +29,7 @@ services:
       - -c
       - |
         pip install -r requirements.txt
+        python manage.py makemigrations
         python manage.py migrate
         python manage.py loaddata data/breeds.json
         ./wait-for-it.sh db:3306 -t 20

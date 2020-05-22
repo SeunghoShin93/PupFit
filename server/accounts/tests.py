@@ -49,7 +49,7 @@ class LoginTests(TestCase):
             'email': 'user1@test.com',
             'password': '123456'
         }
-        
+        request = self.factory.post('accounts/login/', data=json.dumps(login_data), content_type='application/json')
         response = login(request)
         self.assertEqual(response.status_code, 200)
         decoded = jwt.decode(response.data['token'], settings.SECRET_KEY, algorithms=['HS256'])
@@ -72,9 +72,19 @@ class LoginTests(TestCase):
 class SignUpTests(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        self.user = User.objects.create_user(
-            username='user1', email='user1@test.com', password='123456'
+        self.signup_data = {
+            'username': 'user1', 'email': 'user1@test.com', 'password': '123456'
+        }
+        self.user = User.objects.create_user(**self.singup_data)
+        request = self.factory.post(
+            'accounts/user/',
+            data=json.dumps({'email': 'user1@test.com', 'password': '123456'}),
+            content_type='application/json',
         )
+        response = login(request)
+        self.assertEqual(response.status_code, 200)
+        decoded = jwt.decode(response.data['token'], settings.SECRET_KEY, algorithms=['HS256'])
+        self.jwt = decoded['token']
     
     def test_new_user_signup_without_logged_in(self):
         """
@@ -86,8 +96,7 @@ class SignUpTests(TestCase):
             'password': '123456'
         }
         request = self.factory.post(
-            'accounts/login/', data=json.dumps(login_data), content_type='application/json',
-            header
+            'accounts/user/', data=json.dumps(signup_data), content_type='application/json',
         )
         response = SingleUser().post(request)
         self.assertEqual(response.status_code, 200)
@@ -97,11 +106,16 @@ class SignUpTests(TestCase):
         self.assertEqual(user.username, request.data['username'])
         self.assertEqual(user.check_password(request.data['password']), True)
 
-    def adsf(self):
+    def test_signup_with_logged_in_user(self):
         """
         로그인 되어있을 때
         """
-        pass
+        request = self.factory.post(
+            'accounts/user/', data=json.dumps(**self.signup_data), content_type='application/json',
+            header={'token': self.jwt}
+        )
+        response = SingleUser().post(request)
+        self.assertEqual(response.status_code, 403)
 
     def asfd(self):
         """
