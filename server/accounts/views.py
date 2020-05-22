@@ -54,7 +54,7 @@ class SingleUser(APIView):
         try:
             is_logged_in(request)
         except:  # 로그인 되어있지 않으면 회원가입 진행
-            serializers = SignUpserializers(data=request.data)
+            serializers = SignUpserializers(data=request.POST)
             serializers.is_valid(raise_exception=True)
             user = get_user_model().objects.create_user(**serializers.data)
             payload = PayloadSerializers(user)
@@ -114,7 +114,7 @@ class SingleUser(APIView):
     )
 @api_view(['POST'])
 def login(request):
-    user = authenticate(request=request, email=request.data.get('email'), password=request.data.get('password'))
+    user = authenticate(request=request, email=request.POST.get('email'), password=request.POST.get('password'))
     if user is None:
         return Response(status=401)
     payload = PayloadSerializers(user)
@@ -161,7 +161,7 @@ def check_duplicate_email(request, email):
 def device(request):
     user = is_logged_in(request)
     try:
-        device_num = request.data["device_num"]
+        device_num = request.POST["device_num"]
     # device_num 없으면 400에러
     except:
         return Response(status=400)
@@ -211,13 +211,13 @@ def device(request):
 def dog_apply(request):
     user = is_logged_in(request)
 
-    breed = request.data["breed"]
-    name = request.data["name"]
-    age = request.data["age"]
-    device_id = request.data["device_id"]
-    profile = request.data.get("profile")
-    height = request.data.get("height")
-    weight = request.data.get("weight")
+    breed = request.POST["breed"]
+    name = request.POST["name"]
+    age = request.POST["age"]
+    device_id = request.POST["device_id"]
+    profile = request.POST.get("profile")
+    height = request.POST.get("height")
+    weight = request.POST.get("weight")
 
     breed = Breed.objects.get(name=breed)
     # 강아지는 한국식으로 안세요.
