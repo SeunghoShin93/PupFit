@@ -19,8 +19,8 @@ services:
     build: .
     environment:
       - DJANGO_DEBUG=True
-    ports:
-      - '8000:8000'
+    expose:
+      - 8000
     volumes:
       - ./:/usr/src/app/
     working_dir: /usr/src/app
@@ -32,6 +32,16 @@ services:
         python manage.py migrate
         python manage.py loaddata data/breeds.json
         ./wait-for-it.sh db:3306 -t 20
-        python manage.py runserver 0.0.0.0:8000
+        gunicorn pupfit.wsgi:application --bind 0.0.0.0:8000
     depends_on:
       - db
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile_nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/usr/src/app/
+    depends_on:
+      - django
