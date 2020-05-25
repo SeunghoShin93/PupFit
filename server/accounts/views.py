@@ -16,7 +16,10 @@ from drf_yasg import openapi
 import jwt
 
 from .serializers import *
+from .models import Dog, Breed, Device
+from health.models import DogInfo
 
+from datetime import date
 
 def is_logged_in(request):
     try:
@@ -51,11 +54,9 @@ class SingleUser(APIView):
         try:
             is_logged_in(request)
         except:  # 로그인 되어있지 않으면 회원가입 진행
-            serializers = SignUpserializers(data=request.data)
+            serializers = SignUpserializers(data=request.POST)
             serializers.is_valid(raise_exception=True)
-            user = serializers.save()
-            user.set_password(serializers.data['password'])
-            user.save()
+            user = get_user_model().objects.create_user(**serializers.data)
             payload = PayloadSerializers(user)
             encoded = jwt.encode(payload.data, settings.SECRET_KEY, algorithm='HS256')
             return Response({'token': encoded}, status=200)
@@ -112,8 +113,8 @@ class SingleUser(APIView):
         )
     )
 @api_view(['POST'])
-def login(request):	
-    user = authenticate(request=request, email=request.data.get('email'), password=request.data.get('password'))
+def login(request):
+    user = authenticate(request=request, email=request.POST.get('email'), password=request.POST.get('password'))
     if user is None:
         return Response(status=401)
     payload = PayloadSerializers(user)
@@ -126,8 +127,6 @@ def login(request):
     )
 @api_view(['GET'])
 def check_duplicate_email(request, email):
-	if email is None:
-		return Response(data={'email': 'this field is required'}, status=400)
 	try:
 		get_user_model().objects.get(email=email)
 	except:
@@ -136,12 +135,99 @@ def check_duplicate_email(request, email):
 
 # 기기 등록
 """
-로그인 후 기기 등록하고 강아지 정보 입력(Dog 이랑 one to one)
+최초 로그인시, 기기 등록하고 강아지 정보 입력(Dog 이랑 one to one)
 """
+@swagger_auto_schema(
+    operation_summary='기기등록',
+    method='post',
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            "device_num": openapi.Schema(type=openapi.TYPE_NUMBER),
+            },
+        required=["device_num"]
+        ),
+    manual_parameters=[
+        openapi.Parameter(
+            'Token',
+            openapi.IN_HEADER,
+            description='JWT',
+            type=openapi.TYPE_STRING,
+            required=True
+            )
+        ]
+    )
+@api_view(['POST'])
+def device(request):
+    user = is_logged_in(request)
+    try:
+        device_num = request.POST["device_num"]
+    # device_num 없으면 400에러
+    except:
+        return Response(status=400)
+    # device_num 있으면..
+    try:
+        device = Device.objects.get(id=device_num)
+    # 신규 기기 등록
+    except:
+        device = Device.objects.create(id=device_num)
+        return Response(status=200)
+    dog = Dog.objects.get(device=device)
+    user.dogs.add(dog)
+    return Response(status=201)
 
-
+    
 # 강아지 등록
 """
 해당 기기에 기존에 등록된 정보가 있다면 그 정보 불러오고
 없다면 생성(Dog model)
 """
+@swagger_auto_schema(
+    operation_summary='강아지 정보등록',
+    method='post',
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            "name": openapi.Schema(type=openapi.TYPE_STRING),
+            "age": openapi.Schema(type=openapi.TYPE_NUMBER),
+            "breed": openapi.Schema(type=openapi.TYPE_STRING),
+            "height": openapi.Schema(type=openapi.TYPE_NUMBER),
+            "weight": openapi.Schema(type=openapi.TYPE_NUMBER),
+            "device_id": openapi.Schema(type=openapi.TYPE_NUMBER)
+            },
+        required=["name", "age", "breed", "device_id"]
+        ),
+    manual_parameters=[
+        openapi.Parameter(
+            'Token',
+            openapi.IN_HEADER,
+            description='JWT',
+            type=openapi.TYPE_STRING,
+            required=True
+            )
+        ]
+    )
+@api_view(['POST'])
+def dog_apply(request):
+    user = is_logged_in(request)
+
+    breed = request.POST["breed"]
+    name = request.POST["name"]
+    age = request.POST["age"]
+    device_id = request.POST["device_id"]
+    profile = request.POST.get("profile")
+    height = request.POST.get("height")
+    weight = request.POST.get("weight")
+
+    breed = Breed.objects.get(name=breed)
+    # 강아지는 한국식으로 안세요.
+    birthyear = date.today().year - age
+    dog = Dog.objects.create(
+        device_id=device_id, name=name, breed=breed, birthyear=birthyear
+    )
+    user.dogs.add(dog)
+    
+    if height is not None or weight is not None:
+        doginfo = DogInfo.objects.create(height=height, weight=weight)
+        dog.doginfo_set.add(doginfo)
+    return Response(status=201)
