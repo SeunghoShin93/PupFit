@@ -3,10 +3,11 @@ from django.test import RequestFactory, TestCase, Client
 from django.contrib.auth import get_user_model
 from .views import check_duplicate_email, login, SingleUser
 
-import jwt, json
+import jwt, json, requests
 
 User = get_user_model()
 
+BASE_URL = "http://localhost:8000/"
 
 class CheckEmailTests(TestCase):
     def setUp(self):
@@ -106,13 +107,15 @@ class SignUpTests(TestCase):
         """
         로그인 되어있을 때
         """
-        request = self.factory.post(
-            'accounts/user/', data=self.user_data, Token='123'
-        )
-        print(type(request.headers))
-        request.headers['Cookie'] = 'a'
-        print(request.headers)
-        response = SingleUser().post(request)
+        url = f"{BASE_URL}accounts/user/"
+        response = requests.post(url, data=self.user_data, headers={'Token': self.jwt})
+        # request = self.factory.post(
+        #     'accounts/user/', data=self.user_data, Token='123'
+        # )
+        # print(type(request.headers))
+        # request.headers['Cookie'] = 'a'
+        # print(request.headers)
+        # response = SingleUser().post(request)
         self.assertEqual(response.status_code, 403)
 
     def asfd(self):
