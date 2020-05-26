@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIRequestFactory, force_authenticate, APIRequestFactory, APITestCase, APIClient
 from .views import check_duplicate_email, login, SingleUser, device, dog_apply
-
+from accounts.utils import LoginAuthBackend
 import jwt, json
 from .models import *
 
