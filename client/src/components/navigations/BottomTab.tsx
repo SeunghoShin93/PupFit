@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { BottomNavigation, BottomNavigationTab, Icon, Button } from '@ui-kitten/components';
+import { BottomNavigation, BottomNavigationTab, Icon } from '@ui-kitten/components';
+import { State } from 'react-native-gesture-handler';
 
 const HomeIcon = (props) => (
   <Icon {...props} name='home-outline'/>
@@ -24,18 +25,25 @@ const SettingIcon = (props) => (
 
 const useBottomNavigationState = (initialState = 0) => {
   const [selectedIndex, setSelectedIndex] = React.useState(initialState);
+  const dictionary = {
+    0: 'HomeScreen',
+    1: 'ProfileScreen',
+    2: '',
+    3: '',
+    4: ''
+  }
+  // navigation.navigate(dictionary[selectedIndex])
   return { selectedIndex, onSelect: setSelectedIndex };
 };
 
+
 export const BottomTab = () => {
-
-  const topState = useBottomNavigationState();
-  const bottomState = useBottomNavigationState();
-
+  const bottomState = useBottomNavigationState(0);
+  
   return (
     <React.Fragment>
 
-      <BottomNavigation style={styles.bottomNavigation} {...topState}>
+      <BottomNavigation style={styles.bottomNavigation} {...bottomState}>
         <BottomNavigationTab title='홈' icon={HomeIcon}/>
         <BottomNavigationTab title='반려견상태' icon={PulseIcon}/>
         <BottomNavigationTab title='새로고침' icon={RenewIcon}/>
