@@ -1,11 +1,12 @@
 from django.conf import settings
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory, TestCase, Client
 from django.contrib.auth import get_user_model
 from .views import check_duplicate_email, login, SingleUser
 
 import jwt, json
 
 User = get_user_model()
+
 
 class CheckEmailTests(TestCase):
     def setUp(self):
@@ -33,6 +34,7 @@ class CheckEmailTests(TestCase):
         response = check_duplicate_email(request, test_email)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, {'exists': False})
+
 
 class LoginTests(TestCase):
     def setUp(self):
@@ -69,22 +71,18 @@ class LoginTests(TestCase):
         response = login(request)
         self.assertEqual(response.status_code, 401)
 
+
 class SignUpTests(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        self.signup_data = {
+        self.user_data = {
             'username': 'user1', 'email': 'user1@test.com', 'password': '123456'
         }
-        self.user = User.objects.create_user(**self.singup_data)
-        request = self.factory.post(
-            'accounts/user/',
-            data=json.dumps({'email': 'user1@test.com', 'password': '123456'}),
-            content_type='application/json',
-        )
+        User.objects.create_user(**self.user_data)
+        request = self.factory.post('accounts/login/', data=self.user_data)
         response = login(request)
         self.assertEqual(response.status_code, 200)
-        decoded = jwt.decode(response.data['token'], settings.SECRET_KEY, algorithms=['HS256'])
-        self.jwt = decoded['token']
+        self.jwt = response.data['token']
     
     def test_new_user_signup_without_logged_in(self):
         """
@@ -95,25 +93,25 @@ class SignUpTests(TestCase):
             'email': 'user2@test.com',
             'password': '123456'
         }
-        request = self.factory.post(
-            'accounts/user/', data=json.dumps(signup_data), content_type='application/json',
-        )
+        request = self.factory.post('accounts/user/', data=signup_data)
         response = SingleUser().post(request)
         self.assertEqual(response.status_code, 200)
         decoded = jwt.decode(response.data['token'], settings.SECRET_KEY, algorithms=['HS256'])
         user = User.objects.get(pk=decoded['userId'])
-        self.assertEqual(user.email, request.data['email'])
-        self.assertEqual(user.username, request.data['username'])
-        self.assertEqual(user.check_password(request.data['password']), True)
+        self.assertEqual(user.email, signup_data['email'])
+        self.assertEqual(user.username, signup_data['username'])
+        self.assertEqual(user.check_password(signup_data['password']), True)
 
     def test_signup_with_logged_in_user(self):
         """
         로그인 되어있을 때
         """
         request = self.factory.post(
-            'accounts/user/', data=json.dumps(**self.signup_data), content_type='application/json',
-            header={'token': self.jwt}
+            'accounts/user/', data=self.user_data, Token='123'
         )
+        print(type(request.headers))
+        request.headers['Cookie'] = 'a'
+        print(request.headers)
         response = SingleUser().post(request)
         self.assertEqual(response.status_code, 403)
 
