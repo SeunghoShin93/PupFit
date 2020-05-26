@@ -1,38 +1,69 @@
-import React from "react";
+import React from "react"
 import {
   SafeAreaView,
   StyleSheet,
   TouchableWithoutFeedback,
-} from "react-native";
-import { Button, Text, Layout, Input, Icon } from "@ui-kitten/components";
-import { TopBasic } from "../components/navigations/TopBasic";
+} from "react-native"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import * as authActions from "../redux/modules/auth"
+import * as userActions from "../redux/modules/user"
+import { Button, Text, Layout, Input, Icon } from "@ui-kitten/components"
+import { TopBasic } from "../components/navigations/TopBasic"
+import { Map } from "immutable"
 
-const LoginScreen = ({ navigation }) => {
-  const navigateLogin = () => {
-    console.log(navigation);
-    // navigation.navigate('Details');
-  };
-  const AlertIcon = (props: string) => (
-    <Icon {...props} name="alert-circle-outline" />
-  );
+interface LoginProps {
+  navigation: {
+    navigate: Function
+  }
+  form: {
+    email: string
+    password: string
+  }
+  error: string
+  result: Object
+  AuthActions: any
+  UserActions: any
+}
+
+const LoginScreen: React.FC<LoginProps> = (props) => {
+  const { email, password } = props.form
+  const [secureTextEntry, setSecureTextEntry] = React.useState(true)
+  const handleChange = (value: string, name: string) => {
+    const { AuthActions } = props
+    AuthActions.changeInput({
+      name,
+      value,
+      form: "login",
+    })
+  }
+  React.useEffect(() => {
+    console.log("로그인 스크린 렌더링 완료!")
+  })
+  const navigateLogin = () => {}
+  const AlertIcon = (props: any) => {
+    console.log(props)
+    return <Icon {...props} name="alert-circle-outline" />
+  }
   const navigateJoin = () => {
-    navigation.navigate("JoinScreen");
-  };
+    props.navigation.navigate("JoinScreen")
+  }
   const toggleSecureEntry = () => {
-    setSecureTextEntry(!secureTextEntry);
-  };
-  const renderIcon = (props: string) => (
+    setSecureTextEntry(!secureTextEntry)
+  }
+  const renderIcon = (props: any) => (
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
       <Icon {...props} name={secureTextEntry ? "eye-off" : "eye"} />
     </TouchableWithoutFeedback>
-  );
-  const [email, onChangeEmail] = React.useState("");
-  const [password, onChangePassword] = React.useState("");
-  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+  )
+
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>
-        <TopBasic navigation={navigation} prevScreenName="홈으로 돌아가기" />
+        <TopBasic
+          navigation={props.navigation}
+          prevScreenName="홈으로 돌아가기"
+        />
         <Layout style={styles.loginHeader}>
           <Text style={styles.logo} category="h1">
             LOGIN HEADER
@@ -40,7 +71,7 @@ const LoginScreen = ({ navigation }) => {
         </Layout>
         <Layout style={styles.columnFlex}>
           <Input
-            onChangeText={(email) => onChangeEmail(email)}
+            onChangeText={(value) => handleChange(value, "email")}
             caption="이메일 주소를 입력해주세요."
             label="로그인 정보 입력"
             placeholder="puppy@pupfit.com"
@@ -49,7 +80,7 @@ const LoginScreen = ({ navigation }) => {
             style={{ margin: 20, marginBottom: 0 }}
           />
           <Input
-            onChangeText={(password) => onChangePassword(password)}
+            onChangeText={(value) => handleChange(value, "password")}
             caption="비밀번호를 입력해주세요.(6자리 이상)"
             placeholder="******"
             captionIcon={AlertIcon}
@@ -75,6 +106,14 @@ const LoginScreen = ({ navigation }) => {
           >
             로그인
           </Button>
+          <Button
+            style={styles.loginBtn}
+            size="large"
+            status="danger"
+            onPress={navigateLogin}
+          >
+            테스트
+          </Button>
           <SafeAreaView style={styles.container}>
             <Text>퍼핏이 처음이라면?</Text>
             <Button
@@ -90,8 +129,8 @@ const LoginScreen = ({ navigation }) => {
         </Layout>
       </SafeAreaView>
     </>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -126,6 +165,15 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     borderWidth: 2,
   },
-});
-
-export default LoginScreen;
+})
+export default connect(
+  (state) => ({
+    form: state.auth.getIn(["login", "form"]),
+    error: state.auth.getIn(["login", "error"]),
+    result: state.auth.get("result"),
+  }),
+  (dispatch) => ({
+    AuthActions: bindActionCreators(authActions, dispatch),
+    UserActions: bindActionCreators(userActions, dispatch),
+  })
+)(LoginScreen)
