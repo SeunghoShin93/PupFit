@@ -13,6 +13,10 @@ const HomeScreen = ({navigation}) => {
     navigation.navigate('JoinScreen')
   }
 
+  const navigateProfile = () => {
+    navigation.navigate('ProfileScreen')
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Layout style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -22,10 +26,11 @@ const HomeScreen = ({navigation}) => {
       <Layout style={{ flex: 1, flexDirection: 'row', flexWrap: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Button style={styles.button} size="large" status="warning" onPress={navigateLogin}>로그인</Button>
         <Button style={styles.button} size="large" status="danger" onPress={navigateJoin}>회원가입</Button>
+        <Button style={styles.button} size="large" status="info" onPress={navigateProfile}>프로필</Button>
         <Button style={styles.button} size="large" status="primary" onPress={navigateJoin}>기기등록</Button>
         <Button style={styles.button} size="large" status="success" onPress={navigateJoin}>강아지등록</Button>
       </Layout>
-      <BottomTab />
+      
     </SafeAreaView>
   );
 };
