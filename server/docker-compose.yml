@@ -31,6 +31,7 @@ services:
         pip install -r requirements.txt
         python manage.py migrate
         python manage.py loaddata data/breeds.json
+        python manage.py loaddata data/foods.json
         ./wait-for-it.sh db:3306 -t 20
         gunicorn pupfit.wsgi:application --bind 0.0.0.0:8000
     depends_on:
