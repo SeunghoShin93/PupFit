@@ -1,14 +1,20 @@
+import jwt, json, requests
+from time import time
+
 from django.conf import settings
 from django.test import RequestFactory, TestCase, Client
 from django.contrib.auth import get_user_model
+
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIRequestFactory, force_authenticate, APIRequestFactory, APITestCase, APIClient
+
 from .views import check_duplicate_email, login, SingleUser, device, dog_apply
-from accounts.utils import LoginAuthBackend
-import jwt, json
 from .models import *
+from accounts.utils import LoginAuthBackend
+
 
 User = get_user_model()
+BASE_URL = "http://localhost:8000/"
 
 
 class CheckEmailTests(TestCase):
@@ -54,7 +60,6 @@ class LoginTests(TestCase):
             'email': 'user1@test.com',
             'password': '123456'
         }
-        
         response = login(request)
         self.assertEqual(response.status_code, 200)
         decoded = jwt.decode(response.data['token'], settings.SECRET_KEY, algorithms=['HS256'])
@@ -78,29 +83,18 @@ class LoginTests(TestCase):
 class SignUpTests(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        
-        self.user_data = {
-            'username': 'user1', 'email': 'user1@test.com', 'password': '123456'
-        }
-        User.objects.create_user(**self.user_data)
-        request = self.factory.post('accounts/login/', data=self.user_data)
-        response = login(request)
-        self.assertEqual(response.status_code, 200)
-        self.jwt = response.data['token']
+        self.url = f"{BASE_URL}accounts/user/"
 
-    
     def test_new_user_signup_without_logged_in(self):
         """
         로그인X, 새 이메일, 새 username
         """
         signup_data = {
-            'username': 'user2',
-            'email': 'user2@test.com',
+            'username': 'user1',
+            'email': 'user1@test.com',
             'password': '123456'
         }
-
         request = self.factory.post('accounts/user/', data=signup_data)
-
         response = SingleUser().post(request)
         self.assertEqual(response.status_code, 200)
         decoded = jwt.decode(response.data['token'], settings.SECRET_KEY, algorithms=['HS256'])
@@ -109,30 +103,62 @@ class SignUpTests(TestCase):
         self.assertEqual(user.username, signup_data['username'])
         self.assertEqual(user.check_password(signup_data['password']), True)
 
-    def adsf(self):
+    def test_signup_with_logged_in(self):
         """
         로그인 되어있을 때
         """
-        request = self.factory.post(
-            'accounts/user/', data=self.user_data, Token='123'
-        )
-        print(type(request.headers))
-        request.headers['Cookie'] = 'a'
-        print(request.headers)
-        response = SingleUser().post(request)
+        now = int(time())
+        payload = {
+            'userId': 1, 'username': 'user1@test.com', 'iat': now, 'exp': now + 7200000
+        }
+        encoded = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+        signup_data = {
+            'username': 'user1',
+            'email': 'user1@test.com',
+            'password': '123456'
+        }
+        
+        response = requests.post(self.url, data=signup_data, headers={'Token': encoded})
         self.assertEqual(response.status_code, 403)
 
-    def asfd(self):
+    def test_signup_with_duplicate_email(self):
         """
         로그인X, 이메일이 중복될 때
         """
-        pass
+        signup_data = {
+            'username': 'user1',
+            'email': 'user1@test.com',
+            'password': '123456'
+        }
+        signup_data2 = {
+            'username': 'user2',
+            'email': 'user1@test.com',
+            'password': '123456'
+        }
+        User.objects.create_user(**signup_data)
+        request = self.factory.post('accounts/user/', data=signup_data2)
+        response = SingleUser().post(request)
+        self.assertEqual(response.status_code, 400)
 
-    def adfasf(self):
+    def test_signup_with_duplicate_username(self):
         """
         로그인X, Username이 중복될 때
         """
-        pass
+        signup_data = {
+            'username': 'user1',
+            'email': 'user1@test.com',
+            'password': '123456'
+        }
+        signup_data2 = {
+            'username': 'user1',
+            'email': 'user2@test.com',
+            'password': '123456'
+        }
+        User.objects.create_user(**signup_data)
+        request = self.factory.post('accounts/user/', data=signup_data2)
+        response = SingleUser().post(request)
+        self.assertEqual(response.status_code, 400)
+        
 
 class DeviceTests(TestCase):
     def setUp(self):
