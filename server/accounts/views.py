@@ -56,11 +56,13 @@ class SingleUser(APIView):
             is_logged_in(request)
         except:  # 로그인 되어있지 않으면 회원가입 진행
             serializers = SignUpserializers(data=request.POST)
+            print('request.headers', request.headers)
             serializers.is_valid(raise_exception=True)
             user = get_user_model().objects.create_user(**serializers.data)
             payload = PayloadSerializers(user)
             encoded = jwt.encode(payload.data, settings.SECRET_KEY, algorithm='HS256')
             return Response({'token': encoded}, status=200)
+        print('로그인 안 되어 있음')
         return Response(status=403)
 
     @swagger_auto_schema(

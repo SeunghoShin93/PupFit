@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from .views import check_duplicate_email, login, SingleUser
 
 import jwt, json, requests
+from time import time
 
 User = get_user_model()
 
@@ -76,22 +77,15 @@ class LoginTests(TestCase):
 class SignUpTests(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        self.user_data = {
-            'username': 'user1', 'email': 'user1@test.com', 'password': '123456'
-        }
-        User.objects.create_user(**self.user_data)
-        request = self.factory.post('accounts/login/', data=self.user_data)
-        response = login(request)
-        self.assertEqual(response.status_code, 200)
-        self.jwt = response.data['token']
-    
+        self.url = f"{BASE_URL}accounts/user/"
+        
     def test_new_user_signup_without_logged_in(self):
         """
         로그인X, 새 이메일, 새 username
         """
         signup_data = {
-            'username': 'user2',
-            'email': 'user2@test.com',
+            'username': 'user1',
+            'email': 'user1@test.com',
             'password': '123456'
         }
         request = self.factory.post('accounts/user/', data=signup_data)
@@ -107,25 +101,55 @@ class SignUpTests(TestCase):
         """
         로그인 되어있을 때
         """
-        url = f"{BASE_URL}accounts/user/"
-        response = requests.post(url, data=self.user_data, headers={'Token': self.jwt})
-        # request = self.factory.post(
-        #     'accounts/user/', data=self.user_data, Token='123'
-        # )
-        # print(type(request.headers))
-        # request.headers['Cookie'] = 'a'
-        # print(request.headers)
-        # response = SingleUser().post(request)
+        now = int(time())
+        payload = {
+            'userId': 1, 'username': 'user1@test.com', 'iat': now, 'exp': now + 7200000
+        }
+        encoded = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+        signup_data = {
+            'username': 'user1',
+            'email': 'user1@test.com',
+            'password': '123456'
+        }
+        
+        response = requests.post(self.url, data=signup_data, headers={'Token': encoded})
         self.assertEqual(response.status_code, 403)
 
     def asfd(self):
         """
         로그인X, 이메일이 중복될 때
         """
-        pass
+        signup_data = {
+            'username': 'user1',
+            'email': 'user1@test.com',
+            'password': '123456'
+        }
+        signup_data2 = {
+            'username': 'user2',
+            'email': 'user1@test.com',
+            'password': '123456'
+        }
+        User.objects.create_user(**signup_data)
+        request = self.factory.post('accounts/user/', data=signup_data2)
+        response = SingleUser().post(request)
+        self.assertEqual(response.status_code, 400)
 
     def adfasf(self):
         """
         로그인X, Username이 중복될 때
         """
-        pass
+        signup_data = {
+            'username': 'user1',
+            'email': 'user1@test.com',
+            'password': '123456'
+        }
+        signup_data2 = {
+            'username': 'user1',
+            'email': 'user2@test.com',
+            'password': '123456'
+        }
+        User.objects.create_user(**signup_data)
+        request = self.factory.post('accounts/user/', data=signup_data2)
+        response = SingleUser().post(request)
+        self.assertEqual(response.status_code, 400)
+        

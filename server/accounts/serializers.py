@@ -26,7 +26,7 @@ class UserSerializers(serializers.ModelSerializer):
 
 class PayloadSerializers(serializers.Serializer):
     now = int(time())
-    userId = serializers.CharField(source='pk')
+    userId = serializers.IntegerField(source='pk')
     username = serializers.CharField()
     iat = serializers.IntegerField(default=now)
     exp = serializers.IntegerField(default=now + 7200000)
