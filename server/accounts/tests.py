@@ -78,6 +78,7 @@ class LoginTests(TestCase):
 class SignUpTests(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
+        
         self.user_data = {
             'username': 'user1', 'email': 'user1@test.com', 'password': '123456'
         }
@@ -96,7 +97,9 @@ class SignUpTests(TestCase):
             'email': 'user2@test.com',
             'password': '123456'
         }
+
         request = self.factory.post('accounts/user/', data=signup_data)
+
         response = SingleUser().post(request)
         self.assertEqual(response.status_code, 200)
         decoded = jwt.decode(response.data['token'], settings.SECRET_KEY, algorithms=['HS256'])
