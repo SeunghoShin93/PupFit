@@ -54,11 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-AUTHENTICATION_BACKENDS = (
-    'accounts.utils.EmailAuthBackend.EmailAuthBackend',
-    # 'accounts.utils.LoginAuthBackend.MyTokenAuthentication',
-    
-    )
+AUTHENTICATION_BACKENDS = ('accounts.utils.EmailAuthBackend.EmailAuthBackend',)
 
 ROOT_URLCONF = 'pupfit.urls'
 
