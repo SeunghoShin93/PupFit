@@ -48,7 +48,7 @@
    $ expo start
    ```
 
-![image-20200528142026021](metro.png)
+![image-20200528142026021](https://github.com/pupfit/project/blob/master/client/metro.PNG?raw=true)
 
 좌측 하단의 Run on Android device / simulator 를 선택하여 시뮬레이터로 실행
 
