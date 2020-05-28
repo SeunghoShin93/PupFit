@@ -20,7 +20,8 @@ import { Provider } from "react-redux"
 import configureStore from "./src/redux/configureStore"
 import { BottomTab } from "./src/components/navigations/BottomTab"
 
-const { Navigator, Screen } = createTabNavigator()
+const { Navigator, Screen } = createBottomTabNavigator();
+
 function App() {
   const store = configureStore()
   return (
