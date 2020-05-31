@@ -2,6 +2,7 @@ import sqlite3
 import serial
 import time
 import logging
+import numpy
 from logging.handlers import RotatingFileHandler
 
 conn = sqlite3.connect('db.sqlite3')
@@ -19,11 +20,10 @@ db.execute('''
     CREATE TABLE IF NOT EXISTS dog_accel (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         datetime DATETIME DEFAULT (datetime('now','localtime')),
-        x INT,
-        y INT,
-        z INT
+        accel FLOAT,
+        level VARCHAR(10)
     );
-''') # 1초당 들어오는 값들의 평균이 저장된다. 임시적으로...음.. 근데 그럼..어쩌지...
+    ''') # 1초당 들어오는 값들의 평균이 저장된다. 임시적으로...음.. 근데 그럼..어쩌지...
 print('running...')
 
 # logger = logging.getLogger(__name__)
@@ -34,7 +34,9 @@ print('running...')
 # logger.addHandler(streamHandler)
 
 ardu = serial.Serial('COM8',9600)
+gps = serial.Serial('COM7', 9600,)
 cnt = 0
+accel_mean = []
 while 1:
     x = []
     y = []
@@ -54,16 +56,34 @@ while 1:
     x_range = abs(max(x)-min(x))
     y_range = abs(max(y)-min(y))
     z_range = abs(max(z)-min(z))
-    try:
-        #sensor로 데이터 받아오기 
-        db.execute(f''' 
-        INSERT INTO dog_status('heartrate','temperature','gpslat','gpslon')
-        VALUES (80, 26, 38.898, 70.002);
-        ''')
-        conn.commit()
-        # t= time.strftime("%Y-%m-%d %I:%M:%S", time.localtime())
-        # logger.info("data inserted"+ t)
-        # time.sleep(5)
-    except Exception as e:
-        # logger.error(e)        
-        break 
+    accel_mean.extend([x_range,y_range,z_range])
+    # print(accel_mean)
+    if len(accel_mean)==180:
+        try:
+            m = numpy.mean(accel_mean)
+            ####여기를 수정해서 강아지의 값을 알아 보자
+            if m>30000:
+                lev='H'
+            elif m>2000: ### 가만히 숨쉬는게 은근히 값이 높을 수도있다....
+                lev = 'M'
+            else:
+                lev = 'L'
+            print('save', m,lev)
+            # db.execute()
+            
+            accel_mean=[]
+        except Exception as e:
+            print(e)
+    # try:
+    #     #sensor로 데이터 받아오기 
+    #     db.execute(f''' 
+    #     INSERT INTO dog_status('heartrate','temperature','gpslat','gpslon')
+    #     VALUES (80, 26, 38.898, 70.002);
+    #     ''')
+    #     conn.commit()
+    #     # t= time.strftime("%Y-%m-%d %I:%M:%S", time.localtime())
+    #     # logger.info("data inserted"+ t)
+    #     # time.sleep(5)
+    # except Exception as e:
+    #     # logger.error(e)        
+    #     break 
