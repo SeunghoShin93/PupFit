@@ -23,7 +23,7 @@ const HomeScreen = ({navigation}) => {
         <Text style={styles.logo} category='h1'>PUPFIT</Text>
         <Text category='s1'>반려견 스마트 헬스케어</Text>
       </Layout>
-      <Layout style={{ flex: 1, flexDirection: 'row', flexWrap: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Layout style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
         <Button style={styles.button} size="large" status="warning" onPress={navigateLogin}>로그인</Button>
         <Button style={styles.button} size="large" status="danger" onPress={navigateJoin}>회원가입</Button>
         <Button style={styles.button} size="large" status="info" onPress={navigateProfile}>프로필</Button>
@@ -37,8 +37,7 @@ const HomeScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: 'row'
   },
   button: {
     margin: 10
