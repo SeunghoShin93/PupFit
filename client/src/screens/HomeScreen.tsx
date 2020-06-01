@@ -56,10 +56,8 @@ const HomeScreen: React.FC<HomeProps> = (props) => {
         </Text>
         <Text category="s1">반려견 스마트 헬스케어</Text>
       </Layout>
-
       <Layout>
         <Text>하이</Text>
-      </Layout>
     </SafeAreaView>
   )
 }

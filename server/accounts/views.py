@@ -51,6 +51,7 @@ class SingleUser(APIView):
         이미 존재하거나 입력 형식 올바르지 않으면 {"입력 필드명": ["에러메시지 1", "에러메시지 2", ...]} 형식의 object와 status 400을 반환합니다.
         사용자가 이미 로그인한 상태이면 status 403을 반환합니다.
         """
+        print(request.headers)
         try:
             is_logged_in(request)
         except:  # 로그인 되어있지 않으면 회원가입 진행
