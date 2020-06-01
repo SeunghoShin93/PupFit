@@ -3,7 +3,7 @@ import serial
 import time
 import logging
 #import numpy
-#from logging.handlers import RotatingFileHandler
+from logging.handlers import RotatingFileHandler
 
 conn = sqlite3.connect('db.sqlite3')
 db = conn.cursor()
@@ -26,12 +26,12 @@ db.execute('''
     ''') # 분당 들어오는 거.
 print('running...')
 
-# logger = logging.getLogger(__name__)
-# logger.setLevel(logging.DEBUG)
-# file_handler = RotatingFileHandler("logs/data.log", mode='a', maxBytes=1024, backupCount=10, encoding=None, delay=0)
-# streamHandler = logging.StreamHandler()
-# logger.addHandler(file_handler)
-# logger.addHandler(streamHandler)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+file_handler = RotatingFileHandler("logs/data.log", mode='a', maxBytes=1024, backupCount=10, encoding=None, delay=0)
+streamHandler = logging.StreamHandler()
+logger.addHandler(file_handler)
+logger.addHandler(streamHandler)
 
 ardu = serial.Serial('/dev/ttyUSB0',9600)
 gps = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) #timeout
@@ -89,6 +89,7 @@ while 1:
         VALUES({gps_lat_lon[0]}, {gps_lat_lon[1]});
         ''')
         conn.commit()
+        logger.info("lat : " + gps_lat_lon[0] + ", long : " + gps_lat_lon[1]) 
     except Exception as e:
         db.execute(f'''
         INSERT INTO dog_gps ('connect')
@@ -96,7 +97,7 @@ while 1:
         ''')
         print(e)
         conn.commit()
-        
+        logger.info("unconnected")
 
         
     if len(accel_mean)==12:
@@ -116,6 +117,7 @@ while 1:
             VALUES ({m}, '{lev}');
             ''')
             conn.commit()
+            logger.info("값 : " + str(m)+" 정도 : " +  lev) 
             accel_mean=[]
         except Exception as e:
             print(e)
