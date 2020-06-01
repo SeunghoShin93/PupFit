@@ -50,12 +50,13 @@ def dms_to_dec(value, dir):
     return "%.9f" % float(round(converted_degree, 8)) 
 
 def lat_long(value):
-    return ['lat : ' + dms_to_dec(value[2], value[3]) , 'long : ' + dms_to_dec(value[4], value[5]) ]
+    return [dms_to_dec(value[2], value[3]) , dms_to_dec(value[4], value[5]) ]
 
 while 1:
     x = []
     y = []
     z = []
+    gps_lat_lon = []
     tm = time.localtime()
     start = tm.tm_sec
     while start+1>time.localtime().tm_sec:
@@ -66,43 +67,55 @@ while 1:
             x.append(c[0])
             y.append(c[1])
             z.append(c[2])
-        except Exception as e:
-            pass 
-        g = gps.readline()
-        try:
+            g = gps.readline()
             gps_str=g.decode()
             if gps_str[:6]=='$GPGGA':
-                print(gps_str)
+                # print(gps_str)
                 gps_list = gps_str.split(',')
-                print(lat_long(gps_list))
+                gps_lat_lon = lat_long(gps_list)
+
         except Exception as e:
-            # print(e)
-            # db를 저장안하고 간다.
-            pass            
-        # print(tm.tm_sec)
+            pass 
         if start==59 and time.localtime().tm_sec==0:
             break
     x_range = abs(max(x)-min(x))
     y_range = abs(max(y)-min(y))
     z_range = abs(max(z)-min(z))
     accel_mean.extend([x_range,y_range,z_range])
-    # print(accel_mean)
     
-    
+    try:
+        db.execute(f'''
+        INSERT INTO dog_gps ('gpslat','gpslon')
+        VALUES({gps_lat_lon[0]}, {gps_lat_lon[1]});
+        ''')
+        conn.commit()
+    except Exception as e:
+        db.execute(f'''
+        INSERT INTO dog_gps ('connect')
+        VALUES ('false');
+        ''')
+        print(e)
+        conn.commit()
+        
+
         
     if len(accel_mean)==30:
         try:
             m = numpy.mean(accel_mean)
+            lev=''
             ####여기를 수정해서 강아지의 값을 알아 보자
-            if m>30000:
+            if m>25000:
                 lev='H'
-            elif m>2000: ### 가만히 숨쉬는게 은근히 값이 높을 수도있다....
+            elif m>3000: ### 가만히 숨쉬는게 은근히 값이 높을 수도있다....
                 lev = 'M'
             else:
                 lev = 'L'
-            print('save', m,lev)
-            # db.execute()
-            
+            # print('save', m,lev)
+            db.execute(f'''
+            INSERT INTO dog_accel('accel','level')
+            VALUES ({m}, '{lev}');
+            ''')
+            conn.commit()
             accel_mean=[]
         except Exception as e:
             print(e)
