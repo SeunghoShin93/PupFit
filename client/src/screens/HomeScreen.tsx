@@ -1,53 +1,86 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import { Button, Text, Layout } from '@ui-kitten/components';
-import {BottomTab} from '../components/navigations/BottomTab'
+import React from "react"
+import { SafeAreaView, StyleSheet } from "react-native"
+import { Button, Text, Layout } from "@ui-kitten/components"
+import { LinearGradient } from "expo-linear-gradient"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import { BottomTab } from "../components/navigations/BottomTab"
 
-const HomeScreen = ({navigation}) => {
+interface HomeProps {
+  navigation: any
+  today: string[]
+}
 
+const HomeScreen: React.FC<HomeProps> = (props) => {
   const navigateLogin = () => {
-    navigation.navigate('LoginScreen');
-  };
+    props.navigation.navigate("LoginScreen")
+  }
 
   const navigateJoin = () => {
-    navigation.navigate('JoinScreen')
+    props.navigation.navigate("JoinScreen")
   }
 
   const navigateProfile = () => {
-    navigation.navigate('ProfileScreen')
+    props.navigation.navigate("ProfileScreen")
   }
-
+  const { today } = props
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Layout style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={styles.logo} category='h1'>PUPFIT</Text>
-        <Text category='s1'>반려견 스마트 헬스케어</Text>
+      <Layout
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          maxHeight: "55%",
+          borderBottomLeftRadius: 50,
+          borderBottomRightRadius: 50,
+          overflow: "hidden",
+        }}
+      >
+        <LinearGradient
+          colors={["#ace0f9", "#4CC2F7"]}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            height: "100%",
+          }}
+        />
+        <Text style={styles.headertoday} category="h1">
+          {today[0]}년 {today[1]}월 {today[2]}일
+        </Text>
+        <Text style={styles.logo} category="h1">
+          홍시의 오늘
+        </Text>
+        <Text category="s1">반려견 스마트 헬스케어</Text>
       </Layout>
-      <Layout style={{ flex: 1, flexDirection: 'row', flexWrap: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Button style={styles.button} size="large" status="warning" onPress={navigateLogin}>로그인</Button>
-        <Button style={styles.button} size="large" status="danger" onPress={navigateJoin}>회원가입</Button>
-        <Button style={styles.button} size="large" status="info" onPress={navigateProfile}>프로필</Button>
-        <Button style={styles.button} size="large" status="primary" onPress={navigateJoin}>기기등록</Button>
-        <Button style={styles.button} size="large" status="success" onPress={navigateJoin}>강아지등록</Button>
+
+      <Layout>
+        <Text>하이</Text>
       </Layout>
-      
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  button: {
-    margin: 10
-  },
   logo: {
-    margin: 5,
-    letterSpacing: 10,
-    fontSize: 50
+    margin: 20,
+    fontSize: 30,
+    color: "#fff",
+    alignSelf: "flex-start",
+  },
+  headertoday: {
+    marginRight: 20,
+    color: "#fff",
+    alignSelf: "flex-end"
   }
-});
+})
 
-export default HomeScreen
+export default connect(
+  (state) => ({
+    today: state.base.get("today"),
+  }),
+  (dispatch) => ({})
+)(HomeScreen)
