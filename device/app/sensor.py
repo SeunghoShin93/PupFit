@@ -2,8 +2,8 @@ import sqlite3
 import serial
 import time
 import logging
-import numpy
-from logging.handlers import RotatingFileHandler
+#import numpy
+#from logging.handlers import RotatingFileHandler
 
 conn = sqlite3.connect('db.sqlite3')
 db = conn.cursor()
@@ -33,8 +33,8 @@ print('running...')
 # logger.addHandler(file_handler)
 # logger.addHandler(streamHandler)
 
-ardu = serial.Serial('COM8',9600)
-gps = serial.Serial('COM7', 9600, timeout=1) #timeout
+ardu = serial.Serial('/dev/ttyUSB0',9600)
+gps = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) #timeout
 cnt = 0
 accel_mean = []
 
@@ -99,9 +99,9 @@ while 1:
         
 
         
-    if len(accel_mean)==30:
+    if len(accel_mean)==12:
         try:
-            m = numpy.mean(accel_mean)
+            m = sum(accel_mean)/len(accel_mean)
             lev=''
             ####여기를 수정해서 강아지의 값을 알아 보자
             if m>25000:
