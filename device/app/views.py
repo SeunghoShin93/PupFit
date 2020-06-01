@@ -4,8 +4,8 @@ from app import app
 from flask_restx import Resource, Api
 
 
-api = Api(app,version='1.0', title='Rsap for Pupfit', description='라즈베리파이에서 센서값 받고 aws로 정제해서 보내주는 API')
-hongsi = 'pupfithonsi'
+api = Api(app,version='1.0', title='Rasp Pi for Pupfit', description='라즈베리파이에서 센서값 받고 aws로 정제해서 보내주는 API')
+hongsi = 'pupfit_hongsi'
 @api.route('/serial')
 # @api.doc(params={'serial_num':'str'})
 class SerialNumber(Resource):
