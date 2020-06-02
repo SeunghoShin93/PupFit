@@ -58,6 +58,7 @@ const HomeScreen: React.FC<HomeProps> = (props) => {
       </Layout>
       <Layout>
         <Text>하이</Text>
+      </Layout>
     </SafeAreaView>
   )
 }
