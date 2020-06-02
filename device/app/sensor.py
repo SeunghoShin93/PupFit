@@ -1,9 +1,13 @@
+import json
 import sqlite3
 import serial
 import time
 import logging
-#import numpy
+import requests
 from logging.handlers import RotatingFileHandler
+
+ardu = serial.Serial('/dev/ttyUSB0',9600)
+gps = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) #timeout
 
 conn = sqlite3.connect('db.sqlite3')
 db = conn.cursor()
@@ -33,10 +37,15 @@ streamHandler = logging.StreamHandler()
 logger.addHandler(file_handler)
 logger.addHandler(streamHandler)
 
-ardu = serial.Serial('/dev/ttyUSB0',9600)
-gps = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) #timeout
 cnt = 0
+cnt_gps = 0
 accel_mean = []
+gps_mean_lat = []
+gps_mean_lon = []
+tmap_lat=[]
+tmap_lon=[]
+sk = ''
+url = 'https://apis.openapi.sk.com/tmap/road/matchToRoads?version={}&appKey={}'.format(1,sk)
 
 def dms_to_dec(value, dir): 
     mPos = value.find(".")-2 
@@ -67,40 +76,43 @@ while 1:
             x.append(c[0])
             y.append(c[1])
             z.append(c[2])
+        except Exception as e:
+            pass 
+        try:
+            # 1초마다 gps 갖고온다.
             g = gps.readline()
             gps_str=g.decode()
             if gps_str[:6]=='$GPGGA':
-                # print(gps_str)
                 gps_list = gps_str.split(',')
                 gps_lat_lon = lat_long(gps_list)
-
-        except Exception as e:
-            pass 
+        except:
+            pass
         if start==59 and time.localtime().tm_sec==0:
             break
-    x_range = abs(max(x)-min(x))
+    x_range = abs(max(x)-min(x)) # 가끔씩 없다는 오류가 뜬다.
     y_range = abs(max(y)-min(y))
     z_range = abs(max(z)-min(z))
     accel_mean.extend([x_range,y_range,z_range])
-    
+    print(gps_lat_lon)
     try:
-        db.execute(f'''
-        INSERT INTO dog_gps ('gpslat','gpslon')
-        VALUES({gps_lat_lon[0]}, {gps_lat_lon[1]});
-        ''')
-        conn.commit()
-        logger.info("lat : " + gps_lat_lon[0] + ", long : " + gps_lat_lon[1]) 
-    except Exception as e:
-        db.execute(f'''
-        INSERT INTO dog_gps ('connect')
-        VALUES ('false');
-        ''')
-        print(e)
-        conn.commit()
-        logger.info("unconnected")
-
-        
-    if len(accel_mean)==12:
+        gps_mean_lat.append(float(gps_lat_lon[0]))
+        gps_mean_lon.append(float(gps_lat_lon[1]))
+        print(gps_mean_lat, cnt_gps)
+        cnt_gps+=1
+    except:
+        cnt_gps+=1
+        pass
+    finally:
+        if cnt_gps>=5 and len(gps_mean_lat):
+            lat = sum(gps_mean_lat)/len(gps_mean_lat)
+            lon = sum(gps_mean_lon)/len(gps_mean_lon)
+            gps_mean_lat=[]
+            gps_mean_lon=[]
+            cnt_gps=0
+            tmap_lat.append(lat)
+            tmap_lon.append(lon)
+            print(tmap_lon) 
+    if len(accel_mean)>=60: #1분
         try:
             m = sum(accel_mean)/len(accel_mean)
             lev=''
@@ -111,7 +123,7 @@ while 1:
                 lev = 'M'
             else:
                 lev = 'L'
-            # print('save', m,lev)
+            print('save', m,lev)
             db.execute(f'''
             INSERT INTO dog_accel('accel','level')
             VALUES ({m}, '{lev}');
@@ -121,16 +133,30 @@ while 1:
             accel_mean=[]
         except Exception as e:
             print(e)
-    # try:
-    #     #sensor로 데이터 받아오기 
-    #     db.execute(f''' 
-    #     INSERT INTO dog_status('heartrate','temperature','gpslat','gpslon')
-    #     VALUES (80, 26, 38.898, 70.002);
-    #     ''')
-    #     conn.commit()
-    #     # t= time.strftime("%Y-%m-%d %I:%M:%S", time.localtime())
-    #     # logger.info("data inserted"+ t)
-    #     # time.sleep(5)
-    # except Exception as e:
-    #     # logger.error(e)        
-    #     break 
+        
+        try:
+            gps_data=''
+            for i in range(len(tmap_lat)):
+                gps_data+=f'{tmap_lon[i]},{tmap_lat[i]}|'
+            print(gps_data)
+            payload = {
+                'responseType':1,
+                'coords':gps_data
+            }
+            response = requests.post(url, params=payload)
+            data = response.json()
+            print(len(data['resultData']['matchedPoints']))
+            for gps_dict in data['resultData']['matchedPoints']:        
+                db.execute(f'''
+                INSERT INTO dog_gps ('gpslat','gpslon')
+                VALUES({gps_dict['matchedLocation']['latitude']}, {gps_dict['matchedLocation']['longitude']});
+                ''')
+                conn.commit()
+                logger.info("save DATA")
+            print('savegps') 
+        except Exception as e:
+            print(e)
+            logger.info("unconnected")
+        finally:
+            tmap_lat=[]
+            tmap_lon=[]
