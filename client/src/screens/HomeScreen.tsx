@@ -30,7 +30,7 @@ const HomeScreen: React.FC<HomeProps> = (props) => {
         style={{
           flex: 1,
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           alignItems: "center",
           maxHeight: "55%",
           borderBottomLeftRadius: 50,
