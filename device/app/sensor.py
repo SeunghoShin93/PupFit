@@ -5,6 +5,9 @@ import logging
 #import numpy
 from logging.handlers import RotatingFileHandler
 
+ardu = serial.Serial('/dev/ttyUSB0',9600)
+gps = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) #timeout
+
 conn = sqlite3.connect('db.sqlite3')
 db = conn.cursor()
 db.execute('''
@@ -33,8 +36,6 @@ streamHandler = logging.StreamHandler()
 logger.addHandler(file_handler)
 logger.addHandler(streamHandler)
 
-ardu = serial.Serial('/dev/ttyUSB0',9600)
-gps = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) #timeout
 cnt = 0
 accel_mean = []
 
@@ -67,6 +68,8 @@ while 1:
             x.append(c[0])
             y.append(c[1])
             z.append(c[2])
+
+            # 1초마다 gps 갖고온다.
             g = gps.readline()
             gps_str=g.decode()
             if gps_str[:6]=='$GPGGA':
@@ -91,16 +94,9 @@ while 1:
         conn.commit()
         logger.info("lat : " + gps_lat_lon[0] + ", long : " + gps_lat_lon[1]) 
     except Exception as e:
-        db.execute(f'''
-        INSERT INTO dog_gps ('connect')
-        VALUES ('false');
-        ''')
-        print(e)
-        conn.commit()
         logger.info("unconnected")
-
         
-    if len(accel_mean)==12:
+    if len(accel_mean)>=180: #1분
         try:
             m = sum(accel_mean)/len(accel_mean)
             lev=''
