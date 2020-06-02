@@ -44,7 +44,7 @@ gps_mean_lat = []
 gps_mean_lon = []
 tmap_lat=[]
 tmap_lon=[]
-sk = 'l7xxa9c17e31eb7f411aa877231d3690a27a'
+sk = ''
 url = 'https://apis.openapi.sk.com/tmap/road/matchToRoads?version={}&appKey={}'.format(1,sk)
 
 def dms_to_dec(value, dir): 
