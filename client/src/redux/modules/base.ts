@@ -13,7 +13,8 @@ const initialState = Map({
   header: Map({
     visible: true,
   }),
-  today: [yyyy,mm,dd]
+  today: [yyyy,mm,dd],
+  weatherKey: '0144ffa69b4e046111216cbc03bd23c0'
 });
 
 export default handleActions(
