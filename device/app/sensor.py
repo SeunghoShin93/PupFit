@@ -6,8 +6,6 @@ import logging
 import requests
 from logging.handlers import RotatingFileHandler
 
-ardu = serial.Serial('/dev/ttyUSB0',9600)
-gps = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) #timeout
 
 conn = sqlite3.connect('db.sqlite3')
 db = conn.cursor()
@@ -29,6 +27,9 @@ db.execute('''
     );
     ''') # 분당 들어오는 거.
 print('running...')
+
+ardu = serial.Serial('/dev/ttyUSB0',9600)
+gps = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) #timeout
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
