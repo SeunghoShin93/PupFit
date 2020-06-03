@@ -10,7 +10,7 @@ const MapScreen = ({ navigation }) => {
     try {
       await Location.requestPermissionsAsync()
       const location = await Location.getCurrentPositionAsync()
-      console.log(location)
+      console.log(location.coords.latitude, location.coords.longitude)
     } catch (error) {
       Alert.alert("현재 위치 정보를 가져올 수 없습니다.", "슬프네요.")
     }

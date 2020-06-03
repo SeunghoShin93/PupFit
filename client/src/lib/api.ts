@@ -57,3 +57,7 @@ export const postReview = (
 
 export const getRand = () =>
   axios.get(`${BASE_URL}/perfumes/famous?gender=2&sample=1`)
+
+
+// weather 
+export const getCurrentWeather = (lat:number,lon:number,key:string) => axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`)

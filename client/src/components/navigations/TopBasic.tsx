@@ -1,30 +1,34 @@
 import React from "react";
-import {
-  Icon,
-  Text,
-  TopNavigation,
-  TopNavigationAction,
-} from "@ui-kitten/components";
+import { Layout,  Text } from '@ui-kitten/components';
+import { StyleSheet } from 'react-native';
 
 interface TopBasicProps {
-  prevScreenName: string;
+  screenName: string;
   navigation?: any;
 }
 
-const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
+export const TopBasic: React.FC<TopBasicProps> = (props) => {
 
-export const TopBasic = ({ prevScreenName, navigation }: TopBasicProps) => {
-  const goBack = () => console.log(navigation.goBack())
-  const BackAction = () => (
-    <TopNavigationAction icon={BackIcon} onPressIn={goBack} />
+
+  return (
+    <Layout style={styles.container} level='1'>
+      <Text style={styles.header}>{props.screenName}</Text>
+    </Layout>
   );
-
-  return <TopNavigation accessoryLeft={BackAction} title={prevScreenName} />;
 };
 
-const TopNavigationStyling = () => (
-  <TopNavigation
-    title={(evaProps) => <Text {...evaProps}>Title</Text>}
-    subtitle={(evaProps) => <Text {...evaProps}>Subtitle</Text>}
-  />
-);
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 10,
+  },
+  header: {
+    backgroundColor: "#fff",
+    borderBottomColor: "#c1c1c1",
+    color: '#000',
+    elevation: 3,
+    borderBottomWidth: 1,
+    textAlign:'center',
+    fontSize: 25,
+    paddingVertical: 5
+  }
+});
