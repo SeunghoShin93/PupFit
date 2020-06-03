@@ -4,7 +4,7 @@ import { Button, Text, Layout } from "@ui-kitten/components"
 import * as Location from "expo-location"
 import MapView, {Marker} from "react-native-maps"
 
-const MapScreen = ({ navigation }) => {
+const MapScreen = ({  }) => {
   const [userMarker, setUserMarker] = useState(null)
   const getLocation = async () => {
     try {
@@ -15,27 +15,30 @@ const MapScreen = ({ navigation }) => {
       Alert.alert("현재 위치 정보를 가져올 수 없습니다.", "슬프네요.")
     }
   }
+
   useEffect(() => {
     getLocation()
     // 강아지 위치를 가져와서 MapView의 initialRegion으로 설정
     // 사용자 위치를 가져와서 마커로 지정
   })
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Text>Map</Text>
       <MapView
         style={styles.mapStyle}
         initialRegion={{
-          latitude: 34.8401954,
-          longitude: 128.5062913,
-          latitudeDelta: 0.0922,
+          latitude: 36.348310901195,
+          longitude: 127.29743274887,
+          latitudeDelta: 0.0045,
           longitudeDelta: 0.0421,
         }}
       >
         <Marker
-          coordinate={{latitude:34.8401954,longitude:128.5062913}}
+          coordinate={{latitude:36.348310901195,longitude:127.29743274887}}
           title={'현재위치'}
           description={'사용자의 현재 위치입니다.'}
+          onPress={() => console.log('haha')}
         />
       </MapView>
     </SafeAreaView>
