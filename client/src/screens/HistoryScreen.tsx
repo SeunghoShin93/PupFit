@@ -17,7 +17,9 @@ import {
   ViewPager,
   Tab,
   TabView,
+  Card,
 } from "@ui-kitten/components"
+import { bindActionCreators } from "redux"
 import * as Location from "expo-location"
 import MapView, { Marker } from "react-native-maps"
 import { Icon } from "react-native-elements"
@@ -31,44 +33,24 @@ import {
   Path,
 } from "react-native-svg-charts"
 import { Circle } from "react-native-svg"
+import GlobalStyles from './GlobalStyles'
+import { TopBasic } from '../components/navigations/TopBasic'
+import {connect} from 'react-redux'
+import * as snackActions from '../redux/modules/snack'
 interface HistoryProps {
   navigation: any
 }
 
-const HistoryScreen = ({ navigation }) => {
-  useEffect(() => {})
-  // const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
+const HistoryScreen: React.FC<HistoryProps> = (props) => {
+
+  const [feedCount, setFeedCount] = React.useState(0)
   const weight = [27.0, 27.0, 26.8, 26.4, 26.0, 25.8, 25.4]
   const exercise = [3.0, 1.5, 4.0, 3.0, 2.6, 6.0, 1.0]
   const [selectedIndex, setSelectedIndex] = React.useState(0)
-  // const date = ['5/1', '5/10', '5/15', '5/20', '5/25', '6/1']
-  // const data = [
-  //   {
-  //       date: new Date(2015, 5, 1),
-  //       weight: 27.0
-  //   },
-  //   {
-  //       date: new Date(2015, 5, 10),
-  //       weight: 26.8
-  //   },
-  //   {
-  //       date: new Date(2015, 5, 15),
-  //       weight: 26.4
-  //   },
-  //   {
-  //       date: new Date(2015, 5, 20),
-  //       weight: 26.0
-  //   },
-  //   {
-  //       date: new Date(2015, 5, 25),
-  //       weight: 25.8
-  //   },
-  //   {
-  //       date: new Date(2015, 6, 1),
-  //       weight: 25.4
-  //   },
-  // ]
-  // const keys = ['date', ]
+  const colorGradient = (percentage) => {
+    
+  }
+  const colorDivider = ((feedCount / 12) * 255).toFixed(0)
   const BackIcon = (props) => <Icon {...props} name="pie-chart" />
 
   const BackAction = () => <TopNavigationAction icon={BackIcon} />
@@ -99,8 +81,9 @@ const HistoryScreen = ({ navigation }) => {
   const Line = ({ line }) => <Path d={line} stroke={"#0273CC"} fill={"none"} />
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: "rgba(4, 149, 238, 0.08)" }}
+      style={GlobalStyles.droidSafeArea}
     >
+      <TopBasic screenName="HISTORY"/>
       <Layout>
         <TopNavigation accessoryLeft={TopNavigationSimpleUsageShowcase} />
       </Layout>
@@ -216,29 +199,23 @@ const HistoryScreen = ({ navigation }) => {
                 <Text category="p2">마지막 기록: 2020-06-02</Text>
               </Layout>
             </Layout>
-
-            <Layout style={{ marginTop: 20 }}>
-              <Text
-                category="label"
-                style={{
-                  marginStart: 100,
-                  color: "white",
-                  backgroundColor: "black",
-                }}
-              >
-                8 / 10
-              </Text>
-              <ProgressCircle
-                style={{ height: 200 }}
-                progress={0.8}
-                progressWidth={2}
-                progressColor={"rgb(134, 65, 244)"}
-                startAngle={-Math.PI}
-                endAngle={Math.PI}
-                // svg={{ stroke: '#A0ECFD', strokeWidth: 2 }}
-              />
+            <Layout style={{ minHeight: 350 }}>
+              <View style={styles.circleWrapper}>
+                <Card style={styles.card}>
+                  <ProgressCircle
+                    style={{ height: 200 }}
+                    strokeWidth={9}
+                    progress={feedCount / 12}
+                    progressColor={`rgb(${colorDivider},${255-Number(colorDivider)} , 64)`}
+                  />
+                  <Text style={styles.centerText}>{feedCount} / 12 </Text>
+                </Card>
+              </View>
             </Layout>
+            <Button style={{width: 300, height: 50, backgroundColor: "#3459"}} onPress={() => setFeedCount(feedCount+1)}>와 간식이다!!!!!!</Button>
+            <Button style={{width: 300, height: 50, backgroundColor: "#3459"}} onPress={() => setFeedCount(0)}>초기화</Button>
           </Layout>
+          
         </Tab>
         <Tab title="활동량">
           <Layout>
@@ -298,6 +275,34 @@ const HistoryScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   layout: {},
+  card: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  containerTitle: {
+    fontSize: 20,
+    textAlign: "center",
+  },
+  centerText: {
+    textAlign: "center",
+    fontSize: 40,
+    position: "absolute",
+    translateX: 176,
+    translateY: 93,
+  },
+  circleWrapper: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 })
 
-export default HistoryScreen
+export default connect(
+  (state) => ({
+    feedCount: state.snack.get("feedCount"),
+    maximumFeedCount: state.snack.get("maximumFeedCount")
+  }),
+  (dispatch) => ({
+    SnackActions: bindActionCreators(snackActions, dispatch),
+  })
+)(HistoryScreen)
