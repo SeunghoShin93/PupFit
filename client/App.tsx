@@ -5,7 +5,10 @@ import LoginScreen from "./src/screens/LoginScreen"
 import JoinScreen from "./src/screens/JoinScreen"
 import ProfileScreen from "./src/screens/ProfileScreen"
 import MapScreen from "./src/screens/MapScreen"
+import WalkScreen from "./src/screens/WalkScreen"
+import WalkModeScreen from "./src/screens/WalkModeScreen"
 import HistoryScreen from "./src/screens/HistoryScreen"
+import WalkHistoryScreen from "./src/screens/WalkHistoryScreen"
 import { NavigationContainer } from "@react-navigation/native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import {
@@ -30,6 +33,7 @@ const BottomTabBar = ({ navigation, state }) => (
   >
     <BottomNavigationTab title="오늘의 상태" />
     <BottomNavigationTab title="산책" />
+    <BottomNavigationTab title="산책2" />
     <BottomNavigationTab title="프로필" />
     <BottomNavigationTab title="지난 기록" />
   </BottomNavigation>
@@ -40,11 +44,13 @@ const TabNavigator = () => (
 
     <Screen name="HomeScreen" component={HomeScreen} />
     <Screen name="MapScreen" component={MapScreen} />
+    <Screen name="WalkScreen" component={WalkScreen} />
     <Screen name="ProfileScreen" component={ProfileScreen} />
     <Screen name="HistoryScreen" component={HistoryScreen} />
     <Screen name="LoginScreen" component={LoginScreen} />
     <Screen name="JoinScreen" component={JoinScreen} />
-    
+    <Screen name="WalkModeScreen" component={WalkModeScreen} />
+    <Screen name="WalkHistoryScreen" component={WalkHistoryScreen} />
     
   </Navigator>
 )
