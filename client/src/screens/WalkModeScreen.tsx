@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { SafeAreaView, StyleSheet, TouchableOpacity, Alert } from "react-native"
-import { Button, Text, Layout, Spinner, Icon } from "@ui-kitten/components"
+import { Button, Text, Layout, } from "@ui-kitten/components"
 import { TopBasic } from "../components/navigations/TopBasic";
 
 interface WalkModeProps {
