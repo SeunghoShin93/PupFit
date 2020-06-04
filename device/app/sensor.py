@@ -23,7 +23,7 @@ db.execute('''
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         datetime DATETIME DEFAULT (datetime('now','localtime')),
         accel FLOAT,
-        level VARCHAR(10)
+        level INTEGER
     );
     ''') # 분당 들어오는 거.
 print('running...')
@@ -119,11 +119,11 @@ while 1:
             lev=''
             ####여기를 수정해서 강아지의 값을 알아 보자
             if m>25000:
-                lev='H'
+                lev=2
             elif m>3000: ### 가만히 숨쉬는게 은근히 값이 높을 수도있다....
-                lev = 'M'
+                lev = 1
             else:
-                lev = 'L'
+                lev = 0
             print('save', m,lev)
             db.execute(f'''
             INSERT INTO dog_accel('accel','level')
