@@ -168,7 +168,7 @@ while 1:
                 )
             data_dict['gps'] = data_gps
             logger.info("데이터를 불러옴")
-            print('savegps') 
+            print(data_dict) 
         except Exception as e:
             print(e)
             logger.info("unconnected")
