@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { SafeAreaView, StyleSheet, TouchableOpacity, Alert } from "react-native"
 import { Button, Text, Layout, } from "@ui-kitten/components"
 import { TopBasic } from "../components/navigations/TopBasic";
+import axios from 'axios';
 
 interface WalkModeProps {
   navigation: {
@@ -111,6 +112,34 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
     const formatted_date2 = current_datetime2.getHours() + "시" + current_datetime2.getMinutes() + "분" + current_datetime2.getSeconds() + "초";
     setEndTime(formatted_date2);
   }
+  const axios = require('axios');
+
+  const walkDataPost = () => {
+    const data = {
+      starttime: "2020-06-05 22:20:20",
+      big: big,
+      small: small
+    }
+    
+      axios.post('http://192.168.35.197:8000/health/1/walking/', {
+        params: {
+        starttime: "2020-06-05 22:20:20",
+        big: big,
+        small: small
+      }
+      
+    }).then((res) => alert(res)).catch((e) => alert(e))
+    
+    
+    // .then((res) => {
+    //   alert(res)
+    // })
+    // .catch(e => {
+    //   alert(e);
+    //   alert( new Date().toLocaleString())
+    // })
+
+  }
 
   // 산책 종료 : 모든 값 초기화 및 데이터 전송
   const walkModeFinish = () => {
@@ -119,6 +148,7 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
     setTimeout(()=> {finishAlert()}, 1500);
     setTimeout(()=>  {
     neutralizer() }, 2000); 
+    walkDataPost()
        
     }
 

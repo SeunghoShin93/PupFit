@@ -75,14 +75,22 @@ const WalkHistoryMapScreen = ({ route, navigation }) => {
 
 
       <Layout style={styles.info}>
-        <Text>
-        {new Date().getMonth() +1}월 {new Date().getDate()}일 x 번째 산책 {'\n'}
-          산책 시간 : {start}
-          {'\n'}
-          산책 동안 배변 활동
+        <Layout style={styles.infoHeader}>
+            <Text style={{fontSize: 20} } >
+                {new Date().getMonth() +1}월 {new Date().getDate()}일 x 번째 산책
+            </Text>
+        </Layout>
+        <Layout style={styles.infoData}>
+            <Text style={{fontSize: 18}}>
+                
+                산책 시간 : {start}
+                {'\n'}
+                산책한 거리: 0.0km
+                {'\n'}
+                산책 동안 배변 활동
 
-        </Text>
-
+            </Text>
+        </Layout>
       </Layout>
     </SafeAreaView>
   )
@@ -90,7 +98,7 @@ const WalkHistoryMapScreen = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   map: {
-    flex: 2,
+    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
@@ -98,8 +106,23 @@ const styles = StyleSheet.create({
   info: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  infoHeader: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    // marginTop: 30,
+    justifyContent: 'center',
+    borderTopWidth: 3,
+    borderBottomWidth: 3
+  
+  },
+  infoData: {
+    flex: 4,
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+
   },
   mapStyle: {
     width: Dimensions.get("window").width,
