@@ -7,6 +7,7 @@ import {
   Image,
   View,
 } from "react-native"
+import WebView from "react-native-webview"
 import {
   Button,
   Text,
@@ -30,36 +31,83 @@ import {
   YAxis,
   ProgressCircle,
   AreaChart,
+  BarChart,
   Path,
 } from "react-native-svg-charts"
 import { Circle } from "react-native-svg"
-import GlobalStyles from './GlobalStyles'
-import { TopBasic } from '../components/navigations/TopBasic'
-import {connect} from 'react-redux'
-import * as snackActions from '../redux/modules/snack'
+import GlobalStyles from "./GlobalStyles"
+import { TopBasic } from "../components/navigations/TopBasic"
+import { connect } from "react-redux"
+import * as snackActions from "../redux/modules/snack"
+import * as scale from "d3-scale"
+import * as shape from "d3-shape"
+import dateFns from "date-fns"
+import moment from "moment"
+// import {  format, compareAsc } from 'date-fns'
 interface HistoryProps {
   navigation: any
 }
 
 const HistoryScreen: React.FC<HistoryProps> = (props) => {
-
   const [feedCount, setFeedCount] = React.useState(0)
   const weight = [27.0, 27.0, 26.8, 26.4, 26.0, 25.8, 25.4]
+  const data = [
+    {
+      value: 27.0,
+      date: new Date(2018, 0, 2, 17),
+    },
+    {
+      value: 27.0,
+      date: new Date(2018, 0, 2, 17),
+    },
+    {
+      value: 26.8,
+      date: new Date(2018, 0, 2, 17),
+    },
+    {
+      value: 26.4,
+      date: new Date(2018, 0, 2, 17),
+    },
+    {
+      value: 26.0,
+      date: new Date(2018, 0, 2, 17),
+    },
+    {
+      value: 25.8,
+      date: new Date(2018, 0, 2, 17),
+    },
+    {
+      value: 25.4,
+      date: new Date(2018, 0, 2, 17),
+    },
+  ]
   const exercise = [3.0, 1.5, 4.0, 3.0, 2.6, 6.0, 1.0]
+  const snack = [12, 11, 15, 5, 8, 10, 25]
+
   const [selectedIndex, setSelectedIndex] = React.useState(0)
-  const colorGradient = (percentage) => {
-    
-  }
+
+  const colorGradient = (percentage) => {}
   const colorDivider = ((feedCount / 12) * 255).toFixed(0)
-  const BackIcon = (props) => <Icon {...props} name="pie-chart" />
 
-  const BackAction = () => <TopNavigationAction icon={BackIcon} />
-
+  const TabChartIcon = (props) => (
+    <Icon {...props} name="chart-line" type="font-awesome-5" />
+  )
+  const TabSnackIcon = (props) => (
+    <Icon {...props} name="cookie-bite" type="font-awesome-5" />
+  )
+  const TabBallIcon = (props) => (
+    <Icon {...props} name="heartbeat" type="font-awesome-5" />
+  )
+  const NavigationIcon = (props) => (
+    <Icon {...props} name="paw" type="font-awesome-5" />
+  )
+  const NavigationAction = () => <TopNavigationAction icon={NavigationIcon} />
   const TopNavigationSimpleUsageShowcase = () => (
     <TopNavigation
-      accessoryLeft={BackAction}
+      accessoryLeft={NavigationAction}
       title="홍시의 일주일"
       subtitle="일주일 동안의 기록을 한 눈에 확인할 수 있습니다."
+      style={{ backgroundColor: "rgba(4, 149, 238, 0.08)" }}
     />
   )
 
@@ -79,40 +127,66 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
   }
 
   const Line = ({ line }) => <Path d={line} stroke={"#0273CC"} fill={"none"} />
+
+  const CUT_OFF = 20
+  const Labels = ({ x, y, bandwidth, data }) =>
+    data.map((value, index) => (
+      <Text
+        key={index}
+        x={x(index) + bandwidth / 2}
+        y={value < CUT_OFF ? y(value) - 10 : y(value) + 15}
+        fontSize={14}
+        fill={value >= CUT_OFF ? "white" : "black"}
+        alignmentBaseline={"middle"}
+        textAnchor={"middle"}
+      >
+        {value}
+      </Text>
+    ))
+
+  const dataSmall = [50, 10, 40, 95, 85]
+  const axesSvg = { fontSize: 9, fill: "black" }
+  const verticalContentInset = { top: 10, bottom: 10 }
+  const xAxisHeight = 10
   return (
-    <SafeAreaView
-      style={GlobalStyles.droidSafeArea}
-    >
-      <TopBasic screenName="HISTORY"/>
-      <Layout>
-        <TopNavigation accessoryLeft={TopNavigationSimpleUsageShowcase} />
+    <SafeAreaView style={GlobalStyles.droidSafeArea}>
+      <TopBasic screenName="HISTORY" />
+      {/* <Divider style={{ borderColor: '#B3B3B3', borderWidth: 1 }} /> */}
+      <Layout
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          backgroundColor: "rgba(4, 149, 238, 0.08)",
+        }}
+      >
+        <TopNavigation
+          accessoryLeft={TopNavigationSimpleUsageShowcase}
+          style={{ height: "10%", backgroundColor: "rgba(4, 149, 238, 0.08)" }}
+        />
       </Layout>
-      <Divider />
+      {/* <Divider style={{ borderColor: '#B3B3B3', borderWidth: 1 }}/> */}
       <TabView
         selectedIndex={selectedIndex}
         onSelect={(index) => setSelectedIndex(index)}
+        style={{ marginVertical: "3%", borderColor: "black" }}
       >
-        <Tab title="체중">
+        <Tab title="체중" icon={TabChartIcon}>
           <Layout
             style={{ alignItems: "center", marginTop: 10, marginBottom: 10 }}
           >
             <Icon
               name="weight"
               type="font-awesome-5"
-              color="#13A0F2"
+              color="#0495EE"
               size={80}
               style={{ marginBottom: 15 }}
             />
-            {/* 현재 체중 */}
             <Text category="h1" style={{ marginBottom: 5 }}>
               {" "}
               25.4kg
             </Text>
-            {/* 마지막 기록 날짜 */}
             <Text category="p2">마지막 기록: 2020-06-02</Text>
-
-            {/* <Divider/> */}
-            <View style={{ height: 400, padding: 20, flexDirection: "row" }}>
+            <View style={{ height: 300, padding: 20, flexDirection: "row" }}>
               <YAxis
                 data={weight}
                 contentInset={contentInset}
@@ -125,14 +199,13 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
               />
               <View style={{ flex: 1, marginLeft: 10 }}>
                 <LineChart
-                  style={{ height: 600, flex: 1 }}
+                  style={{ height: 300, flex: 1 }}
                   data={weight}
                   // gridMin={0}
-                  svg={{ stroke: "#A0ECFD", strokeWidth: 2 }}
-                  contentInset={{ top: 20, bottom: 20 }}
-                  animate
+                  svg={{ stroke: "#0273CC", strokeWidth: 1 }}
+                  contentInset={{ top: 25, bottom: 25 }}
                 >
-                  <Grid />
+                  <Grid direction={Grid.Direction.HORIZONTAL} />
                   <Decorator />
                 </LineChart>
                 <XAxis
@@ -145,11 +218,10 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
             </View>
           </Layout>
         </Tab>
-        <Tab title="사료 / 간식">
+        <Tab title="간식" icon={TabSnackIcon}>
           <Layout>
             <Layout
               style={{
-                backgroundColor: "black",
                 flexDirection: "row",
                 justifyContent: "center",
                 overflow: "hidden",
@@ -157,10 +229,9 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
             >
               <Layout
                 style={{
-                  backgroundColor: "white",
                   alignItems: "center",
-                  marginLeft: 20,
                   marginRight: 20,
+                  marginLeft: 20,
                 }}
               >
                 <Icon
@@ -170,36 +241,65 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
                   size={80}
                   style={{ marginBottom: 15 }}
                 />
-                {/* 현재 체중 */}
-                <Text category="h3" style={{ marginBottom: 5 }}>
-                  1400g
-                </Text>
-                {/* 마지막 기록 날짜 */}
-                <Text category="p2">마지막 기록: 2020-06-02</Text>
-              </Layout>
-              <Layout
-                style={{
-                  alignItems: "center",
-                  marginRight: 20,
-                  marginLeft: 20,
-                }}
-              >
-                <Icon
-                  name="cookie-bite"
-                  type="font-awesome-5"
-                  color="#13A0F2"
-                  size={80}
-                  style={{ marginBottom: 15 }}
-                />
-                {/* 현재 체중 */}
                 <Text category="h3" style={{ marginBottom: 5 }}>
                   8 번
                 </Text>
-                {/* 마지막 기록 날짜 */}
-                <Text category="p2">마지막 기록: 2020-06-02</Text>
+                <Text category="p2">이번 주 평균 간식 섭취 횟수</Text>
               </Layout>
             </Layout>
-            <Layout style={{ minHeight: 350 }}>
+            {/* <Layout style={{ height: 300 }}> */}
+            <View
+              style={{
+                marginTop: 50,
+                height: 250,
+                // width: "93%",
+                flexDirection: "row",
+                justifyContent: "center",
+                // backgroundColor: "gray"
+              }}
+            >
+              <YAxis
+                data={snack}
+                style={{
+                  // backgroundColor: "red",
+                  flexGrow: 0,
+                  paddingHorizontal: 5,
+                }}
+                svg={axesSvg}
+                min={0}
+                // contentInset={{ top:20, bottom: 20 }}
+                formatLabel={(value, index) => value}
+                numberOfTicks={5}
+              />
+
+              <View style={{ flex: 1 }}>
+                <BarChart
+                  style={{ flex: 1 }}
+                  data={snack}
+                  svg={{ fill: "rgba(4, 149, 238, 0.48)" }}
+                  gridMin={0}
+                  // spacing={0.2}
+                  yMin={0}
+                  // numberOfTicks={5}
+                >
+                  <Grid direction={Grid.Direction.HORIZONTAL} />
+                  <Labels />
+                </BarChart>
+                <XAxis
+                  style={{
+                    marginHorizontal: 0,
+                    height: xAxisHeight,
+                    marginTop: 2,
+                    // backgroundColor: "red"
+                  }}
+                  data={snack}
+                  scale={scale.scaleBand}
+                  svg={Object.assign(axesSvg, { fill: "black" })}
+                />
+              </View>
+            </View>
+            {/* </Layout> */}
+            {/* <Layout style={{ minHeight: 350 }}>
               <View style={styles.circleWrapper}>
                 <Card style={styles.card}>
                   <ProgressCircle
@@ -213,11 +313,10 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
               </View>
             </Layout>
             <Button style={{width: 300, height: 50, backgroundColor: "#3459"}} onPress={() => setFeedCount(feedCount+1)}>와 간식이다!!!!!!</Button>
-            <Button style={{width: 300, height: 50, backgroundColor: "#3459"}} onPress={() => setFeedCount(0)}>초기화</Button>
+            <Button style={{width: 300, height: 50, backgroundColor: "#3459"}} onPress={() => setFeedCount(0)}>초기화</Button> */}
           </Layout>
-          
         </Tab>
-        <Tab title="활동량">
+        <Tab title="활동량" icon={TabBallIcon}>
           <Layout>
             <Layout
               style={{ alignItems: "center", marginTop: 10, marginBottom: 10 }}
@@ -234,7 +333,7 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
                 6 km
               </Text>
               {/* 마지막 기록 날짜 */}
-              <Text category="p2">마지막 기록: 2020-06-02</Text>
+              <Text category="p2">이번 주 평균 활동량</Text>
             </Layout>
             <View style={{ height: 400, padding: 20, flexDirection: "row" }}>
               <YAxis
@@ -300,7 +399,7 @@ const styles = StyleSheet.create({
 export default connect(
   (state) => ({
     feedCount: state.snack.get("feedCount"),
-    maximumFeedCount: state.snack.get("maximumFeedCount")
+    maximumFeedCount: state.snack.get("maximumFeedCount"),
   }),
   (dispatch) => ({
     SnackActions: bindActionCreators(snackActions, dispatch),
