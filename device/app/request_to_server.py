@@ -22,6 +22,14 @@ for row in rows:
             'level' : row[3]
         }
     )
-url = 'http://192.168.99.100:8000/health/saverasp/'
-res = requests.POST(url, params={'data':data_accel})
-print(res.json())
+d = {'accels' : data_accel}
+url = 'http://192.168.35.197:8000/health/1/rasp/'
+print(d)
+print(type(d))
+print(type(json.dumps(d)))
+x = json.dumps(d)
+try:
+    res = requests.post(url, json=d)
+    print(res.status_code)
+except Exception as e:
+    print(e)

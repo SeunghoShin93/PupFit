@@ -9,6 +9,8 @@ interface WalkHistoryProps {
     }
 }
 
+const dummies = []
+
 const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
 
     return (
