@@ -10,8 +10,8 @@ import {
 import WebView from "react-native-webview"
 import {
   Button,
-  Text,
   Layout,
+  Text,
   TopNavigation,
   TopNavigationAction,
   Divider,
@@ -20,6 +20,7 @@ import {
   TabView,
   Card,
 } from "@ui-kitten/components"
+import {Text as SVGText} from 'react-native-svg'
 import { bindActionCreators } from "redux"
 import * as Location from "expo-location"
 import MapView, { Marker } from "react-native-maps"
@@ -128,12 +129,18 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
 
   const Line = ({ line }) => <Path d={line} stroke={"#0273CC"} fill={"none"} />
 
+  const dataSmall = [50, 10, 40, 95, 85]
+  const axesSvg = { fontSize: 9, fill: "black" }
+  const verticalContentInset = { top: 10, bottom: 10 }
+  const xAxisHeight = 10
   const CUT_OFF = 20
-  const Labels = ({ x, y, bandwidth, data }) =>
-    data.map((value, index) => (
-      <Text
+  const Labels = ({ ...props }) => {
+    const {x,y,bandwidth,data} = props
+    const xFinder = (idx) => x(idx) + bandwidth / 2
+    return data.map((value, index) => (
+      <SVGText
         key={index}
-        x={x(index) + bandwidth / 2}
+        x={xFinder(index)}
         y={value < CUT_OFF ? y(value) - 10 : y(value) + 15}
         fontSize={14}
         fill={value >= CUT_OFF ? "white" : "black"}
@@ -141,13 +148,9 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
         textAnchor={"middle"}
       >
         {value}
-      </Text>
+      </SVGText>
     ))
-
-  const dataSmall = [50, 10, 40, 95, 85]
-  const axesSvg = { fontSize: 9, fill: "black" }
-  const verticalContentInset = { top: 10, bottom: 10 }
-  const xAxisHeight = 10
+  }
   return (
     <SafeAreaView style={GlobalStyles.droidSafeArea}>
       <TopBasic screenName="HISTORY" />
