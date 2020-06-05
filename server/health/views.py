@@ -1,3 +1,5 @@
+import time
+
 from django.shortcuts import render, get_object_or_404
 
 from .serializers import *
@@ -20,19 +22,49 @@ from drf_yasg import openapi
 )
 def rasp(request, device_id):
     device = get_object_or_404(Device, pk=device_id)
+    print(request.data)
     try:
         accels = request.data
         for accel in request.data['accels']:
-            print(accel)
+            # print(accel)
             accel['device'] = device.pk
+            accel['datetime'] = str(accel['datetime'])
+            print(accel)
             serializer = ActivitySerializers(data=accel)
             serializer.is_valid()
             serializer.save()
+        
     except Exception as e:
         print(e)
-        return Response({'message':'error !!'})
+        # return Response({'message':'error !!'})
+    
+    try:
+        for gps in request.data['gps']:
+            # print(gps)
+            gps['device'] = device.pk
+            
+            serializer = GpsSerializers(data=gps)
+            serializer.is_valid()
+            serializer.save()
+            print(serializer.data)
+    except Exception as e:
+        print(e)
+        # return Response({'message':})
+
 
     return Response({'message':'성공'})
+
+@api_view(['GET'])
+def walking_active(request, device_id):
+    endtime = time.strftime('%Y-%m-%d %X', time.localtime())
+    device = get_object_or_404(Device, pk=device_id)
+    # gps = Gps.objects.filter(datetime_lte=endtime)
+    gps = Gps.objects.filter(pk=400)
+    print(gps[0].datetime)
+    return Response({'message':gps[0].datetime})
+
+
+
     
 
 
