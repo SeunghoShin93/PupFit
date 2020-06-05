@@ -20,6 +20,9 @@ class Dog(models.Model):
     name = models.CharField(max_length=50)
     profile = models.ImageField(null=True)
     birthyear = models.IntegerField()
+    gender = models.IntegerField(default=0)
+    neutralization = models.BooleanField(default=False)
+    pregnant = models.BooleanField(default=False)
 
 class User(AbstractUser):
     email = models.EmailField(

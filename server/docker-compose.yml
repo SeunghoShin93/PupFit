@@ -10,6 +10,7 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=hongsi
       - MYSQL_ROOT_PASSWORD=hongsi
+      - TZ=Asia/Seoul
     restart: always
     command:
       - --default-authentication-plugin=mysql_native_password
