@@ -25,7 +25,7 @@ class Food(models.Model):
 
 class WalkingStart(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    datetime = models.DateField(auto_now=True)
+    datetime = models.DateTimeField()
 
 class WalkingActive(models.Model):
     walking_start = models.ForeignKey(WalkingStart, on_delete=models.CASCADE)
@@ -33,15 +33,15 @@ class WalkingActive(models.Model):
 
 class WalkingEnd(models.Model):
     walking_start = models.ForeignKey(WalkingStart, on_delete=models.CASCADE)
-    datetime = models.DateField(auto_now=True)
+    datetime = models.DateTimeField()
 
 class Activity(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
     level = models.IntegerField() ## 0,1,2
-    datetime = models.DateField(auto_now=True)
+    datetime = models.DateTimeField()
 
 class Gps(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    datetime = models.DateField(auto_now=True)
+    datetime = models.DateTimeField()
     lat = models.FloatField()
     lon = models.FloatField()
