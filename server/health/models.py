@@ -21,3 +21,27 @@ class Food(models.Model):
     phosphorus = models.FloatField(null=True)
     calcium = models.FloatField(null=True)
     calory = models.FloatField(null=True)
+
+
+class WalkingStart(models.Model):
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    datetime = models.DateField(auto_now=True)
+
+class WalkingActive(models.Model):
+    walking_start = models.ForeignKey(WalkingStart, on_delete=models.CASCADE)
+    kind = models.IntegerField()
+
+class WalkingEnd(models.Model):
+    walking_start = models.ForeignKey(WalkingStart, on_delete=models.CASCADE)
+    datetime = models.DateField(auto_now=True)
+
+class Activity(models.Model):
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    level = models.IntegerField() ## 0,1,2
+    datetime = models.DateField(auto_now=True)
+
+class Gps(models.Model):
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    datetime = models.DateField(auto_now=True)
+    lat = models.FloatField()
+    lon = models.FloatField()
