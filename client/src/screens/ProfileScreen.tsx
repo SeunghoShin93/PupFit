@@ -1,18 +1,10 @@
 import React from "react"
-import {
-  SafeAreaView,
-  StyleSheet,
-  Image
-} from "react-native"
-import {
-  Text,
-  Layout,
-  Input,
-} from "@ui-kitten/components"
-import {BottomTab} from '../components/navigations/BottomTab'
+import { SafeAreaView, StyleSheet, Image, View } from "react-native"
+import { Text, Layout, Input } from "@ui-kitten/components"
+import { BottomTab } from "../components/navigations/BottomTab"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
-import { Icon, Button } from 'react-native-elements'
+import { Icon, SearchBar } from "react-native-elements"
 
 interface ProfileProps {
   navigation: {
@@ -21,6 +13,19 @@ interface ProfileProps {
 }
 
 const ProfileScreen: React.FC<ProfileProps> = (props) => {
+  // const {
+  //   name, age, goal_weight, height, breed,
+  //   gender, desexed, pregnant, snack_allowed, dog_food
+  // } = props.form
+
+  // const handleChange = (value: string, name: string) => {
+  //   const { AuthActions } = props
+  //   AuthActions.changeInput({
+  //     name,
+  //     value,
+  //     form: "login",
+  //   })
+  // }
 
   React.useEffect(() => {
     console.log("프로필 스크린 렌더링 완료!")
@@ -28,205 +33,146 @@ const ProfileScreen: React.FC<ProfileProps> = (props) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Layout
+      <View
         style={{
-          height: 29
+          height: 29,
         }}
-      >
-      </Layout>
-      <Layout
+      />
+      <View
         style={{
           flex: 1,
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          padding: 30,
-          backgroundColor: "#EAF1F3"
+          backgroundColor: "green",
         }}
-      >
-        <Text>프로필 사진 등록 및 변경</Text>
-      </Layout>
-      <Layout
+      />
+      <View style={{ flex: 2, margin: 10 }}>
+        <View
           style={{
-            justifyContent: "flex-start",
-            alignItems: "center",
-            overflow: "hidden",
-            
+            flex: 0.3,
+            flexDirection: "row",
+            justifyContent: "center",
           }}
         >
-          <Input
-            label="이름"
-            placeholder="아이의 이름을 입력해주세요"
-          />
-        </Layout>
-      <Layout
-        style={{
-          flex: 2,
-          flexDirection: "row",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          overflow: "hidden",
-        }}
-      >
-        <Layout
+          <Text category="h1" style={{ textAlignVertical: "bottom" }}>
+            홍시
+          </Text>
+          <Text style={{ textAlignVertical: "bottom" }}>4살 여아</Text>
+        </View>
+        <View
           style={{
             flex: 1,
-            flexDirection: "column",
-            justifyContent: "space-around",
-            alignItems: "center",
-            overflow: "hidden",
-            backgroundColor: "#E89586"
           }}
         >
-          <Layout
+          <View
             style={{
-              flex: 1,
-              backgroundColor: "#E89586"
-            }}
-          >
-            <Input
-              label="나이"
-              placeholder="아이의 나이를 입력해주세요"
-            />
-          </Layout>
-          <Layout
-            style={{
-              flex: 1,
-              backgroundColor: "#E89586"
-            }}
-          >
-            <Input
-              label="견종"
-              placeholder="아이의 견종을 입력해주세요"
-            />
-          </Layout>
-          <Layout
-            style={{
-              flex: 1,
-              backgroundColor: "#E89586"
-            }}
-          >
-            <Input
-              label="체고"
-              placeholder="아이의 체고를 입력해주세요"
-            />
-          </Layout>
-        </Layout>
-        <Layout
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            overflow: "hidden",
-            backgroundColor: "#CCDBF0"
-          }}
-        >
-          <Layout
-            style={{
-              width: "100%",
-              flex: 1,
+              flex: 5,
               flexDirection: "row",
-              justifyContent: "space-around",
-              backgroundColor: "#A9C2C1",
+              height: "80%",
             }}
           >
-            <Text>성별</Text>
-            <Button icon={<Icon name='venus' type="font-awesome-5"/>} />
-            <Button icon={<Icon name='mars' type="font-awesome-5"/>} />
-          </Layout>
-          <Layout
-            style={{
-              flex: 1,
-              backgroundColor: "#A9C2C1",
-            }}
-          >
-            <Button title="중성화" />
-          </Layout>
-          <Layout
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              backgroundColor: "#A9C2C1",
-            }}
-          >
-            <Button title="임신했어요" />
-          </Layout>
-        </Layout>
-      </Layout>
-      <Layout
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-          overflow: "hidden",
-        }}
-      >
-        <Layout
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+              }}
+            >
+              <Layout style={styles.button}>
+                <Text>견종</Text>
+                <Text>보더콜리</Text>
+              </Layout>
+              <Layout style={styles.button}>
+                <Text>체고</Text>
+                <Text>몰라요</Text>
+              </Layout>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+              }}
+            >
+              <Layout style={styles.button}>
+                <Text>중성화 완료</Text>
+              </Layout>
+              <Layout style={styles.button}>
+                <Text>임신 안 했어요</Text>
+              </Layout>
+            </View>
+          </View>
+          <Text>체고를 입력하지 않으면</Text>
+        </View>
+        <View
           style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center"
+            flex: 0.5,
+            flexDirection: "row",
           }}
         >
-          <Input
-            label="현재 체중"
-            placeholder="현재 체중을 입력해주세요"
-          />
-        </Layout>
-        <Layout
+          <View
+            style={{
+              borderTopLeftRadius: 50,
+              borderBottomLeftRadius: 50,
+              marginLeft: 15,
+              borderRightColor: "grey",
+              borderRightWidth: 1,
+              ...styles.weightButton,
+            }}
+          >
+            <Text style={{}}>현재 체중</Text>
+            <Text category="h1">26kg</Text>
+          </View>
+          <View
+            style={{
+              borderTopRightRadius: 50,
+              borderBottomRightRadius: 50,
+              marginRight: 15,
+              ...styles.weightButton,
+            }}
+          >
+            <Text>목표 체중</Text>
+            <Text category="h1">20kg</Text>
+          </View>
+        </View>
+        <View
           style={{
             flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center"
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
-          <Input
-            label="목표 체중"
-            placeholder="목표 체중을 입력해주세요"
-          />
-        </Layout>
-      </Layout>
-      <Layout
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          overflow: "hidden",
-        }}
-      >
-        <Input
-          label="하루 간식 양"
-          placeholder="하루에 간식을 몇 개씩 줄까요?"
-        />
-      </Layout>
-      <Layout
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          overflow: "hidden",
-        }}
-      >
-        <Text>사료</Text>
-      </Layout>
+          <Layout style={styles.button}>
+            <Text>하루 최대 간식 횟수</Text>
+            <Text category="h1">6번</Text>
+          </Layout>
+          <Layout style={styles.button}>
+            <Text>사료 종류</Text>
+            <Text category="h1">어쩌구</Text>
+          </Layout>
+        </View>
+      </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-
+  button: {
+    flex: 1,
+    margin: 10,
+    width: "85%",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    borderColor: "black",
+  },
+  weightButton: {
+    flex: 1,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 10,
+  },
 })
 
 export default connect(
-  (state) => ({
-
-  }),
-  (dispatch) => ({
-
-  })
+  (state) => ({}),
+  (dispatch) => ({})
 )(ProfileScreen)
