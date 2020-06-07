@@ -76,6 +76,18 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
       </>
     )
   };
+  const GpsInfo = (props) => {
+    if (props.walkMode){
+        return null
+    }
+    return (
+      <>
+        <Layout style={{ marginTop: 30}}>
+          <Text style={{ textAlign: 'center'}}> 정확한 위치 측정을 위해 {'\n'}바깥에서 시작 버튼을 눌러주세요!</Text>
+        </Layout>
+      </>
+    )
+  };
 
   const finishAlert = () =>
     Alert.alert(
@@ -116,19 +128,16 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
 
   const walkDataPost = () => {
     const data = {
-      starttime: "2020-06-05 22:20:20",
+      starttime: "2020-06-05 07:17:23",
+      small: small,
       big: big,
-      small: small
+      
     }
     
-      axios.post('http://192.168.35.197:8000/health/1/walking/', {
-        params: {
-        starttime: "2020-06-05 22:20:20",
-        big: big,
-        small: small
-      }
+      axios.post('http://172.30.1.7:8000/health/1/walking/', 
+        data
       
-    }).then((res) => alert(res)).catch((e) => alert(e))
+    ).then((res) => alert(JSON.stringify(res))).catch((e) => alert(e))
     
     
     // .then((res) => {
@@ -182,12 +191,19 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
           /> */}
               
           <TouchableOpacity onPress={onPressWalkModeHandler}>
-            <Text style={styles.circle}>
-              {walkMode ? '산책 중' : '산책 시작'}
-            </Text>
+            <Layout style={styles.circle}>
+              <Layout style={styles.circle4}>
+              <Layout style={styles.circle2}>
+                <Text style={styles.circle3}>
+                {walkMode ? '산책 중' : '산책 시작'}
+                </Text>
+              </Layout>
+              </Layout>
+            </Layout>
         {/* <Spinner style={styles.spinner} size='large'/> */}
           </TouchableOpacity>
           <Layout>
+            <GpsInfo walkMode={walkMode} />
             <Finisher walkMode={walkMode} />
           </Layout>
         </Layout>
@@ -211,28 +227,72 @@ const styles = StyleSheet.create({
   },
   topbar: {
       flex: 1.5,
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
       alignItems: 'center',
       flexDirection: 'column',
       marginTop: 20,
       marginBottom: 30
   },
-  icon: {
-    width: 32,
-    height: 32,
-  },
   circle: {
-    borderWidth: 5, 
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    shadowOffset: {width: 10, height: 5},
+    // borderWidth: 5, 
     borderRadius: 120,
-    borderColor: '#666699',
-    width: 250, 
-    height: 250, 
+    // borderColor: '#13a0f2',
+    // backgroundColor: '#5ec87e',
+    backgroundColor: '#53b56c',
+    width: 219, 
+    height: 219, 
+    fontSize: 35,
+    fontWeight: "bold",
+    marginBottom: 30,
+    lineHeight: 222,
     alignItems: 'center',
     textAlign: 'center',
-    lineHeight: 250,
-    fontSize: 30,
+  },
+  circle2: {
+    shadowOffset: {width: 10, height: 5},
+    backgroundColor: '#5ec87e',
+    // borderWidth: 5, 
+    borderRadius: 100,
+    // borderColor: '#13a0f2',
+    width: 200, 
+    height: 200, 
+    alignItems: 'center',
+    textAlign: 'center',
+    lineHeight: 200,
+    fontSize: 35,
+    // marginTop: 18,
+    color: '#0c65ad',
     fontWeight: "bold",
-    marginBottom: 30
+    
+  },
+  circle3: {
+    alignItems: 'center',
+    textAlign: 'center',
+    lineHeight: 197,
+    fontSize: 35,
+    color: 'white',
+    fontWeight: "bold",
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 10
+    
+  },
+  circle4: {
+    // shadowOffset: {width: 10, height: 5},
+    backgroundColor: '#72d399',
+    // borderWidth: 5, 
+    borderRadius: 130,
+    // borderColor: '#13a0f2',
+    width: 209, 
+    height: 209, 
+    alignItems: 'center',
+    textAlign: 'center',
+    lineHeight: 210,
+    // marginTop: 18,
+
   },
   spinner: {
     alignItems: 'center',

@@ -3,6 +3,7 @@ import { View, SafeAreaView, StyleSheet, SectionList, TouchableOpacity, Alert } 
 import { Layout, Text } from '@ui-kitten/components';
 import Constants from "expo-constants";
 import { TopBasic } from "../../components/navigations/TopBasic";
+import { LinearGradient } from "expo-linear-gradient"
 
 interface WalkHistoryProps {
     navigation: {
@@ -52,8 +53,20 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
     };
     const Item = ({ data }) => (
         <View style={styles.item}>
+                  <LinearGradient
+          colors={["#83a4d4", "#b6fbff"]}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 10,
+            top: 0,
+            height: "160%",
+            borderRadius: 8
+          }}
+        />
           <TouchableOpacity onPress={() => props.navigation.navigate("WalkHistoryMapScreen", {start: data })}>
-            <Text style={styles.title}>{data}</Text>
+            <Text style={styles.title}> 시작 시간 : {data}</Text>
+            <Text style={styles.dist}> 거리 : 0.0km </Text>
           </TouchableOpacity>
         </View>
       );
@@ -85,31 +98,44 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     baseText: {
-        fontFamily: "Cochin",
         fontSize: 16,
         fontWeight: "bold"
 
     },
     item: {
-        backgroundColor: "#6699ff",
+        // backgroundColor: "#13A0F2",
         padding: 20,
-        marginVertical: 8
+        marginVertical: 8,
+        color: 'white',
+        shadowOpacity: 0.24,
+        shadowRadius: 6.27,
+        shadowOffset: {width: 5, height: 8},
+        
     },
-        header: {
+    header: {
         fontSize: 32,
         backgroundColor: "#fff"
     },
     title: {
-        fontSize: 24
+        fontSize: 24,
+        color: 'white',
+        // textShadowColor: 'rgba(0, 0, 0, 0.5)',
+        textShadowOffset: {width: 1, height: 1},
+        textShadowRadius: 10
+    },
+    dist: {
+        fontSize: 20,
+        color: 'white',
+        // textShadowColor: 'rgba(0, 0, 0, 0.5)',
+        textShadowOffset: {width: 1, height: 1},
+        textShadowRadius: 10
     },
     sectionHeader: {
         paddingTop: 2,
         paddingLeft: 10,
         paddingRight: 50,
         paddingBottom: 2,
-        fontSize: 14,
         fontWeight: 'bold',
-        backgroundColor: 'rgba(247,247,247,1.0)',
         marginLeft: 10
       },
 })
