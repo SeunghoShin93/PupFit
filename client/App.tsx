@@ -9,7 +9,7 @@ import WalkScreen from "./src/screens/WalkScreen"
 import WalkModeScreen from "./src/screens/WalkModeScreen"
 import HistoryScreen from "./src/screens/HistoryScreen"
 import WalkHistoryScreen from "./src/screens/WalkHistoryScreen"
-import WalkHistoryMapScreen from "./src/screens/WalkHistoryMapScreen"
+import DogInfoScreen from "./src/screens/DogInfoScreen"
 import { NavigationContainer } from "@react-navigation/native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import {
@@ -37,6 +37,7 @@ const BottomTabBar = ({ navigation, state }) => (
     {/* <BottomNavigationTab title="산책2" /> */}
     <BottomNavigationTab title="프로필" />
     <BottomNavigationTab title="지난 기록" />
+    <BottomNavigationTab title="정보 입력" />
   </BottomNavigation>
 )
 
@@ -48,6 +49,7 @@ const TabNavigator = () => (
     <Screen name="WalkScreen" component={WalkScreen} />
     <Screen name="ProfileScreen" component={ProfileScreen} />
     <Screen name="HistoryScreen" component={HistoryScreen} />
+    <Screen name="DogInfoScreen" component={DogInfoScreen} />
     <Screen name="LoginScreen" component={LoginScreen} />
     <Screen name="JoinScreen" component={JoinScreen} />
     <Screen name="WalkModeScreen" component={WalkModeScreen} />
