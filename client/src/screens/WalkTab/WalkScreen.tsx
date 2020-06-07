@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Layout, Text, Button } from '@ui-kitten/components';
-import { TopBasic } from '../components/navigations/TopBasic'
+import { TopBasic } from '../../components/navigations/TopBasic'
 
 
 interface WalkProps {
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     baseText: {
-        fontFamily: "Cochin",
+        
         fontSize: 20,
         fontWeight: "bold"
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { SafeAreaView, StyleSheet, TouchableOpacity, Alert } from "react-native"
 import { Button, Text, Layout, } from "@ui-kitten/components"
-import { TopBasic } from "../components/navigations/TopBasic";
+import { TopBasic } from "../../components/navigations/TopBasic";
 import axios from 'axios';
 
 interface WalkModeProps {

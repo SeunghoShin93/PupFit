@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, Dimensions, Alert } from "react-native"
 import { Button, Text, Layout } from "@ui-kitten/components"
 import * as Location from "expo-location"
 import MapView, {Marker, Polyline} from "react-native-maps"
-import { TopBasic } from "../components/navigations/TopBasic";
+import { TopBasic } from "../../components/navigations/TopBasic";
 
 const WalkHistoryMapScreen = ({ route, navigation }) => {
 

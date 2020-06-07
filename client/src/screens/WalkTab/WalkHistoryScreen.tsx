@@ -2,7 +2,7 @@ import React from 'react';
 import { View, SafeAreaView, StyleSheet, SectionList, TouchableOpacity, Alert } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import Constants from "expo-constants";
-import { TopBasic } from "../components/navigations/TopBasic";
+import { TopBasic } from "../../components/navigations/TopBasic";
 
 interface WalkHistoryProps {
     navigation: {
