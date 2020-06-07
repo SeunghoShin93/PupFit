@@ -1,10 +1,13 @@
 import React from "react"
-import { SafeAreaView, StyleSheet, Image, View } from "react-native"
+import {
+  SafeAreaView, StyleSheet, Image, View, Alert
+} from "react-native"
 import { Text, Layout, Input } from "@ui-kitten/components"
 import { BottomTab } from "../components/navigations/BottomTab"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import { Icon, SearchBar } from "react-native-elements"
+import { TouchableOpacity } from "react-native-gesture-handler"
 
 interface ProfileProps {
   navigation: {
@@ -26,6 +29,21 @@ const ProfileScreen: React.FC<ProfileProps> = (props) => {
   //     form: "login",
   //   })
   // }
+  const [snackMax, setSnackMax] = React.useState('');
+  const alertSnackMax = () =>
+    Alert.alert(
+      "Alert Title",
+      "My Alert Msg",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
 
   React.useEffect(() => {
     console.log("프로필 스크린 렌더링 완료!")
@@ -40,11 +58,11 @@ const ProfileScreen: React.FC<ProfileProps> = (props) => {
       />
       <View
         style={{
-          flex: 1,
+          flex: 2,
           backgroundColor: "green",
         }}
       />
-      <View style={{ flex: 2, margin: 10 }}>
+      <View style={{ flex: 3, margin: 10 }}>
         <View
           style={{
             flex: 0.3,
@@ -135,17 +153,43 @@ const ProfileScreen: React.FC<ProfileProps> = (props) => {
           style={{
             flex: 1,
             flexDirection: "row",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           <Layout style={styles.button}>
-            <Text>하루 최대 간식 횟수</Text>
-            <Text category="h1">6번</Text>
+            <TouchableOpacity
+              style={{ alignItems: "center" }}
+              onPress={() =>
+                Alert.alert(
+                  "Alert Title",
+                  "My Alert Msg",
+                  [
+                    {
+                      text: "Cancel",
+                      onPress: () => console.log("Cancel Pressed"),
+                      style: "cancel"
+                    },
+                    { text: "OK", onPress: () => console.log("OK Pressed") }
+                  ],
+                  { cancelable: false }
+                )}
+            >
+              <Text>하루 최대 간식 횟수</Text>
+              <Text category="h1">6번</Text>
+              </TouchableOpacity>
           </Layout>
+          
           <Layout style={styles.button}>
-            <Text>사료 종류</Text>
-            <Text category="h1">어쩌구</Text>
+            <TouchableOpacity style={{ alignItems: "center" }} onPress={alertSnackMax}>
+              <Text>사료 종류</Text>
+              <Text category="h1">어쩌구</Text>
+            </TouchableOpacity>
           </Layout>
+            {/* <Input
+              placeholder='Place your Text'
+              value={snackMax}
+              onChangeText={nextValue => setSnackMax(nextValue)}
+            /> */}
         </View>
       </View>
     </SafeAreaView>
