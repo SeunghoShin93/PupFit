@@ -38,15 +38,15 @@ streamHandler = logging.StreamHandler()
 logger.addHandler(file_handler)
 logger.addHandler(streamHandler)
 
+### 서버로 데이터를 보내야하는거.
+url = 'http://192.168.35.197:8000/health/1/rasp/'
+
 cnt = 0
 cnt_gps = 0
 accel_mean = []
 gps_mean_lat = []
 gps_mean_lon = []
-tmap_lat=[]
-tmap_lon=[]
-sk = ''
-url = 'https://apis.openapi.sk.com/tmap/road/matchToRoads?version={}&appKey={}'.format(1,sk)
+
 
 def dms_to_dec(value, dir): 
     mPos = value.find(".")-2 
@@ -90,15 +90,18 @@ while 1:
             pass
         if start==59 and time.localtime().tm_sec==0:
             break
-    x_range = abs(max(x)-min(x)) # 가끔씩 없다는 오류가 뜬다.
-    y_range = abs(max(y)-min(y))
-    z_range = abs(max(z)-min(z))
-    accel_mean.extend([x_range,y_range,z_range])
-    print(gps_lat_lon)
+    try:
+        x_range = abs(max(x)-min(x)) # 가끔씩 없다는 오류가 뜬다.
+        y_range = abs(max(y)-min(y))
+        z_range = abs(max(z)-min(z))
+        accel_mean.extend([x_range,y_range,z_range])
+    except:
+        continue
+    # print(gps_lat_lon)
     try:
         gps_mean_lat.append(float(gps_lat_lon[0]))
         gps_mean_lon.append(float(gps_lat_lon[1]))
-        print(gps_mean_lat, cnt_gps)
+        # print(gps_mean_lat, cnt_gps)
         cnt_gps+=1
     except:
         cnt_gps+=1
@@ -107,57 +110,85 @@ while 1:
         if cnt_gps>=5 and len(gps_mean_lat):
             lat = sum(gps_mean_lat)/len(gps_mean_lat)
             lon = sum(gps_mean_lon)/len(gps_mean_lon)
+            print(lat, lon)
             gps_mean_lat=[]
             gps_mean_lon=[]
             cnt_gps=0
-            tmap_lat.append(lat)
-            tmap_lon.append(lon)
-            print(tmap_lon) 
-    if len(accel_mean)>=60: #1분
+            db.execute(f'''
+            INSERT INTO dog_gps ('gpslat', 'gpslon')
+            VALUES ({lat}, {lon});
+            ''')
+            conn.commit()
+            
+    if len(accel_mean)>=90: #1분
         try:
             m = sum(accel_mean)/len(accel_mean)
-            lev=''
             ####여기를 수정해서 강아지의 값을 알아 보자
-            if m>25000:
-                lev=2
-            elif m>3000: ### 가만히 숨쉬는게 은근히 값이 높을 수도있다....
+            if m>=25000:
+                lev = 2
+            elif m>=3000: ### 가만히 숨쉬는게 은근히 값이 높을 수도있다....
                 lev = 1
             else:
                 lev = 0
-            print('save', m,lev)
+            # print('save', m,lev)
             db.execute(f'''
             INSERT INTO dog_accel('accel','level')
-            VALUES ({m}, '{lev}');
+            VALUES ({m}, {lev});
             ''')
             conn.commit()
-            logger.info("값 : " + str(m)+" 정도 : " +  lev) 
+            logger.info("값 : " + str(m)+" 정도 : " +  str(lev)) 
             accel_mean=[]
         except Exception as e:
             print(e)
-        
+        data_dict = {}
         try:
-            gps_data=''
-            for i in range(len(tmap_lat)):
-                gps_data+=f'{tmap_lon[i]},{tmap_lat[i]}|'
-            print(gps_data)
-            payload = {
-                'responseType':1,
-                'coords':gps_data
-            }
-            response = requests.post(url, params=payload)
-            data = response.json()
-            print(len(data['resultData']['matchedPoints']))
-            for gps_dict in data['resultData']['matchedPoints']:        
-                db.execute(f'''
-                INSERT INTO dog_gps ('gpslat','gpslon')
-                VALUES({gps_dict['matchedLocation']['latitude']}, {gps_dict['matchedLocation']['longitude']});
-                ''')
-                conn.commit()
-                logger.info("save DATA")
-            print('savegps') 
+            #print('check execute@@@@@@@@@@@@@@@@@@@@@@@@@')
+            db.execute('''
+            SELECT * FROM dog_accel;
+            ''')
+            accel_rows = db.fetchall()
+            conn.commit()
+            data_accels = []
+            for accel_row in accel_rows:
+                data_accels.append(
+                    {
+                        'datetime' : accel_row[1],
+                        'level' : accel_row[3]
+                    }
+                )
+            data_dict['accels'] = data_accels
+            db.execute('''
+            SELECT * FROM dog_gps;
+            ''')
+            gps_rows = db.fetchall()
+            conn.commit()
+            data_gps = []
+            for gps_row in gps_rows:
+                data_gps.append(
+                    {
+                        'datetime': gps_row[1],
+                        'lat' : gps_row[3],
+                        'lon' : gps_row[4]
+                    }
+                )
+            data_dict['gps'] = data_gps
+            logger.info("데이터를 불러옴")
+            print(data_dict)
+            print(type(data_dict)) 
         except Exception as e:
             print(e)
-            logger.info("unconnected")
+            logger.info("$$$$$$$$$$unconnected")
         finally:
-            tmap_lat=[]
-            tmap_lon=[]
+            try:
+                print('!!!!!!!!check')
+                res = requests.post(url, json=data_dict)
+                db.execute('''
+                DELETE FROM dog_accel;
+                ''')
+                db.execute('''
+                DELETE FROM dog_gps;
+                ''')
+                conn.commit()
+            except Exception as e:
+                print(e)
+            

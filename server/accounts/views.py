@@ -147,20 +147,10 @@ def check_duplicate_email(request, email):
             "device_num": openapi.Schema(type=openapi.TYPE_NUMBER),
             },
         required=["device_num"]
-        ),
-    manual_parameters=[
-        openapi.Parameter(
-            'Token',
-            openapi.IN_HEADER,
-            description='JWT',
-            type=openapi.TYPE_STRING,
-            required=True
-            )
-        ]
+        )
     )
 @api_view(['POST'])
-def device(request):
-    user = is_logged_in(request)
+def register_device(request):
     try:
         device_num = request.POST["device_num"]
     # device_num 없으면 400에러
@@ -173,8 +163,6 @@ def device(request):
     except:
         device = Device.objects.create(id=device_num)
         return Response(status=200)
-    dog = Dog.objects.get(device=device)
-    user.dogs.add(dog)
     return Response(status=201)
 
     
@@ -197,21 +185,10 @@ def device(request):
             "device_id": openapi.Schema(type=openapi.TYPE_NUMBER)
             },
         required=["name", "age", "breed", "device_id"]
-        ),
-    manual_parameters=[
-        openapi.Parameter(
-            'Token',
-            openapi.IN_HEADER,
-            description='JWT',
-            type=openapi.TYPE_STRING,
-            required=True
-            )
-        ]
+        )
     )
 @api_view(['POST'])
-def dog_apply(request):
-    user = is_logged_in(request)
-
+def register_dog(request):
     breed = request.POST["breed"]
     name = request.POST["name"]
     age = request.POST["age"]
@@ -226,7 +203,6 @@ def dog_apply(request):
     dog = Dog.objects.create(
         device_id=device_id, name=name, breed=breed, birthyear=birthyear
     )
-    user.dogs.add(dog)
     
     if height is not None or weight is not None:
         doginfo = DogInfo.objects.create(height=height, weight=weight)

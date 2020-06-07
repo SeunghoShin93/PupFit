@@ -1,13 +1,13 @@
 from django.db import models
 from accounts.models import *
 
-# Create your models here.
 
 class DogInfo(models.Model):
     dog = models.ForeignKey(to=Dog, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
     weight = models.FloatField(null=True)
-    height = models.FloatField(null=True)
+    snack_cnt = models.FloatField(null=True)
+    walk_distance = models.IntegerField(null=True)
 
 class Food(models.Model):
     category = models.CharField(max_length=20)
@@ -24,24 +24,28 @@ class Food(models.Model):
 
 
 class WalkingStart(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    datetime = models.DateField(auto_now=True)
+    dog = models.ForeignKey(Dog, on_delete=models.CASCADE)
+    datetime = models.DateTimeField()
 
 class WalkingActive(models.Model):
     walking_start = models.ForeignKey(WalkingStart, on_delete=models.CASCADE)
-    kind = models.IntegerField()
+    small = models.IntegerField(default=0)
+    big = models.IntegerField(default=0)
+    distance = models.FloatField(default=0)
+    gps = models.TextField()
+
 
 class WalkingEnd(models.Model):
     walking_start = models.ForeignKey(WalkingStart, on_delete=models.CASCADE)
-    datetime = models.DateField(auto_now=True)
+    datetime = models.DateTimeField()
 
 class Activity(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
     level = models.IntegerField() ## 0,1,2
-    datetime = models.DateField(auto_now=True)
+    datetime = models.DateTimeField()
 
 class Gps(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    datetime = models.DateField(auto_now=True)
+    datetime = models.DateTimeField()
     lat = models.FloatField()
     lon = models.FloatField()
