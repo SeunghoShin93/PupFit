@@ -1,5 +1,6 @@
-import time, json
-from datetime import datetime
+import time, json, requests
+from decouple import config
+from datetime import datetime, date
 
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
@@ -17,6 +18,8 @@ from rest_framework.permissions import AllowAny
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
+sk = config('TMAP_API_KEY')
+url = 'https://apis.openapi.sk.com/tmap/road/matchToRoads?version={}&appKey={}'.format(1,sk)
 # Create your views here.
 @api_view(['POST'])
 @permission_classes((AllowAny,))
@@ -43,15 +46,52 @@ def rasp(request, device_id):
             serializer.save()
     except Exception as e:
         print(e)
-
-
     return Response({'message':'성공'})
 
 @api_view(['POST'])
 @permission_classes((AllowAny, ))
 def walking_active(request, dog_id):
-    endtime = time.strftime('%Y-%m-%d %X', time.localtime())
+    endtime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     dog = Dog.objects.get(pk=dog_id)
+    print(request.data)
+    ### gps 시간별로 뽑아오기.
+    try:
+        startgps = Gps.objects.filter(
+            device=dog.device.pk, 
+            datetime__startswith=str(request.data['starttime'])[:-3])[:1]
+        endgps = Gps.objects.order_by('-pk')[0]
+        gpses = Gps.objects.filter(
+            device=dog.device.pk, 
+            pk__gte=startgps[0].pk,
+            pk__lte=endgps.pk)
+    except Exception as e:
+        print('gps section #############################')
+        print(e)
+        return Response({'error':e})
+    #### tmap api 
+    try:
+        cnt = len(gpses)//90 + 1
+        dist = 0
+        text_gps = ''
+        for i in range(cnt):
+            str_gps=''
+            for gps in gpses[90 * i:90 * (i+1)]:
+                str_gps +=  f'{gps.lon},{gps.lat}|'
+            print(str_gps)
+            payload = {
+                'responseType':1,
+                'coords':str_gps
+            }
+            res = requests.post(url, params=payload)
+            data = res.json()
+            dist += data['resultData']['header']['totalDistance']
+            for g in data['resultData']['matchedPoints']:
+                text_gps += f"{g['matchedLocation']['latitude']},{g['matchedLocation']['longitude']}|"
+        print(dist)
+        print(text_gps)
+    except Exception as e:
+        print(e)
+        return Response({'message':e})
     try:
         serializer = WalkingStartSerializers(data={
             'dog':dog_id, 'datetime':request.data['starttime']
@@ -59,35 +99,28 @@ def walking_active(request, dog_id):
         serializer.is_valid()
         serializer.save()
         walk_id = serializer.data['id']
-        serializer = WalkingActiveSerializers(data={
-            'walking_start':walk_id,
-            'count': request.data['big'],
-            'kind': 0
-        })
-        serializer.is_valid()
-        serializer.save()
         seri = WalkingActiveSerializers(data={
             'walking_start':walk_id,
-            'count': request.data['small'],
-            'kind': 1
+            'small': request.data['small'],
+            'big': request.data['big'],
+            'distance':dist,
+            'gps':text_gps            
         })
         seri.is_valid()
-        seri.save()
-    
-        ### 이 부분에서 tmap리퀘스트 보낸다.
-        serializer = WalkingEndSerializers(data={
-            'datetime' : endtime,
+        seri.save()    
+        serializer_end = WalkingEndSerializers(data={
             'walking_start' : walk_id,
+            'datetime' : endtime
         })
-        serializer.is_valid()
-        serializer.save()
+        serializer_end.is_valid()
+        serializer_end.save()
     except Exception as e:
         print(e)
         return Response({'e':e})
-    return Response({'message':'test'})
+    # return Response({'start':serializer.data,'active':seri.data,'end':serializer_end.data})
+    return Response({'message':'save data !!'})
 
-
-@api_view(['GET'])
+@api_view(['GET']) ### api상의 
 def waliking_list(request):
 
     return Response({'message':'test'})

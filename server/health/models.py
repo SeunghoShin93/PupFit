@@ -29,13 +29,15 @@ class WalkingStart(models.Model):
 
 class WalkingActive(models.Model):
     walking_start = models.ForeignKey(WalkingStart, on_delete=models.CASCADE)
-    kind = models.IntegerField()
-    count = models.IntegerField()
+    small = models.IntegerField(default=0)
+    big = models.IntegerField(default=0)
+    distance = models.FloatField(default=0)
+    gps = models.TextField()
+
 
 class WalkingEnd(models.Model):
     walking_start = models.ForeignKey(WalkingStart, on_delete=models.CASCADE)
     datetime = models.DateTimeField()
-    distance = models.FloatField(default=0)
 
 class Activity(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
