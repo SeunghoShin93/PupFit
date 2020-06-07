@@ -1,6 +1,9 @@
-import time
+import time, json
+from datetime import datetime
 
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+from django.utils import timezone
 
 from .serializers import *
 from .models import *
@@ -22,50 +25,74 @@ from drf_yasg import openapi
 )
 def rasp(request, device_id):
     device = get_object_or_404(Device, pk=device_id)
-    print(request.data)
+    # print(request.data)
     try:
         accels = request.data
         for accel in request.data['accels']:
-            # print(accel)
             accel['device'] = device.pk
-            accel['datetime'] = str(accel['datetime'])
-            print(accel)
             serializer = ActivitySerializers(data=accel)
             serializer.is_valid()
             serializer.save()
-        
     except Exception as e:
         print(e)
-        # return Response({'message':'error !!'})
-    
     try:
         for gps in request.data['gps']:
-            # print(gps)
             gps['device'] = device.pk
-            
             serializer = GpsSerializers(data=gps)
             serializer.is_valid()
             serializer.save()
-            print(serializer.data)
     except Exception as e:
         print(e)
-        # return Response({'message':})
 
 
     return Response({'message':'성공'})
 
-@api_view(['GET'])
-def walking_active(request, device_id):
+@api_view(['POST'])
+@permission_classes((AllowAny, ))
+def walking_active(request, dog_id):
     endtime = time.strftime('%Y-%m-%d %X', time.localtime())
-    device = get_object_or_404(Device, pk=device_id)
-    # gps = Gps.objects.filter(datetime_lte=endtime)
-    gps = Gps.objects.filter(pk=400)
-    print(gps[0].datetime)
-    return Response({'message':gps[0].datetime})
-
-
-
+    dog = Dog.objects.get(pk=dog_id)
+    try:
+        serializer = WalkingStartSerializers(data={
+            'dog':dog_id, 'datetime':request.data['starttime']
+            })
+        serializer.is_valid()
+        serializer.save()
+        walk_id = serializer.data['id']
+        serializer = WalkingActiveSerializers(data={
+            'walking_start':walk_id,
+            'count': request.data['big'],
+            'kind': 0
+        })
+        serializer.is_valid()
+        serializer.save()
+        seri = WalkingActiveSerializers(data={
+            'walking_start':walk_id,
+            'count': request.data['small'],
+            'kind': 1
+        })
+        seri.is_valid()
+        seri.save()
     
+        ### 이 부분에서 tmap리퀘스트 보낸다.
+        serializer = WalkingEndSerializers(data={
+            'datetime' : endtime,
+            'walking_start' : walk_id,
+        })
+        serializer.is_valid()
+        serializer.save()
+    except Exception as e:
+        print(e)
+        return Response({'e':e})
+    return Response({'message':'test'})
 
 
+@api_view(['GET'])
+def waliking_list(request):
 
+    return Response({'message':'test'})
+
+@api_view(['GET'])
+def wlking_detail(request):
+
+    return Response({'message':'test'})

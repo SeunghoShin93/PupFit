@@ -22,11 +22,12 @@ for row in rows:
             'level' : row[3]
         }
     )
-d = {'accels' : data_accel}
+sample = [{'datetime':'2020-06-05 19:39:00','level':2}]
+d = {'accels' : sample}
 url = 'http://192.168.35.197:8000/health/1/rasp/'
 print(d)
 print(type(d))
-print(type(json.dumps(d)))
+#print(type(json.dumps(d)))
 x = json.dumps(d)
 try:
     res = requests.post(url, json=d)
