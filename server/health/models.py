@@ -24,16 +24,18 @@ class Food(models.Model):
 
 
 class WalkingStart(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    dog = models.ForeignKey(Dog, on_delete=models.CASCADE)
     datetime = models.DateTimeField()
 
 class WalkingActive(models.Model):
     walking_start = models.ForeignKey(WalkingStart, on_delete=models.CASCADE)
     kind = models.IntegerField()
+    count = models.IntegerField()
 
 class WalkingEnd(models.Model):
     walking_start = models.ForeignKey(WalkingStart, on_delete=models.CASCADE)
     datetime = models.DateTimeField()
+    distance = models.FloatField(default=0)
 
 class Activity(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
