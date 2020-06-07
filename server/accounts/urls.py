@@ -6,6 +6,6 @@ urlpatterns = [
     path('login/', views.login),
     path('exists/email/<str:email>/', views.check_duplicate_email),
     path('user/', SingleUser.as_view()),
-    path('device/', views.device),
-    path('<int:device_id>/dogapply/', views.dog_apply),
+    path('register/device/', views.register_device),
+    path('register/dog/', views.register_dog),
 ]
