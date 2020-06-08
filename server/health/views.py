@@ -119,7 +119,7 @@ def walking_active(request, dog_id):
     return Response({'message':'save data !!'})
 
 @api_view(['GET']) ### api상의 
-def waliking_list(request, dog_id):
+def walking_list(request, dog_id):
 
     return Response({'message':'test'})
 
@@ -131,10 +131,10 @@ def walking_detail(request, dog_id, walk_id):
 
 @api_view(['GET'])
 def weekly_data(request):
-    category = request.GET["category"]
-    date = date.today()
+    today = date.today()
     delta = timedelta(days=7)
-    weekly_info = DogInfo.objects.filter(date__gte=date-delta, date__lte=date)
-    serializer = DogInfoSerializers(weekly_info).data
+    start_date = today - delta
+    weekly_info = DogInfo.objects.filter(date__gte=str(start_date), date__lte=str(today))
+    serializer = DogInfoSerializers(weekly_info, many=True).data
     return Response(serializer)
 
