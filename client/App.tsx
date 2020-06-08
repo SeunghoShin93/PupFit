@@ -49,11 +49,12 @@ const TabNavigator = () => (
     <Screen name="WalkScreen" component={WalkScreen} />
     <Screen name="ProfileScreen" component={ProfileScreen} />
     <Screen name="HistoryScreen" component={HistoryScreen} />
-    <Screen name="DogInfoScreen" component={DogInfoScreen} />
+    {/* <Screen name="DogInfoScreen" component={DogInfoScreen} /> */}
     <Screen name="LoginScreen" component={LoginScreen} />
     <Screen name="JoinScreen" component={JoinScreen} />
     <Screen name="WalkModeScreen" component={WalkModeScreen} />
     <Screen name="WalkHistoryScreen" component={WalkHistoryScreen} />
+    <Screen name="WalkHistoryMapScreen" component={WalkHistoryMapScreen} />
     
   </Navigator>
 )
