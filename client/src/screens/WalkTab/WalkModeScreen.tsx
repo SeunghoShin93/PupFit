@@ -3,6 +3,8 @@ import { SafeAreaView, StyleSheet, TouchableOpacity, Alert } from "react-native"
 import { Button, Text, Layout, } from "@ui-kitten/components"
 import { TopBasic } from "../../components/navigations/TopBasic";
 import axios from 'axios';
+import GlobalStyles from '../GlobalStyles'
+
 
 interface WalkModeProps {
   navigation: {
@@ -15,17 +17,14 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
   const [big, setBig] = React.useState(0);
   const [small, setSmall] = React.useState(0);
   const [startTime, setStartTime] = React.useState('');
-  const [endTime, setEndTime] = React.useState('');
   const [s, setS] = React.useState(new Date());
-  const [e, setE] = React.useState(new Date());
 
-
-
+  
   const onPressWalkModeHandler = () => {
-    // setEndTime(new Date());
     let current_datetime = new Date();
     setS(current_datetime);
-    let formatted_date = current_datetime.getHours() + "시" + current_datetime.getMinutes() + "분" + current_datetime.getSeconds() + "초";
+    let formatted_date = current_datetime.getHours() + "시 " + current_datetime.getMinutes() + "분 " + current_datetime.getSeconds() + "초";
+    
     setStartTime(formatted_date);
     setTimeout(() => {setWalkMode(true)}, 500);
   };
@@ -38,22 +37,6 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
     setSmall(small+1);
   };
 
-  // const pulseIconRef = React.useRef();
-    
-  // React.useEffect(() => {
-  //   pulseIconRef.current.startAnimation();
-  // }, []);
-
-  // const renderPulseIcon = (props) => (
-  //   <Icon
-  //     {...props}
-  //     ref={pulseIconRef}
-  //     animationConfig={{ cycles: Infinity }}
-  //     animation='zoom'
-  //     name='activity'
-  //   />
-  // );
-
   const Shit = (props) => {
     if (!props.walkMode){
         return null
@@ -62,15 +45,15 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
       <>
         <Layout style={styles.topbar}>
           <Layout style={{flex: 1, flexDirection: 'row'}}>
-          <Button onPress={addSmallHandler} status='warning'>
+          <Button onPress={addSmallHandler} status='warning' style={styles.button}>
             쉬 {small}
           </Button>
-          <Button onPress={addBigHandler} status='danger'>
+          <Button onPress={addBigHandler} status='danger' style={styles.button}>
             응아 {big}
           </Button>
           </Layout>
           <Layout >
-            <Text> {'\n'} 시작 시간 : {startTime}</Text>
+            <Text> {'\n'} 시작 시간 : {startTime} </Text>
           </Layout>
         </Layout>
       </>
@@ -92,7 +75,7 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
   const finishAlert = () =>
     Alert.alert(
       "산책 종료",
-       '종료: ' + endTime,
+       '고생하셨습니다!',
       [
         {
           text: "확 인",
@@ -109,65 +92,68 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
     }
     return (
       <>
-        <Button onPress={walkModeFinish} status='info' size='giant' style={{ marginBottom: 20}}>
+        <Button onPress={walkModeFinish} status='info' size='giant' style={{ 
+          marginBottom: 20,
+          shadowOpacity: 0.34,
+          shadowRadius: 6.27,
+          shadowOffset: {width: 5, height: 2},
+          marginLeft: 4,
+          marginRight: 4,
+          }}>
           산책 종료
         </Button>
-        <Button onPress={walkModeCancel} status='basic' size='medium' style={{ marginBottom: 50}}>
+        <Button onPress={walkModeCancel} status='basic' size='medium' style={{ 
+          marginBottom: 50,
+          shadowOpacity: 0.34,
+          shadowRadius: 6.27,
+          shadowOffset: {width: 5, height: 2},
+          marginLeft: 4,
+          marginRight: 4,
+          }}>
           산책 모드 취소
         </Button>
       </>
     )
   };
-  const setEnd = () => {
-    const current_datetime2 = new Date();
-    setE(current_datetime2);
-    const formatted_date2 = current_datetime2.getHours() + "시" + current_datetime2.getMinutes() + "분" + current_datetime2.getSeconds() + "초";
-    setEndTime(formatted_date2);
-  }
+
   const axios = require('axios');
 
+  const tConvert = (n) => {
+    return n < 10 ? '0' + n : n
+  };
+
   const walkDataPost = () => {
+
+    const time = s.getFullYear().toString() + '-' + tConvert(s.getMonth() + 1) + '-' + tConvert( s.getDate()) + ' ' + tConvert( s.getHours() ) + ':' + tConvert( s.getMinutes() ) + ':' + tConvert( s.getSeconds() );
+    setStartTime(time)
     const data = {
-      starttime: "2020-06-05 07:17:23",
+      starttime: time,
       small: small,
       big: big,
       
     }
     
-      axios.post('http://172.30.1.7:8000/health/1/walking/', 
-        data
-      
-    ).then((res) => alert(JSON.stringify(res))).catch((e) => alert(e))
-    
-    
-    // .then((res) => {
-    //   alert(res)
-    // })
-    // .catch(e => {
-    //   alert(e);
-    //   alert( new Date().toLocaleString())
-    // })
-
+    // axios.post('http://172.30.1.7:8000/health/1/walking/', 
+    //   data)
+    // .then((res) => 
+    // alert(JSON.stringify(res))
+    // )
+    // .catch((e) => alert(e))
   }
 
   // 산책 종료 : 모든 값 초기화 및 데이터 전송
   const walkModeFinish = () => {
-    setEnd();
-    // setTimeout(()=> {}, 1500);
-    setTimeout(()=> {finishAlert()}, 1500);
+    walkDataPost();
+    setTimeout(()=> {finishAlert()}, 1000);
     setTimeout(()=>  {
     neutralizer() }, 2000); 
-    walkDataPost()
-       
     }
 
-  
     // 초기화
     const neutralizer = () => {
       setBig(0);
       setSmall(0);
       setStartTime('');
-      setEndTime('');
       setWalkMode(false);
     }
     
@@ -178,29 +164,21 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={GlobalStyles.droidSafeArea}>
       <TopBasic screenName="산책 모드" />
       <Layout style={styles.container}>
         <Shit walkMode={walkMode} />
-        <Layout style={styles.layout}>
-          {/* <Button
-            appearance='ghost'
-            status='danger'
-            size='giant'
-            accessoryLeft={renderPulseIcon}
-          /> */}
-              
+        <Layout style={styles.layout}>      
           <TouchableOpacity onPress={onPressWalkModeHandler}>
             <Layout style={styles.circle}>
-              <Layout style={styles.circle4}>
+              <Layout style={styles.circle3}>
               <Layout style={styles.circle2}>
-                <Text style={styles.circle3}>
+                <Text style={styles.circleText}>
                 {walkMode ? '산책 중' : '산책 시작'}
                 </Text>
               </Layout>
               </Layout>
             </Layout>
-        {/* <Spinner style={styles.spinner} size='large'/> */}
           </TouchableOpacity>
           <Layout>
             <GpsInfo walkMode={walkMode} />
@@ -268,7 +246,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     
   },
-  circle3: {
+  circleText: {
     alignItems: 'center',
     textAlign: 'center',
     lineHeight: 197,
@@ -280,23 +258,21 @@ const styles = StyleSheet.create({
     textShadowRadius: 10
     
   },
-  circle4: {
-    // shadowOffset: {width: 10, height: 5},
+  circle3: {
     backgroundColor: '#72d399',
-    // borderWidth: 5, 
     borderRadius: 130,
-    // borderColor: '#13a0f2',
     width: 209, 
     height: 209, 
     alignItems: 'center',
     textAlign: 'center',
     lineHeight: 210,
-    // marginTop: 18,
-
   },
-  spinner: {
-    alignItems: 'center',
-    textAlign: 'center',
+  button: {
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    shadowOffset: {width: 5, height: 2},
+    marginLeft: 4,
+    marginRight: 4,
   }
 })
 
