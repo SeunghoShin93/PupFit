@@ -7,4 +7,5 @@ urlpatterns = [
     path('<int:dog_id>/walking/list/', views.walking_info),
     path('weeklydata/', views.weekly_data),
     path('today/<int:dog_id>/', views.today_activity),
+    path('mia/<int:dog_id>/', views.dog_mia),
 ]
