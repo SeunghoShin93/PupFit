@@ -1,10 +1,18 @@
 from rest_framework import serializers
 from .models import *
 
-class DogInfoSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = DogInfo
-        fields = '__all__'
+class DogInfoSerializers(serializers.Serializer):
+    date = serializers.DateField()
+    weight = serializers.FloatField()
+    snack_cnt = serializers.IntegerField()
+    distance = serializers.SerializerMethodField()
+
+    def get_distance(self, instance):
+        walks = WalkingActive.objects.filter(
+            walking_start__dog=instance.dog,
+            walking_start__datetime__startswith=instance.date
+        )
+        return sum([walk.distance for walk in walks])
 
 class ActivitySerializers(serializers.ModelSerializer):
     # datetime = serializers.DateTimeField()

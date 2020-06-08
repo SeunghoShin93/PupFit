@@ -1,5 +1,6 @@
-import time, json
-from datetime import datetime
+import time, json, requests
+from decouple import config
+from datetime import datetime, date, timedelta
 
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
@@ -17,6 +18,8 @@ from rest_framework.permissions import AllowAny
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
+sk = config('TMAP_API_KEY')
+url = 'https://apis.openapi.sk.com/tmap/road/matchToRoads?version={}&appKey={}'.format(1,sk)
 # Create your views here.
 @api_view(['POST'])
 @permission_classes((AllowAny,))
@@ -43,15 +46,50 @@ def rasp(request, device_id):
             serializer.save()
     except Exception as e:
         print(e)
-
-
     return Response({'message':'성공'})
 
 @api_view(['POST'])
 @permission_classes((AllowAny, ))
 def walking_active(request, dog_id):
-    endtime = time.strftime('%Y-%m-%d %X', time.localtime())
+    endtime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     dog = Dog.objects.get(pk=dog_id)
+    print(request.data)
+    ### gps 시간별로 뽑아오기.
+    try:
+        startgps = Gps.objects.filter(
+            device=dog.device.pk, 
+            datetime__startswith=str(request.data['starttime'])[:-3])[:1]
+        endgps = Gps.objects.order_by('-pk')[0]
+        gpses = Gps.objects.filter(
+            device=dog.device.pk, 
+            pk__gte=startgps[0].pk,
+            pk__lte=endgps.pk)
+    except Exception as e:
+        print('gps section #############################')
+        print(e)
+        return Response({'error':e})
+    #### tmap api 
+    try:
+        cnt = len(gpses)//90 + 1
+        dist = 0
+        text_gps = ''
+        for i in range(cnt):
+            str_gps=''
+            for gps in gpses[90 * i:90 * (i+1)]:
+                str_gps +=  f'{gps.lon},{gps.lat}|'
+            # print(str_gps)
+            payload = {
+                'responseType':1,
+                'coords':str_gps
+            }
+            res = requests.post(url, params=payload)
+            data = res.json()
+            dist += data['resultData']['header']['totalDistance']
+            for g in data['resultData']['matchedPoints']:
+                text_gps += f"{g['matchedLocation']['latitude']},{g['matchedLocation']['longitude']}|"
+    except Exception as e:
+        print(e)
+        return Response({'message':e})
     try:
         serializer = WalkingStartSerializers(data={
             'dog':dog_id, 'datetime':request.data['starttime']
@@ -59,40 +97,71 @@ def walking_active(request, dog_id):
         serializer.is_valid()
         serializer.save()
         walk_id = serializer.data['id']
-        serializer = WalkingActiveSerializers(data={
-            'walking_start':walk_id,
-            'count': request.data['big'],
-            'kind': 0
-        })
-        serializer.is_valid()
-        serializer.save()
         seri = WalkingActiveSerializers(data={
             'walking_start':walk_id,
-            'count': request.data['small'],
-            'kind': 1
+            'small': request.data['small'],
+            'big': request.data['big'],
+            'distance':dist,
+            'gps':text_gps            
         })
         seri.is_valid()
-        seri.save()
-    
-        ### 이 부분에서 tmap리퀘스트 보낸다.
-        serializer = WalkingEndSerializers(data={
-            'datetime' : endtime,
+        seri.save()    
+        serializer_end = WalkingEndSerializers(data={
             'walking_start' : walk_id,
+            'datetime' : endtime
         })
-        serializer.is_valid()
-        serializer.save()
+        serializer_end.is_valid()
+        serializer_end.save()
     except Exception as e:
         print(e)
         return Response({'e':e})
-    return Response({'message':'test'})
-
-
-@api_view(['GET'])
-def waliking_list(request):
-
-    return Response({'message':'test'})
+    # return Response({'start':serializer.data,'active':seri.data,'end':serializer_end.data})
+    return Response({'message':'save data !!'})
 
 @api_view(['GET'])
-def wlking_detail(request):
+def walking_info(request, dog_id):
+    starts = WalkingStart.objects.filter(dog=dog_id).order_by('-pk')
+    walk_list = []
+    for start in starts:
+        try:
+            activity = get_object_or_404(WalkingActive, walking_start=start.pk)
+            end = get_object_or_404(WalkingEnd, walking_start=start.pk)
+            tdelta = end.datetime-start.datetime
+            walk_list.append({
+                'startId' : start.pk,
+                'startTime' : start.datetime,
+                'small' : activity.small,
+                'big' : activity.big,
+                'distance' : activity.distance,
+                'gps' : activity.gps,
+                'endTime' : end.datetime,
+                'timeDelta' : tdelta.total_seconds()
+            })
+        except Exception as e:
+            print(e)
+            continue
+            # return Response({"error":e})    
+    return Response({'data' : walk_list})
 
-    return Response({'message':'test'})
+@api_view(['GET'])
+def weekly_data(request):
+    today = date.today()
+    delta = timedelta(days=7)
+    start_date = today - delta
+    weekly_info = DogInfo.objects.filter(date__gte=str(start_date), date__lte=str(today))
+    serializer = DogInfoSerializers(weekly_info, many=True).data
+    return Response(serializer)
+
+# 혜진 언니 이거 만드는 중이었엉..... 일주일 단위로 거리 하는거..
+# def weekly_distance(request, dog_id):
+#     dog = Dog.objects.get(pk=dog_id)
+    
+#     d_week = 
+#     print(request.data)
+
+#     try:
+#         today_distances = WalkingStart.objects.filter(
+#             device=dog.device.pk, 
+#             datetime__startswith=str(request.data['starttime'])[:-3]).date
+        
+#         sum_today_distances = today_distances.filter()
