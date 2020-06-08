@@ -152,19 +152,6 @@ def weekly_data(request):
     serializer = DogInfoSerializers(weekly_info, many=True).data
     return Response(serializer)
 
-# 혜진 언니 이거 만드는 중이었엉..... 일주일 단위로 거리 하는거..
-# def weekly_distance(request, dog_id):
-#     dog = Dog.objects.get(pk=dog_id)
-    
-#     d_week = 
-#     print(request.data)
-
-#     try:
-#         today_distances = WalkingStart.objects.filter(
-#             device=dog.device.pk, 
-#             datetime__startswith=str(request.data['starttime'])[:-3]).date
-        
-#         sum_today_distances = today_distances.filter()
 @api_view(['GET'])
 def today_activity(request, dog_id):
     today = date.today()
@@ -209,6 +196,7 @@ def dog_mia(request, dog_id):
     dog = get_object_or_404(Dog, pk=dog_id)
     recent = Gps.objects.filter(device=dog.device.pk).order_by('-pk')[0]
     mia_url = f'https://apis.openapi.sk.com/tmap/geo/reversegeocoding?version=1&lat={recent.lat}&lon={recent.lon}&coordType=WGS84GEO&addressType=A00&appKey={sk}'
+    print(requests.get(mia_url).json())
     try:
         res = requests.get(mia_url).json()
         address = res['addressInfo']['fullAddress']
