@@ -1,10 +1,12 @@
 from rest_framework import serializers
 from .models import *
 
-class DogInfoSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = DogInfo
-        fields = '__all__'
+class DogInfoSerializers(serializers.Serializer):
+    date = serializers.DateField()
+    weight = serializers.FloatField()
+    snack_cnt = serializers.FloatField()
+    walk_distance = serializers.IntegerField()
+    
 
 class ActivitySerializers(serializers.ModelSerializer):
     # datetime = serializers.DateTimeField()
