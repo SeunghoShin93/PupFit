@@ -133,12 +133,13 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
       
     }
     
-    // axios.post('http://172.30.1.7:8000/health/1/walking/', 
-    //   data)
-    // .then((res) => 
-    // alert(JSON.stringify(res))
-    // )
-    // .catch((e) => alert(e))
+    axios.post('http://172.30.1.7:8000/health/1/walking/', 
+      data)
+    .then((res) => 
+      console.log(res))
+    
+    .catch((e) => 
+      console.log(e))
   }
 
   // 산책 종료 : 모든 값 초기화 및 데이터 전송

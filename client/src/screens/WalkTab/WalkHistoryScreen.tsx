@@ -13,32 +13,34 @@ interface WalkHistoryProps {
 }
 
 const dummies = [
-    {
-      title: "아침",
-      data: ["09:00:00"]
-    },
-    {
-      title: "낮",
-      data: ["14:00:00"]
-    },
-    {
-      title: "밤",
-      data: [ "19:00:00"]
-    },
+  { title: '2020-06-08', data: [ '10:31:55' ]},
+  {
+    title: '2020-06-05',
+    data: [
+      '07:17:23',
+      '07:17:20',
+      '07:17:20',
+      '08:26:20',
+      '08:26:20',
+      '08:26:20',
+      
+    ]
+  }
 ]
-
   
 
 const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
 
     const [datalist, setDataList] = useState([]);
     const [receive, setReceive] = useState(false);
-    const data = []; 
-    const date = []; // 중복 제거 된 산책 날짜 (section)
-    const date2 = [];
-    const date3 = {};
+    const [parsed, setParsed] = useState(false);
+    const [history2, setHistory2] = useState([]);
+    ; // 중복 제거 된 산책 날짜 (section)
+    const dataDict = {};
+    const historyList = [];
 
     const dateListMaker = (d1) => {
+      const date = []
       for (const i in d1) {
         const d2 = d1[i].startTime.split('T')
         let add = 1;
@@ -50,14 +52,28 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
            }
         }
         if (add===1) {
-          date3[d2[0]] = []
+          dataDict[d2[0]] = []
           date.push(d2[0])
         }
         else {
-          date3[d2[0]].push(d2[1])
+          dataDict[d2[0]].push(d2[1])
+        }
+      };
+      // historyListMaker();
+      // alert(JSON.stringify(historyList))
+      return date
+    };
+
+    
+    const historyListMaker = async () => {
+      const new_date = await dateListMaker(datalist);
+      for (const x in new_date) {
+        const timeList = dataDict[new_date[x]];
+        historyList.push({ title: new_date[x], data: timeList });
       }
-      }
-    }
+
+      setParsed(true);
+    };
 
     useEffect(()=> {
       fetch('http://172.30.1.7:8000/health/1/walking/list', {
@@ -68,29 +84,10 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
       setDataList(resData.data);
       setReceive(true);
       Loader();
+      historyListMaker();
       })
     }, []);
-
-    const confirmAlert = (data) =>{
-    const d = JSON.stringify(data.target);
-    Alert.alert(
-      "확인용",
-       '' + d,
-      [
-        {
-          text: "확 인",
-          onPress: () => console.log('check'),
-        },
-        // { text: "OK", onPress: () => console.log("OK Pressed") }
-      ],
-      { cancelable: false }
-    );
-    };
-
-    const onPressHandler = (e) => {
-        confirmAlert(e)
-    };
-
+  
     const Loader = () => {
       if (!receive) {
         return null
@@ -98,38 +95,66 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
       return dateListMaker(datalist);
     };
 
-    const Item = ({ data }) => (
-        <View style={styles.item}>
-                  <LinearGradient
-          colors={["#83a4d4", "#b6fbff"]}
-          style={styles.linear}
-        />
-          <TouchableOpacity onPress={() => props.navigation.navigate("WalkHistoryMapScreen", {start: data })}>
-            <Text style={styles.title}> 시작 시간 : {data}</Text>
-                      <View
-            style={{
-              borderBottomColor: 'white',
-              borderBottomWidth: 2,
-            }}
-          />
-            <Text style={styles.dist}> 거리 : 0.0km </Text>
-          </TouchableOpacity>
-        </View>
-      );
+    const SectionLoader = () => {
+      if (!parsed) {
+        return null
+      }
+      return (
+        <>
+          <Layout>
+            <SectionList
+                sections={dummies}
+                keyExtractor={(item, index) => item + index}
+                renderItem={({ item }) => <Item data={item} />}
+                renderSectionHeader={({ section: { title } }) => (
+                    <Text style={styles.sectionHeader}>{title}</Text>
+                )}
+                />
+          </Layout>
+        </>
+      )
+    };
 
+    const Item = ({ data }) => (
+      <View style={styles.item}>
+                <LinearGradient
+        colors={["#83a4d4", "#b6fbff"]}
+        style={styles.linear}
+      />
+        <TouchableOpacity 
+          // onPress={onPressHandler.bind(data)}
+        onPress={() => props.navigation.navigate("WalkHistoryMapScreen", {start: data })}
+        >
+        <Text style={styles.title}> 시작 시간 : {data} </Text>
+                    <View
+          style={{
+            borderBottomColor: 'white',
+            borderBottomWidth: 2,
+          }}
+        />
+          <Text style={styles.dist}> 거리 : 0.0km </Text>
+        </TouchableOpacity>
+      </View>
+  );
+
+    const onPressHandler= (e) => {
+      alert(JSON.stringify(e))
+    };
 
     return (
         <SafeAreaView style={GlobalStyles.droidSafeArea}>
-            <TopBasic screenName="오늘의 산책 기록" />
-            <SectionList
-            sections={dummies}
-            keyExtractor={(item, index) => item + index}
-            renderItem={({ item }) => <Item data={item} />}
-            renderSectionHeader={({ section: { title } }) => (
-                <Text style={styles.sectionHeader}>{title}</Text>
-            )}
-            />
+          <TopBasic screenName="오늘의 산책 기록" />
+          <SectionLoader />
+          <SectionList
+                sections={historyList}
+                keyExtractor={(item, index) => item + index}
+                renderItem={({ item }) => <Item data={item} />}
+                renderSectionHeader={({ section: { title } }) => (
+                    <Text style={styles.sectionHeader}>{title}</Text>
+                )}
+                />
         </SafeAreaView>
+
     )
 
 }
