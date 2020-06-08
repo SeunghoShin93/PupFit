@@ -23,6 +23,7 @@ class Dog(models.Model):
     gender = models.IntegerField(default=0)
     neutralization = models.BooleanField(default=False)
     pregnant = models.BooleanField(default=False)
+    height = models.FloatField(null=True)
 
 class User(AbstractUser):
     email = models.EmailField(
