@@ -77,7 +77,7 @@ def walking_active(request, dog_id):
             str_gps=''
             for gps in gpses[90 * i:90 * (i+1)]:
                 str_gps +=  f'{gps.lon},{gps.lat}|'
-            print(str_gps)
+            # print(str_gps)
             payload = {
                 'responseType':1,
                 'coords':str_gps
@@ -87,8 +87,6 @@ def walking_active(request, dog_id):
             dist += data['resultData']['header']['totalDistance']
             for g in data['resultData']['matchedPoints']:
                 text_gps += f"{g['matchedLocation']['latitude']},{g['matchedLocation']['longitude']}|"
-        print(dist)
-        print(text_gps)
     except Exception as e:
         print(e)
         return Response({'message':e})
@@ -121,13 +119,14 @@ def walking_active(request, dog_id):
     return Response({'message':'save data !!'})
 
 @api_view(['GET']) ### api상의 
-def waliking_list(request):
+def waliking_list(request, dog_id):
 
     return Response({'message':'test'})
 
 @api_view(['GET'])
-def walking_detail(request):
-
+def walking_detail(request, dog_id, walk_id):
+    walk_start = get_object_or_404(WalkingStart,dog=dog_id)
+    # walk_info = walk_start.
     return Response({'message':'test'})
 
 @api_view(['GET'])
@@ -138,3 +137,4 @@ def weekly_data(request):
     weekly_info = DogInfo.objects.filter(date__gte=date-delta, date__lte=date)
     serializer = DogInfoSerializers(weekly_info).data
     return Response(serializer)
+
