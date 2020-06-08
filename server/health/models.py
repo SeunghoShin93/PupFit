@@ -21,7 +21,6 @@ class Food(models.Model):
     calcium = models.FloatField(null=True)
     calory = models.FloatField(null=True)
 
-
 class WalkingStart(models.Model):
     dog = models.ForeignKey(Dog, on_delete=models.CASCADE)
     datetime = models.DateTimeField()

@@ -153,13 +153,15 @@ def weekly_data(request):
     return Response(serializer)
 
 # 혜진 언니 이거 만드는 중이었엉..... 일주일 단위로 거리 하는거..
-def weekly_distance(request, dog_id):
-    dog = Dog.objects.get(pk=dog_id)
-    print(request.data)
+# def weekly_distance(request, dog_id):
+#     dog = Dog.objects.get(pk=dog_id)
+    
+#     d_week = 
+#     print(request.data)
 
-    try:
-        today_distances = WalkingStart.objects.filter(
-            device=dog.device.pk, 
-            datetime__startswith=str(request.data['starttime'])[:-3]).date
+#     try:
+#         today_distances = WalkingStart.objects.filter(
+#             device=dog.device.pk, 
+#             datetime__startswith=str(request.data['starttime'])[:-3]).date
         
-        sum_today_distances = today_distances.filter()
+#         sum_today_distances = today_distances.filter()

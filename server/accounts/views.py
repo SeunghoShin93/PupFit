@@ -31,7 +31,6 @@ def is_logged_in(request):
         raise AuthenticationFailed
     return user
 
-
 class SingleUser(APIView):
     @swagger_auto_schema(
         operation_summary='회원 본인 정보 조회'
@@ -163,7 +162,6 @@ def register_device(request):
     except:
         return Response(status=400)
     return Response(status=201)
-
     
 # 강아지 등록
 """
@@ -218,3 +216,13 @@ def register_dog(request):
         DogInfo.objects.create(dog=dog, weight=data["weight"])
     return Response(status=201)
 
+
+class SingleDog(APIView):
+    def get(self, request, dog_pk):
+        dog = Dog.objects.get(pk=dog_pk)
+        serializer = DogDetailSerializers(dog)
+        return Response(serializer.data, status=200)
+
+    def put(self, request, dog_pk):
+        dog = Dog.objects.get(pk=dog_pk)
+        
