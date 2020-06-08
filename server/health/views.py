@@ -165,3 +165,41 @@ def weekly_data(request):
 #             datetime__startswith=str(request.data['starttime'])[:-3]).date
         
 #         sum_today_distances = today_distances.filter()
+@api_view(['GET'])
+def today_activity(request, dog_id):
+    today = date.today()
+    dog = get_object_or_404(Dog, pk=dog_id)
+    activities = Activity.objects.filter(device=dog.device.pk, datetime__startswith=today)
+    walkes = WalkingStart.objects.filter(dog=dog.pk, datetime__startswith=today)
+    today_dict = {}
+    try:
+        l, m, h = 0, 0, 0
+        for activity in activities:
+            if activity.level==1:
+                m += 1
+            elif activity.level == 2:
+                h += 1
+            else:
+                l += 1
+        today_dict['todayAtivity'] = {'low':l, 'medium':m, 'high':h, 'total':l+m+h}
+    except Exception as e:
+        print(e)
+        today_dict['todayAtivity'] = {'low':0, 'medium':0, 'high':0}
+    today_dist = 0
+    today_cnt = 0
+    for walk in walkes:
+        try:
+            walk_info = get_object_or_404(WalkingActive, walking_start=walk.pk)
+            walk_end = get_object_or_404(WalkingEnd, walking_start=walk.pk)
+            td = walk_end.datetime - walk.datetime
+            today_dist += walk_info.distance
+            today_cnt+=1
+            if today_cnt==1:
+                today_time = td
+            else:
+                today_time = today_time + td
+        except:
+            continue
+    today_dict['todayWalk'] = {'walkDistance' : today_dist, 'walkCount':today_cnt, 'walkTime' : today_time.total_seconds()//60}
+    # print(today_dist, today_cnt, today_time.total_seconds(), today_time.total_seconds()//60)
+    return Response({'mess':'age'})
