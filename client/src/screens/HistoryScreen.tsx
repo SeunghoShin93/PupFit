@@ -7,7 +7,6 @@ import {
   Image,
   View,
 } from "react-native"
-import WebView from "react-native-webview"
 import {
   Button,
   Layout,
@@ -40,15 +39,14 @@ import GlobalStyles from "./GlobalStyles"
 import { TopBasic } from "../components/navigations/TopBasic"
 import { connect } from "react-redux"
 import * as snackActions from "../redux/modules/snack"
-import * as scale from "d3-scale"
-import * as shape from "d3-shape"
-import dateFns from "date-fns"
-import moment from "moment"
-// import {  format, compareAsc } from 'date-fns'
+
 interface HistoryProps {
   navigation: any
 }
-
+export interface TabViewProps extends ViewPagerProps<TabProps> {
+  tabBarStyle?: StyleProp<ViewStyle>;
+  indicatorStyle?: StyleProp<ViewStyle>;
+}
 const HistoryScreen: React.FC<HistoryProps> = (props) => {
   const [feedCount, setFeedCount] = React.useState(0)
   const weight = [27.0, 27.0, 26.8, 26.4, 26.0, 25.8, 25.4]
@@ -135,8 +133,8 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
   const xAxisHeight = 10
   const CUT_OFF = 20
   const Labels = ({ ...props }) => {
-    const {x,y,bandwidth,data} = props
-    const xFinder = (idx) => x(idx) + bandwidth / 2
+  const {x,y,bandwidth,data} = props
+  const xFinder = (idx) => x(idx) + bandwidth / 2
     return data.map((value, index) => (
       <SVGText
         key={index}
@@ -151,6 +149,8 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
       </SVGText>
     ))
   }
+
+  
   return (
     <SafeAreaView style={GlobalStyles.droidSafeArea}>
       <TopBasic screenName="HISTORY" />
@@ -171,7 +171,8 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
       <TabView
         selectedIndex={selectedIndex}
         onSelect={(index) => setSelectedIndex(index)}
-        style={{ marginVertical: "3%", borderColor: "black" }}
+        style={(styles.HistoryTabBar, styles.HistoryIndicator)}
+        
       >
         <Tab title="체중" icon={TabChartIcon}>
           <Layout
@@ -261,20 +262,6 @@ const HistoryScreen: React.FC<HistoryProps> = (props) => {
                 // backgroundColor: "gray"
               }}
             >
-              <YAxis
-                data={snack}
-                style={{
-                  // backgroundColor: "red",
-                  flexGrow: 0,
-                  paddingHorizontal: 5,
-                }}
-                svg={axesSvg}
-                min={0}
-                // contentInset={{ top:20, bottom: 20 }}
-                formatLabel={(value, index) => value}
-                numberOfTicks={5}
-              />
-
               <View style={{ flex: 1 }}>
                 <BarChart
                   style={{ flex: 1 }}
@@ -397,6 +384,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  HistoryTabBar: {
+    color: 'black'
+  },
+  HistoryIndicator: {
+    color: 'black'
+  }
 })
 
 export default connect(
