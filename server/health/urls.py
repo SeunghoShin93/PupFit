@@ -6,4 +6,5 @@ urlpatterns = [
     path('<int:dog_id>/walking/', views.walking_active),
     path('<int:dog_id>/walking/list/', views.walking_info),
     path('weeklydata/', views.weekly_data),
+    path('today/<int:dog_id>/', views.today_activity),
 ]
