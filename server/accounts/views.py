@@ -1,4 +1,5 @@
 from time import time
+import json
 
 from django.conf import settings
 from django.contrib.auth import get_user_model, authenticate
@@ -156,13 +157,11 @@ def register_device(request):
     # device_num 없으면 400에러
     except:
         return Response(status=400)
-    # device_num 있으면..
+    # device_num 있으면 신규 기기 등록
     try:
-        device = Device.objects.get(id=device_num)
-    # 신규 기기 등록
+        Device.objects.create(id=device_num)
     except:
-        device = Device.objects.create(id=device_num)
-        return Response(status=200)
+        return Response(status=400)
     return Response(status=201)
 
     
@@ -182,29 +181,40 @@ def register_device(request):
             "breed": openapi.Schema(type=openapi.TYPE_STRING),
             "height": openapi.Schema(type=openapi.TYPE_NUMBER),
             "weight": openapi.Schema(type=openapi.TYPE_NUMBER),
-            "device_id": openapi.Schema(type=openapi.TYPE_NUMBER)
-            },
-        required=["name", "age", "breed", "device_id"]
-        )
+            "device_id": openapi.Schema(type=openapi.TYPE_NUMBER),
+            "gender": openapi.Schema(type=openapi.TYPE_NUMBER),
+            "neutralization": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+            "pregnant": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+        },
+        required=[
+            "name", "age", "breed", "device_id", "gender",
+            "neutralization", "pregnant"
+        ]
     )
+)
 @api_view(['POST'])
 def register_dog(request):
-    breed = request.POST["breed"]
-    name = request.POST["name"]
-    age = request.POST["age"]
-    device_id = request.POST["device_id"]
-    profile = request.POST.get("profile")
-    height = request.POST.get("height")
-    weight = request.POST.get("weight")
-
-    breed = Breed.objects.get(name=breed)
-    # 강아지는 한국식으로 안세요.
-    birthyear = date.today().year - age
+    """
+    수컷은 0, 암컷은 1로 보내주세요
+    """
+    data = request.data
+    print(data)
+    breed = Breed.objects.get(name=data["breed"])
+    # 강아지 나이는 한국식으로 안 세요.
+    birthyear = date.today().year - data["age"]
+    if "height" not in data:
+        data["height"] = (breed.min_height + breed.max_height) / 2
     dog = Dog.objects.create(
-        device_id=device_id, name=name, breed=breed, birthyear=birthyear
+        device_id=data["device_id"],
+        name=data["name"],
+        breed=breed,
+        birthyear=birthyear,
+        gender=data["gender"],
+        neutralization=data["neutralization"],
+        pregnant=data["pregnant"],
+        height=data["height"],
     )
-    
-    if height is not None or weight is not None:
-        doginfo = DogInfo.objects.create(height=height, weight=weight)
-        dog.doginfo_set.add(doginfo)
+    if "weight" in data:
+        DogInfo.objects.create(dog=dog, weight=data["weight"])
     return Response(status=201)
+

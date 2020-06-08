@@ -1,6 +1,6 @@
 import time, json, requests
 from decouple import config
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
@@ -141,5 +141,14 @@ def walking_info(request, dog_id):
             print(e)
             continue
             # return Response({"error":e})    
-    print(walk_list)
     return Response({'data' : walk_list})
+
+@api_view(['GET'])
+def weekly_data(request):
+    today = date.today()
+    delta = timedelta(days=7)
+    start_date = today - delta
+    weekly_info = DogInfo.objects.filter(date__gte=str(start_date), date__lte=str(today))
+    serializer = DogInfoSerializers(weekly_info, many=True).data
+    return Response(serializer)
+
