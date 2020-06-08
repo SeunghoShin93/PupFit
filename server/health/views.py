@@ -203,3 +203,15 @@ def today_activity(request, dog_id):
     today_dict['todayWalk'] = {'walkDistance' : today_dist, 'walkCount':today_cnt, 'walkTime' : today_time.total_seconds()//60}
     # print(today_dist, today_cnt, today_time.total_seconds(), today_time.total_seconds()//60)
     return Response({'mess':'age'})
+
+@api_view(['GET'])
+def dog_mia(request, dog_id):
+    dog = get_object_or_404(Dog, pk=dog_id)
+    recent = Gps.objects.filter(device=dog.device.pk).order_by('-pk')[0]
+    mia_url = f'https://apis.openapi.sk.com/tmap/geo/reversegeocoding?version=1&lat={recent.lat}&lon={recent.lon}&coordType=WGS84GEO&addressType=A00&appKey={sk}'
+    try:
+        res = requests.get(mia_url).json()
+        address = res['addressInfo']['fullAddress']
+    except:
+        return Response(500)
+    return Response({'miaAddress':address, 'lat':recent.lat, 'lon':recent.lon})
