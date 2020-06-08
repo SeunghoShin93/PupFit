@@ -130,10 +130,9 @@ const WalkModeScreen: React.FC<WalkModeProps> = (props) => {
       starttime: time,
       small: small,
       big: big,
-      
     }
-    
-    axios.post('http://172.30.1.7:8000/health/1/walking/', 
+      
+    axios.post('http://k02b2011.p.ssafy.io:8000/health/1/walking/', 
       data)
     .then((res) => 
       console.log(res))

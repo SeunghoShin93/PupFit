@@ -37,9 +37,9 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
     const [history2, setHistory2] = useState([]);
     ; // 중복 제거 된 산책 날짜 (section)
     const dataDict = {};
-    const historyList = [];
+    
 
-    const dateListMaker = (d1) => {
+    const dateListMaker = async () => {
       const date = []
       for (const i in d1) {
         const d2 = d1[i].startTime.split('T')
@@ -66,28 +66,40 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
 
     
     const historyListMaker = async () => {
-      const new_date = await dateListMaker(datalist);
+      const historyList = [];
+      const new_date = await dateListMaker();
+      
       for (const x in new_date) {
         const timeList = dataDict[new_date[x]];
         historyList.push({ title: new_date[x], data: timeList });
-      }
-
-      setParsed(true);
+      };
+      // setParsed(true);
+      // alert(JSON.stringify(historyList));
+      // console.log(historyList.length)
+      // for (const x in historyList) {
+      //   console.log('haha')
+      //   console.log(JSON.stringify(historyList[x]))
+      // }
+      return historyList;
     };
 
+    const getData = () => {
     useEffect(()=> {
-      fetch('http://172.30.1.7:8000/health/1/walking/list', {
+      fetch('http://k02b2011.p.ssafy.io:8000/health/1/walking/list', {
         method: 'get',
       })
       .then((response) => response.json())
       .then((resData) =>{ 
       setDataList(resData.data);
       setReceive(true);
-      Loader();
+      // Loader();
       historyListMaker();
+      SectionLoader();
       })
     }, []);
-  
+    return datalist
+    };
+
     const Loader = () => {
       if (!receive) {
         return null
@@ -95,10 +107,10 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
       return dateListMaker(datalist);
     };
 
-    const SectionLoader = () => {
-      if (!parsed) {
-        return null
-      }
+    const SectionLoader = async () => {
+      const hList = await historyListMaker();
+      console.log(hList)
+      console.log('haha')
       return (
         <>
           <Layout>
@@ -114,7 +126,6 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
         </>
       )
     };
-
     const Item = ({ data }) => (
       <View style={styles.item}>
                 <LinearGradient
@@ -144,9 +155,9 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
     return (
         <SafeAreaView style={GlobalStyles.droidSafeArea}>
           <TopBasic screenName="오늘의 산책 기록" />
-          <SectionLoader />
+          {/* <SectionLoader /> */}
           <SectionList
-                sections={historyList}
+                sections={dummies}
                 keyExtractor={(item, index) => item + index}
                 renderItem={({ item }) => <Item data={item} />}
                 renderSectionHeader={({ section: { title } }) => (

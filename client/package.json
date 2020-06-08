@@ -24,7 +24,7 @@
     "axios": "^0.19.2",
     "date-fns": "^2.14.0",
     "expo": "^37.0.0",
-    "expo-barcode-scanner": "~8.1.0",
+    "expo-barcode-scanner": "^8.1.0",
     "expo-linear-gradient": "^8.1.0",
     "expo-location": "~8.1.0",
     "immutable": "^4.0.0-rc.12",
