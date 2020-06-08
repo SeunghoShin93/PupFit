@@ -1,6 +1,6 @@
 import time, json, requests
 from decouple import config
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
@@ -118,13 +118,100 @@ def walking_active(request, dog_id):
     # return Response({'start':serializer.data,'active':seri.data,'end':serializer_end.data})
     return Response({'message':'save data !!'})
 
-@api_view(['GET']) ### api상의 
-def waliking_list(request, dog_id):
-
-    return Response({'message':'test'})
+@api_view(['GET'])
+def walking_info(request, dog_id):
+    starts = WalkingStart.objects.filter(dog=dog_id).order_by('-pk')
+    walk_list = []
+    for start in starts:
+        try:
+            activity = get_object_or_404(WalkingActive, walking_start=start.pk)
+            end = get_object_or_404(WalkingEnd, walking_start=start.pk)
+            tdelta = end.datetime-start.datetime
+            walk_list.append({
+                'startId' : start.pk,
+                'startTime' : start.datetime,
+                'small' : activity.small,
+                'big' : activity.big,
+                'distance' : activity.distance,
+                'gps' : activity.gps,
+                'endTime' : end.datetime,
+                'timeDelta' : tdelta.total_seconds()
+            })
+        except Exception as e:
+            print(e)
+            continue
+            # return Response({"error":e})    
+    return Response({'data' : walk_list})
 
 @api_view(['GET'])
-def wlking_detail(request, dog_id, walk_id):
-    walk_start = get_object_or_404(WalkingStart,dog=dog_id)
-    # walk_info = walk_start.
-    return Response({'message':'test'})
+def weekly_data(request):
+    today = date.today()
+    delta = timedelta(days=7)
+    start_date = today - delta
+    weekly_info = DogInfo.objects.filter(date__gte=str(start_date), date__lte=str(today))
+    serializer = DogInfoSerializers(weekly_info, many=True).data
+    return Response(serializer)
+
+# 혜진 언니 이거 만드는 중이었엉..... 일주일 단위로 거리 하는거..
+# def weekly_distance(request, dog_id):
+#     dog = Dog.objects.get(pk=dog_id)
+    
+#     d_week = 
+#     print(request.data)
+
+#     try:
+#         today_distances = WalkingStart.objects.filter(
+#             device=dog.device.pk, 
+#             datetime__startswith=str(request.data['starttime'])[:-3]).date
+        
+#         sum_today_distances = today_distances.filter()
+@api_view(['GET'])
+def today_activity(request, dog_id):
+    today = date.today()
+    dog = get_object_or_404(Dog, pk=dog_id)
+    activities = Activity.objects.filter(device=dog.device.pk, datetime__startswith=today)
+    walkes = WalkingStart.objects.filter(dog=dog.pk, datetime__startswith=today)
+    today_dict = {}
+    try:
+        l, m, h = 0, 0, 0
+        for activity in activities:
+            if activity.level==1:
+                m += 1
+            elif activity.level == 2:
+                h += 1
+            else:
+                l += 1
+        today_dict['todayAtivity'] = {'low':l, 'medium':m, 'high':h, 'total':l+m+h}
+    except Exception as e:
+        print(e)
+        today_dict['todayAtivity'] = {'low':0, 'medium':0, 'high':0}
+    today_dist = 0
+    today_cnt = 0
+    for walk in walkes:
+        try:
+            walk_info = get_object_or_404(WalkingActive, walking_start=walk.pk)
+            walk_end = get_object_or_404(WalkingEnd, walking_start=walk.pk)
+            td = walk_end.datetime - walk.datetime
+            today_dist += walk_info.distance
+            today_cnt+=1
+            if today_cnt==1:
+                today_time = td
+            else:
+                today_time = today_time + td
+        except:
+            continue
+    today_dict['todayWalk'] = {'walkDistance' : today_dist, 'walkCount':today_cnt, 'walkTime' : today_time.total_seconds()//60}
+    # print(today_dist, today_cnt, today_time.total_seconds(), today_time.total_seconds()//60)
+    return Response({'mess':'age'})
+
+@api_view(['GET'])
+def dog_mia(request, dog_id):
+    dog = get_object_or_404(Dog, pk=dog_id)
+    recent = Gps.objects.filter(device=dog.device.pk).order_by('-pk')[0]
+    mia_url = f'https://apis.openapi.sk.com/tmap/geo/reversegeocoding?version=1&lat={recent.lat}&lon={recent.lon}&coordType=WGS84GEO&addressType=A00&appKey={sk}'
+    try:
+        res = requests.get(mia_url).json()
+        address = res['addressInfo']['fullAddress']
+    except:
+        return Response(500)
+    return Response({'miaAddress':address, 'lat':recent.lat, 'lon':recent.lon})

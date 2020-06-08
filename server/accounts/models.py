@@ -14,6 +14,19 @@ class Breed(models.Model):
     min_weight = models.FloatField()
     max_weight = models.FloatField()
 
+class Food(models.Model):
+    category = models.CharField(max_length=20)
+    name = models.CharField(max_length=100)
+    img = models.CharField(null=True, max_length=300)
+    protein = models.FloatField(null=True)
+    fat = models.FloatField(null=True)
+    ash = models.FloatField(null=True)
+    fiber = models.FloatField(null=True)
+    moist = models.FloatField(null=True)
+    phosphorus = models.FloatField(null=True)
+    calcium = models.FloatField(null=True)
+    calory = models.FloatField(null=True)
+
 class Dog(models.Model):
     breed = models.ForeignKey(to=Breed, on_delete=models.PROTECT)
     device = models.OneToOneField(Device, on_delete=models.PROTECT)
@@ -23,6 +36,10 @@ class Dog(models.Model):
     gender = models.IntegerField(default=0)
     neutralization = models.BooleanField(default=False)
     pregnant = models.BooleanField(default=False)
+    height = models.FloatField(null=True)
+    dog_food = models.ForeignKey(Food, on_delete=models.SET_NULL, null=True)
+    goal_weight = models.FloatField(null=True)
+
 
 class User(AbstractUser):
     email = models.EmailField(
