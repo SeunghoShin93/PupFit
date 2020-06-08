@@ -19,7 +19,7 @@ export const TopBasic: React.FC<TopBasicProps> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
+    marginBottom: 0,
   },
   header: {
     backgroundColor: "#fff",

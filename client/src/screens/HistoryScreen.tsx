@@ -18,6 +18,7 @@ import {
   Tab,
   TabView,
   Card,
+  TranslationWidth,
 } from "@ui-kitten/components"
 import {Text as SVGText} from 'react-native-svg'
 import { bindActionCreators } from "redux"
@@ -43,7 +44,6 @@ import * as scale from "d3-scale"
 import * as shape from "d3-shape"
 import dateFns from "date-fns"
 import moment from "moment"
-// import {  format, compareAsc } from 'date-fns'
 interface HistoryProps {
   navigation: any
 }
@@ -380,8 +380,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 40,
     position: "absolute",
-    translateX: 176,
-    translateY: 93,
+    transform: [{translateX: 193}, {translateY: 67}]
   },
   circleWrapper: {
     flex: 1,

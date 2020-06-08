@@ -54,7 +54,6 @@ const TabNavigator = () => (
     <Screen name="JoinScreen" component={JoinScreen} />
     <Screen name="WalkModeScreen" component={WalkModeScreen} />
     <Screen name="WalkHistoryScreen" component={WalkHistoryScreen} />
-    <Screen name="WalkHistoryMapScreen" component={WalkHistoryMapScreen} />
     
   </Navigator>
 )
