@@ -4,9 +4,8 @@ from .models import *
 class DogInfoSerializers(serializers.Serializer):
     date = serializers.DateField()
     weight = serializers.FloatField()
-    snack_cnt = serializers.FloatField()
-    walk_distance = serializers.IntegerField()
-    
+    snack_cnt = serializers.IntegerField()
+
 
 class ActivitySerializers(serializers.ModelSerializer):
     # datetime = serializers.DateTimeField()
