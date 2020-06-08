@@ -118,13 +118,28 @@ def walking_active(request, dog_id):
     # return Response({'start':serializer.data,'active':seri.data,'end':serializer_end.data})
     return Response({'message':'save data !!'})
 
-@api_view(['GET']) ### api상의 
-def waliking_list(request, dog_id):
-
-    return Response({'message':'test'})
-
 @api_view(['GET'])
-def wlking_detail(request, dog_id, walk_id):
-    walk_start = get_object_or_404(WalkingStart,dog=dog_id)
-    # walk_info = walk_start.
-    return Response({'message':'test'})
+def walking_info(request, dog_id):
+    starts = WalkingStart.objects.filter(dog=dog_id).order_by('-pk')
+    walk_list = []
+    for start in starts:
+        try:
+            activity = get_object_or_404(WalkingActive, walking_start=start.pk)
+            end = get_object_or_404(WalkingEnd, walking_start=start.pk)
+            tdelta = end.datetime-start.datetime
+            walk_list.append({
+                'startId' : start.pk,
+                'startTime' : start.datetime,
+                'small' : activity.small,
+                'big' : activity.big,
+                'distance' : activity.distance,
+                'gps' : activity.gps,
+                'endTime' : end.datetime,
+                'timeDelta' : tdelta.total_seconds()
+            })
+        except Exception as e:
+            print(e)
+            continue
+            # return Response({"error":e})    
+    print(walk_list)
+    return Response({'data' : walk_list})
