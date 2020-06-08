@@ -1,7 +1,6 @@
 from django.db import models
 from accounts.models import *
 
-
 class DogInfo(models.Model):
     dog = models.ForeignKey(to=Dog, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)

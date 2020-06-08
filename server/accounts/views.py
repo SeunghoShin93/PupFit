@@ -196,7 +196,6 @@ def register_dog(request):
     수컷은 0, 암컷은 1로 보내주세요
     """
     data = request.data
-    print(data)
     breed = Breed.objects.get(name=data["breed"])
     # 강아지 나이는 한국식으로 안 세요.
     birthyear = date.today().year - data["age"]
@@ -224,5 +223,17 @@ class SingleDog(APIView):
         return Response(serializer.data, status=200)
 
     def put(self, request, dog_pk):
+        data = request.data
         dog = Dog.objects.get(pk=dog_pk)
         
+        dog.breed = data["breed"]
+        dog.height = data["height"]
+        dog.neutralization = data["neutralization"]
+        dog.pregnant = data["pregnant"]
+
+
+        dog.weight = data["weight"]
+        
+        data["breed"]
+        data["neutralization"]
+
