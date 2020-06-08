@@ -187,6 +187,7 @@ def today_activity(request, dog_id):
         today_dict['todayAtivity'] = {'low':0, 'medium':0, 'high':0}
     today_dist = 0
     today_cnt = 0
+    today_time = timedelta()
     for walk in walkes:
         try:
             walk_info = get_object_or_404(WalkingActive, walking_start=walk.pk)
@@ -194,15 +195,12 @@ def today_activity(request, dog_id):
             td = walk_end.datetime - walk.datetime
             today_dist += walk_info.distance
             today_cnt+=1
-            if today_cnt==1:
-                today_time = td
-            else:
-                today_time = today_time + td
+            today_time = today_time + td
         except:
             continue
     today_dict['todayWalk'] = {'walkDistance' : today_dist, 'walkCount':today_cnt, 'walkTime' : today_time.total_seconds()//60}
     # print(today_dist, today_cnt, today_time.total_seconds(), today_time.total_seconds()//60)
-    return Response({'mess':'age'})
+    return Response(today_dict)
 
 @api_view(['GET'])
 def dog_mia(request, dog_id):
