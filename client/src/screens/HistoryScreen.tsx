@@ -39,11 +39,7 @@ import GlobalStyles from "./GlobalStyles"
 import { TopBasic } from "../components/navigations/TopBasic"
 import { connect } from "react-redux"
 import * as snackActions from "../redux/modules/snack"
-import * as scale from "d3-scale"
-import * as shape from "d3-shape"
-import dateFns from "date-fns"
-import moment from "moment"
-// import {  format, compareAsc } from 'date-fns'
+
 interface HistoryProps {
   navigation: any
 }
