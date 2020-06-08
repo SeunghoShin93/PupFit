@@ -1,7 +1,6 @@
 from django.db import models
 from accounts.models import *
 
-
 class DogInfo(models.Model):
     dog = models.ForeignKey(to=Dog, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
@@ -20,7 +19,6 @@ class Food(models.Model):
     phosphorus = models.FloatField(null=True)
     calcium = models.FloatField(null=True)
     calory = models.FloatField(null=True)
-
 
 class WalkingStart(models.Model):
     dog = models.ForeignKey(Dog, on_delete=models.CASCADE)

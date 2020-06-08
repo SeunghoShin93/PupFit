@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from health.models import Food
 
 class Device(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)
@@ -24,6 +25,9 @@ class Dog(models.Model):
     neutralization = models.BooleanField(default=False)
     pregnant = models.BooleanField(default=False)
     height = models.FloatField(null=True)
+    dog_food = models.ForeignKey(Food, on_delete=models.SET_NULL, null=True)
+    goal_weight = models.FloatField(null=True)
+
 
 class User(AbstractUser):
     email = models.EmailField(

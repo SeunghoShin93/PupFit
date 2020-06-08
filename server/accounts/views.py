@@ -31,7 +31,6 @@ def is_logged_in(request):
         raise AuthenticationFailed
     return user
 
-
 class SingleUser(APIView):
     @swagger_auto_schema(
         operation_summary='회원 본인 정보 조회'
@@ -163,7 +162,6 @@ def register_device(request):
     except:
         return Response(status=400)
     return Response(status=201)
-
     
 # 강아지 등록
 """
@@ -198,7 +196,6 @@ def register_dog(request):
     수컷은 0, 암컷은 1로 보내주세요
     """
     data = request.data
-    print(data)
     breed = Breed.objects.get(name=data["breed"])
     # 강아지 나이는 한국식으로 안 세요.
     birthyear = date.today().year - data["age"]
@@ -217,4 +214,26 @@ def register_dog(request):
     if "weight" in data:
         DogInfo.objects.create(dog=dog, weight=data["weight"])
     return Response(status=201)
+
+
+class SingleDog(APIView):
+    def get(self, request, dog_pk):
+        dog = Dog.objects.get(pk=dog_pk)
+        serializer = DogDetailSerializers(dog)
+        return Response(serializer.data, status=200)
+
+    def put(self, request, dog_pk):
+        data = request.data
+        dog = Dog.objects.get(pk=dog_pk)
+        
+        dog.breed = data["breed"]
+        dog.height = data["height"]
+        dog.neutralization = data["neutralization"]
+        dog.pregnant = data["pregnant"]
+
+
+        dog.weight = data["weight"]
+        
+        data["breed"]
+        data["neutralization"]
 
