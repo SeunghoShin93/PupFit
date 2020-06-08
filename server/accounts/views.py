@@ -183,6 +183,7 @@ def register_device(request):
             "gender": openapi.Schema(type=openapi.TYPE_NUMBER),
             "neutralization": openapi.Schema(type=openapi.TYPE_BOOLEAN),
             "pregnant": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+            "goal_weight": openapi.Schema(type=openapi.TYPE_NUMBER),
         },
         required=[
             "name", "age", "breed", "device_id", "gender",
@@ -210,6 +211,7 @@ def register_dog(request):
         neutralization=data["neutralization"],
         pregnant=data["pregnant"],
         height=data["height"],
+        goal_weight=data.get("goal_weight")
     )
     if "weight" in data:
         DogInfo.objects.create(dog=dog, weight=data["weight"])
