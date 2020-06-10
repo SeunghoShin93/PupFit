@@ -104,7 +104,7 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
       if (!receive) {
         return null
       }
-      return dateListMaker(datalist);
+      return dateListMaker();
     };
 
     const SectionLoader = async () => {
@@ -165,9 +165,7 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
                 )}
                 />
         </SafeAreaView>
-
     )
-
 }
 
 const styles = StyleSheet.create({
@@ -184,7 +182,6 @@ const styles = StyleSheet.create({
     baseText: {
         fontSize: 16,
         fontWeight: "bold"
-
     },
     item: {
         // backgroundColor: "#13A0F2",
