@@ -33,13 +33,35 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
 
     const [datalist, setDataList] = useState([]);
     const [receive, setReceive] = useState(false);
-    const [parsed, setParsed] = useState(false);
-    const [history2, setHistory2] = useState([]);
+    // const [parsed, setParsed] = useState(false);
     ; // 중복 제거 된 산책 날짜 (section)
     const dataDict = {};
     
+    const getCompleteData = async () => {
+      const time1 = await getData();
+      const time2 = await dateListMaker(time1);
+      const time3 = await historyListMaker(time2);
+    }
+    const getData = () => {
+      useEffect(()=> {
+        fetch('http://k02b2011.p.ssafy.io:8000/health/1/walking/list', {
+          method: 'get',
+        })
+        .then((response) => response.json())
+        .then((resData) =>{ 
+        setDataList(resData.data);
+        setReceive(true);
+        Loader();
+        historyListMaker();
+        SectionLoader();
+        })
+      }, []);
+      return datalist
+      };
+  
 
     const dateListMaker = async () => {
+      const d1 = await getData();
       const date = []
       for (const i in d1) {
         const d2 = d1[i].startTime.split('T')
@@ -64,7 +86,6 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
       return date
     };
 
-    
     const historyListMaker = async () => {
       const historyList = [];
       const new_date = await dateListMaker();
@@ -73,32 +94,10 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
         const timeList = dataDict[new_date[x]];
         historyList.push({ title: new_date[x], data: timeList });
       };
-      // setParsed(true);
-      // alert(JSON.stringify(historyList));
-      // console.log(historyList.length)
-      // for (const x in historyList) {
-      //   console.log('haha')
-      //   console.log(JSON.stringify(historyList[x]))
-      // }
+
       return historyList;
     };
 
-    const getData = () => {
-    useEffect(()=> {
-      fetch('http://k02b2011.p.ssafy.io:8000/health/1/walking/list', {
-        method: 'get',
-      })
-      .then((response) => response.json())
-      .then((resData) =>{ 
-      setDataList(resData.data);
-      setReceive(true);
-      // Loader();
-      historyListMaker();
-      SectionLoader();
-      })
-    }, []);
-    return datalist
-    };
 
     const Loader = () => {
       if (!receive) {
@@ -110,7 +109,6 @@ const WalkHistoryScreen: React.FC<WalkHistoryProps> = (props) => {
     const SectionLoader = async () => {
       const hList = await historyListMaker();
       console.log(hList)
-      console.log('haha')
       return (
         <>
           <Layout>
